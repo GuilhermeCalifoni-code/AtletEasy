@@ -1,0 +1,177 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #f4f4f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Estilo do menu lateral */
+.menu-lateral {
+    width: 250px;
+    background-color: #f4a100;
+    height: 100vh;
+    padding: 20px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    border-right: 1px solid #ccc;
+}
+
+.menu-lateral img {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.menu-lateral ul {
+    list-style-type: none;
+}
+
+.menu-lateral ul li {
+    margin: 15px 0;
+}
+
+.menu-lateral ul li a {
+    text-decoration: none;
+    font-size: 18px;
+    color: #191919;
+    display: block;
+    padding: 15px 20px;
+    transition: all 0.3s ease;
+    border-radius: 12px;
+    background-color: transparent;
+}
+
+.menu-lateral ul li a:hover,
+.menu-lateral ul li a:focus,
+.menu-lateral ul li a:active {
+    background-color: #ffffff;
+    color: #000;
+}
+
+/* Estilização de layout e conteúdo */
+header {
+    background-color: #f4a100;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 270px; /* Ajuste para acomodar o menu lateral */
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+}
+
+.profile-picture {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.profile-info h1 {
+    font-size: 1.8em;
+    margin-bottom: 5px;
+}
+
+.profile-info p {
+    font-size: 1.2em;
+}
+
+.edit-btn {
+    background-color: #fff;
+    color: #1e90ff;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+section {
+    margin: 20px;
+    margin-left: 270px; /* Ajuste para acomodar o menu lateral */
+}
+
+.stats, .bio, .skills, .recent-performance, .highlight-videos, .achievements, .event-schedule {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.stats {
+    display: flex;
+    justify-content: space-between;
+}
+
+.stat-item h2 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.skills ul, .recent-performance ul, .achievements ul, .event-schedule ul {
+    list-style: none;
+}
+
+.skills li, .recent-performance li, .achievements li, .event-schedule li {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+
+.videos {
+    display: flex;
+    gap: 20px;
+}
+
+.videos video {
+    width: 48%;
+}
+
+footer {
+    padding: 20px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    margin-left: 270px; /* Ajuste para acomodar o menu lateral */
+}
+
+.footer-actions button {
+    background-color: #f4a100;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    margin: 0 10px;
+    border-radius: 5px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .menu-lateral {
+        width: 100%;
+        height: auto;
+        border-right: none;
+    }
+
+    section, header, footer {
+        margin-left: 0;
+    }
+
+    .menu-lateral ul li {
+        text-align: center;
+    }
+
+    .menu-lateral ul li a {
+        font-size: 16px;
+}
+}

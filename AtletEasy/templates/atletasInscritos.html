@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atletas Inscritos</title>
+    <link rel="stylesheet" href="/static/css/atletasInscritos.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Atletas Inscritos</h1>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Sobrenome</th>
+                    <th>Data de Nascimento</th>
+                    <th>CPF</th>
+                    <th>Posição</th>
+                    <th>Altura</th>
+                    <th>Peso</th>
+                    <th>Experiência</th>
+                    <th>Velocidade</th>
+                    <th>Técnica</th>
+                    <th>Visão de Jogo</th>
+                    <th>Gols</th>
+                    <th>Assistências</th>
+                    <th>Cartões</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for atleta in atletas %}
+                <tr>
+                    <td>{{ atleta.Nome }}</td>
+                    <td>{{ atleta.Sobrenome }}</td>
+                    <td>{{ atleta.DataDeNascimento.strftime('%d/%m/%Y') }}</td>
+                    <td>{{ atleta.CPF }}</td>
+                    <td>{{ atleta.Posicao }}</td>
+                    <td>{{ atleta.Altura }}m</td>
+                    <td>{{ atleta.Peso }}kg</td>
+                    <td>{{ atleta.Experiencia }} anos</td>
+                    <td>{{ atleta.Velocidade }}/5</td>
+                    <td>{{ atleta.Tecnica }}/5</td>
+                    <td>{{ atleta.VisaoDeJogo }}/5</td>
+                    <td>{{ atleta.Gols }}</td>
+                    <td>{{ atleta.Assistencias }}</td>
+                    <td>{{ atleta.Cartoes }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

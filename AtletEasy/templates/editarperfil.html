@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Perfil</title>
+</head>
+<body>
+    <h1>Editar Perfil do Atleta</h1>
+
+    <form action="{{ url_for('editar_perfil') }}" method="POST">
+        <label for="Posicao">Posição:</label>
+        <input type="text" id="Posicao" name="Posicao" value="{{ atleta['Posicao'] }}" required><br><br>
+
+        <label for="Altura">Altura (em metros):</label>
+        <input type="number" step="0.01" id="Altura" name="Altura" value="{{ atleta['Altura'] }}" required><br><br>
+
+        <label for="Peso">Peso (em kg):</label>
+        <input type="number" step="0.1" id="Peso" name="Peso" value="{{ atleta['Peso'] }}" required><br><br>
+
+        <label for="Experiencia">Experiência (em anos):</label>
+        <input type="number" id="Experiencia" name="Experiencia" value="{{ atleta['Experiencia'] }}" required><br><br>
+
+        <label for="SobreMim">Sobre Mim:</label>
+        <textarea id="SobreMim" name="SobreMim" required>{{ atleta['SobreMim'] }}</textarea><br><br>
+
+        <label for="Velocidade">Velocidade:</label>
+        <input type="number" id="Velocidade" name="Velocidade" value="{{ atleta['Velocidade'] }}" min="0" max="5" required><br><br>
+
+        <label for="Tecnica">Técnica:</label>
+        <input type="number" id="Tecnica" name="Tecnica" value="{{ atleta['Tecnica'] }}" min="0" max="5" required><br><br>
+
+        <label for="VisaoDeJogo">Visão de Jogo:</label>
+        <input type="number" id="VisaoDeJogo" name="VisaoDeJogo" value="{{ atleta['VisaoDeJogo'] }}" min="0" max="5" required><br><br>
+
+        <label for="Gols">Gols:</label>
+        <input type="number" id="Gols" name="Gols" value="{{ atleta['Gols'] }}" required><br><br>
+
+        <label for="Assistencias">Assistências:</label>
+        <input type="number" id="Assistencias" name="Assistencias" value="{{ atleta['Assistencias'] }}" required><br><br>
+
+        <label for="Cartoes">Cartões:</label>
+        <input type="number" id="Cartoes" name="Cartoes" value="{{ atleta['Cartoes'] }}" required><br><br>
+
+        <button type="submit">Salvar Alterações</button>
+    </form>
+</body>
+</html>

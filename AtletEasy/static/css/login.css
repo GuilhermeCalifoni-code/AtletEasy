@@ -1,0 +1,218 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Fonte Global */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #191919, #717171);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
+    color: #fff;
+}
+
+/* Efeito de Fundo Animado */
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, #F4A100, #EFC136);
+    clip-path: circle(50% at 50% 50%);
+    animation: pulse 5s infinite ease-in-out alternate;
+}
+
+@keyframes pulse {
+    0% {
+        clip-path: circle(50% at 50% 50%);
+    }
+    100% {
+        clip-path: circle(70% at 50% 50%);
+    }
+}
+
+/* Container Externo Responsivo */
+.outer-container {
+    display: flex;
+    width: 85%;
+    max-width: 1200px;
+    height: 70%;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    transform: rotateX(15deg) rotateY(5deg);
+    transition: transform 0.6s ease-in-out;
+    position: relative;
+}
+
+.outer-container:hover {
+    transform: rotateX(0deg) rotateY(0deg);
+}
+
+/* Responsividade - Mobile */
+@media (max-width: 768px) {
+    .outer-container {
+        flex-direction: column;
+        height: auto;
+        transform: none;
+    }
+    
+    .logo-container, .login-container {
+        width: 100%;
+    }
+}
+
+/* Logo */
+.logo-container {
+    width: 50%;
+    background: linear-gradient(135deg, #191919, #717171);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-container img {
+    width: 80%;
+    border-radius: 20px;
+    transition: transform 0.5s;
+}
+
+.logo-container img:hover {
+    transform: rotate(5deg) scale(1.1);
+}
+
+/* Glassmorphism */
+.glass {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    border-radius: 30px;
+    padding: 40px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+/* Conteúdo de Login */
+.login-container {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 20px;
+}
+
+.login-container h1 {
+    font-size: 2.5rem;
+    color: #fff;
+    margin-bottom: 20px;
+    font-weight: 800;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
+    transition: color 0.3s ease-in-out;
+}
+
+.login-container h1:hover {
+    color: #EFC136;
+}
+
+/* Inputs - Estilo Avançado */
+.input-group {
+    width: 100%;
+    margin-bottom: 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 15px 50px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: inset 3px 3px 5px rgba(0, 0, 0, 0.2), inset -3px -3px 5px rgba(255, 255, 255, 0.6);
+    transition: all 0.3s;
+}
+
+.input-group input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: inset 3px 3px 10px rgba(0, 0, 0, 0.3), inset -3px -3px 10px rgba(255, 255, 255, 0.8);
+}
+
+/* Ícones dentro dos campos */
+.icon {
+    position: absolute;
+    left: 15px;
+    font-size: 1.5rem;
+    color: #717171;
+    transition: color 0.3s;
+}
+
+.input-group input:focus + .icon {
+    color: #F4A100;
+}
+
+/* Botão */
+button {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #F4A100, #EFC136);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
+    background: linear-gradient(135deg, #EFC136, #D9C407);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* Links */
+p {
+    margin-top: 15px;
+    color: #fff;
+}
+
+p a {
+    color: #F4A100;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+p a:hover {
+    color: #EFC136;
+}
+
+/* Animação de transição suave */
+* {
+    transition: all 0.3s ease;
+}
+
+/* Sombras avançadas */
+.glass, .input-group input, button {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.glass:hover, .input-group input:focus, button:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}

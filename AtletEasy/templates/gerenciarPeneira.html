@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerenciamento de Peneiras - AtletEasy</title>
+  <link rel="stylesheet" href="/static/css/gerenciarpeneira.css">
+</head>
+<body>
+  <form method="POST" action="/gerenciar-peneira"> 
+    <!-- Menu Lateral -->
+    <div class="menu-lateral">
+      <img src="/static/images/logo.png" alt="Logo AtletEasy">
+      <ul>
+        <li><a href="{{ url_for('home_clube') }}">Home Atleta</a></li>
+        <li><a href="{{ url_for('criar_peneira') }}">Criar Peneira</a></li>
+        <li><a href="{{ url_for('gerenciar_peneira') }}">Gerenciar Peneiras</a></li>
+        <li><a href="{{ url_for('ficha_jogo', idPeneira=1) }}">Ficha de Jogo</a></li>
+      </ul>
+      <!-- Configurações -->
+      <div class="options">
+        <a href="">
+          <img src="" alt=""> 
+        </a>
+      </div>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <div class="conteudo">
+      <h1>Gerenciar Peneiras</h1>
+
+      <!-- Verifica se há peneiras -->
+      {% if peneiras %}
+      <table>
+        <thead>
+          <tr>
+            <th>Nome do Clube</th>
+            <th>Esporte</th>
+            <th>Local</th>
+            <th>Data Início</th>
+            <th>Horário</th>
+            <th>Quantidade Máxima</th>
+            <th>Status</th>
+            <th>CEP</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Itera sobre as peneiras e exibe os dados -->
+          {% for peneira in peneiras %}
+          <tr>
+            <td>{{ peneira.NomeClube }}</td>
+            <td>{{ peneira.esportePeneira }}</td>
+            <td>{{ peneira.Local }}</td>
+            <td>{{ peneira.DataInicio.strftime('%d/%m/%Y') }}</td>
+            <td>{{ peneira.Horario }}</td>
+            <td>{{ peneira.QuantidadeMaxima }}</td>
+            <td>{{ 'Aberta' if peneira.status == 1 else 'Fechada' }}</td>
+            <td>{{ peneira.CEP }}</td>
+            <td>
+              <a href="/editar-peneira/{{ peneira.idPeneira }}">Editar</a> | 
+              <a href="/excluir-peneira/{{ peneira.idPeneira }}" onclick="return confirm('Tem certeza que deseja excluir esta peneira?')">Excluir</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+        <p>Nenhuma peneira cadastrada.</p>
+      {% endif %}
+
+      <div class="botoes">
+        <a href="/criar-peneira">Adicionar Nova Peneira</a>
+      </div>
+    </div>
+
+  </form>
+</body>
+</html>

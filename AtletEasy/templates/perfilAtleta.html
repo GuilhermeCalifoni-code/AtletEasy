@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil do Atleta</title>
+    <link rel="stylesheet" href="/static/css/perfilAtleta.css">
+</head>
+<body>
+    <div class="menu-lateral">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo Atletas" style="width: 100%; margin-bottom: 20px;">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home_atleta') }}">Home Atleta</a></li>
+                <li><a href="/visualizar-peneiras">Suas Peneiras</a></li>
+                <li><a href="{{ url_for('perfil_atleta') }}" style="font-weight: bold;">Perfil </a></li>               
+              </ul>
+        </nav>
+    </div>
+    <header>
+        <div class="profile-header">
+            <img src="profile.jpg" alt="Foto de Perfil" class="profile-picture">
+            <div class="profile-info">
+                <h1>{{ atleta['Nome'] }}</h1>
+                <p>Idade: {{ atleta['Idade'] }} | Localização: {{ atleta['Localizacao'] }}</p>
+            </div>
+            <a href="{{ url_for('editar_perfil') }}" class="edit-btn">Editar Perfil</a>
+
+        </div>
+    </header>
+
+    <section class="stats">
+        <div class="stat-item">
+            <h2>Posição</h2>
+            <p>{{ atleta['Posicao'] }}</p>
+        </div>
+        <div class="stat-item">
+            <h2>Altura</h2>
+            <p>{{ atleta['Altura'] }}m</p>
+        </div>
+        <div class="stat-item">
+            <h2>Peso</h2>
+            <p>{{ atleta['Peso'] }}kg</p>
+        </div>
+        <div class="stat-item">
+            <h2>Experiência</h2>
+            <p>{{ atleta['Experiencia'] }} anos</p>
+        </div>
+    </section>
+
+    <section class="bio">
+        <h2>Sobre Mim</h2>
+        <p>{{ atleta['SobreMim'] }}</p>
+    </section>
+
+    <section class="skills">
+        <h2>Habilidades</h2>
+        <ul>
+            <li>Velocidade: ★{{ atleta['Velocidade'] }}☆</li>
+            <li>Técnica: ★{{ atleta['Tecnica'] }}☆</li>
+            <li>Visão de Jogo: ★{{ atleta['VisaoDeJogo'] }}☆</li>
+        </ul>
+    </section>
+
+    <section class="recent-performance">
+        <h2>Performance Recente</h2>
+        <ul>
+            <li>Gols: {{ atleta['Gols'] }}</li>
+            <li>Assistências: {{ atleta['Assistencias'] }}</li>
+            <li>Cartões: {{ atleta['Cartoes'] }}</li>
+        </ul>
+    </section>
+</body>
+</html>

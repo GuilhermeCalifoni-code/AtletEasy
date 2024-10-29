@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha de Jogo - AtletEasy</title>
+    <link rel="stylesheet" href="/static/css/fichaJogo.css">
+</head>
+<body>
+
+    <!-- Menu Lateral -->
+    <div class="menu-lateral">
+        <img src="/static/images/logo_atleteasy.png" alt="Logo AtletEasy">
+        <ul>
+            <li><a href="{{ url_for('home_clube') }}">Home</a></li>
+            <li><a href="{{ url_for('criar-peneira') }}">Criar Peneira</a></li>
+            <li><a href="{{ url_for('gerenciar-peneira') }}">Gerenciar Peneira</a></li>
+            <li><a href="{{ url_for('ficha_jogo', idPeneira=1) }}">Ficha de Jogo</a></li>
+        </ul>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <div class="conteudo">
+        <h1>Ficha de Jogo</h1>
+
+        <!-- Detalhes do Jogo -->
+        <div class="detalhes-jogo">
+            <p><strong>Nome da Peneira:</strong> {{ peneira.NomeClube }}</p>
+            <p><strong>Data:</strong> {{ peneira.DataInicio.strftime('%d/%m/%Y') }}</p>
+            <p><strong>Esporte:</strong> {{ peneira.esportePeneira }}</p>
+            <p><strong>Endereço:</strong> {{ peneira.Local }}</p>
+            <p><strong>CEP:</strong> {{ peneira.CEP }}</p>
+        </div>
+
+        <!-- Avaliações dos Atletas -->
+        <div class="avaliacoes">
+            <h2>Avaliações dos Atletas</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome do Atleta</th>
+                        <th>Posição</th>
+                        <th>Número da Camisa</th>
+                        <th>Avaliação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for atleta in atletas %}
+                    <tr>
+                        <td>{{ atleta.Nome }} {{ atleta.Sobrenome }}</td>
+                        <td>{{ atleta.Posicao }}</td>
+                        <td>{{ atleta.NumeroCamisa }}</td>
+                        <td>
+                            <div class="estrelas">
+                                {% for i in range(atleta.atletaAvaliacao) %}
+                                <div class="estrela"></div>
+                                {% endfor %}
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <button class="avaliar-btn">Salvar Avaliações</button>
+        </div>
+    </div>
+
+</body>
+</html>

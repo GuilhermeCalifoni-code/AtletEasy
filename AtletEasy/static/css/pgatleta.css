@@ -1,0 +1,173 @@
+/* Seção de Produtos */
+.products {
+    background-color: #171717; /* Fundo escuro mais neutro */
+    padding: 50px 20px;
+    text-align: center;
+    color: #fff;
+    max-width: 1400px;
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    height: 100vh; /* O fundo vai ocupar toda a altura da tela */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centraliza o conteúdo verticalmente */
+    align-items: center; /* Centraliza o conteúdo horizontalmente */
+}
+
+/* Cabeçalho da Seção */
+.products h2 {
+    font-size: 32px;
+    color: #f4a100;
+    margin-bottom: 30px;
+    font-family: 'Poppins', sans-serif;
+    text-shadow: none;
+}
+
+/* Seção de Planos */
+.planos {
+    background-color: #1C1C1C;
+    padding: 40px 20px;
+    text-align: center;
+    color: #dbdbda;
+    border-radius: 10px;
+    margin-top: 30px;
+    max-width: 1400px;
+    width: 100%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Suave para manter o clean */
+}
+
+/* Container dos Planos */
+.planos-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Cada Plano */
+.plano {
+    background-color: #f8f8f8;
+    border: 1px solid #f4a100;
+    border-radius: 15px;
+    padding: 25px;
+    flex: 1 1 300px;
+    max-width: 340px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.plano.trimestral {
+    border: 2px solid #d9c407;
+    transform: scale(1.05); /* Destaque para o plano trimestral */
+}
+
+/* Selo de destaque "Mais Comprado!" */
+.plano.trimestral::before {
+    content: 'Mais Comprado';
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #f4a100;
+    color: #1C1C1C;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    z-index: 10;
+}
+
+/* Título dos Planos */
+.plano h3 {
+    font-size: 22px;
+    color: #f4a100;
+    margin-bottom: 15px;
+}
+
+/* Preço dos Planos */
+.plano .preco {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+/* Lista de Benefícios */
+.plano ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 15px;
+}
+
+.plano ul li {
+    font-size: 15px;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+/* Botões */
+.plano button {
+    background-color: #f4a100;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.plano button:hover {
+    background-color: #c58806;
+    transform: translateY(-3px);
+}
+
+/* Efeito de hover */
+.plano:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+    .planos-container {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .plano {
+        flex: 1 1 45%;
+        margin: 10px 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .plano {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+}
+.continue-button {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.continue-button button {
+    background-color: #f4a100;
+    color: #fff;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.continue-button button:hover {
+    background-color: #c58806;
+    transform: translateY(-3px);
+}

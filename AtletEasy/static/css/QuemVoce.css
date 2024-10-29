@@ -1,0 +1,192 @@
+/* Reset global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Fonte global */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #191919, #717171);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #fff;
+    overflow: hidden;
+    position: relative;
+    perspective: 1000px;
+    text-align: center;
+}
+
+/* Container principal */
+.container {
+    background: rgba(255, 255, 255, 0.15); /* Sutil no início */
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+    padding: 60px;
+    width: 600px;
+    height: 700px;
+    max-width: 90%;
+    text-align: center;
+    transition: transform 0.5s ease, box-shadow 0.5s ease, background 0.5s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container:hover {
+    transform: scale(1.05) rotateX(3deg) rotateY(3deg);
+    background: rgba(255, 255, 255, 0.3); /* Aumento da visibilidade ao hover */
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8); /* Sombras mais intensas no fim da interação */
+}
+
+/* Logo centralizada */
+.logo img {
+    max-width: 150px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+    transition: transform 0.6s ease, box-shadow 0.6s ease;
+}
+
+.container:hover .logo img {
+    transform: scale(1.2) rotate(10deg); /* Interação final mais vibrante */
+    box-shadow: 0 0 35px rgba(255, 255, 255, 0.7); /* Mais brilho na interação final */
+}
+
+/* Título */
+h1 {
+    margin-bottom: 30px;
+    color: #F4A100; /* Aplicação do amarelo no título */
+    font-size: 3.5rem;
+    font-weight: bold;
+    text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.5);
+    letter-spacing: 2px;
+    transition: text-shadow 0.5s ease, letter-spacing 0.5s ease;
+    text-align: center;
+}
+
+h1:hover {
+    text-shadow: 5px 5px 25px rgba(0, 0, 0, 0.9); /* Sombra mais intensa ao hover */
+    letter-spacing: 4px; /* Aumento da expansão ao hover */
+}
+
+/* Texto */
+p {
+    color: #F4A100; /* Aplicação do amarelo ao texto */
+    font-size: 1.4rem;
+    margin-bottom: 30px;
+    line-height: 1.6;
+    transition: color 0.3s ease;
+    text-align: center;
+}
+
+p:hover {
+    color: #EFC136; /* Mais destaque ao final da interação */
+}
+
+/* Botões */
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+button {
+    padding: 15px 30px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    width: 45%;
+    color: white;
+    background: linear-gradient(135deg, #F4A100, #EFC136); /* Cores amarelas intensas */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: all 0.6s ease;
+    transform: translate(-50%, -50%) rotate(45deg);
+    opacity: 0;
+    z-index: 1;
+}
+
+button:hover::before {
+    opacity: 1;
+    width: 0;
+    height: 0;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #D9C407, #EFC136); /* Cores amarelas vibrantes ao hover */
+    transform: translateY(-6px); /* Elevação visível ao hover */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6); /* Sombra intensa ao fim */
+}
+
+button:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); /* Feedback rápido ao clique */
+}
+
+/* Foco nos botões */
+button:focus {
+    outline: none;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 35px rgba(255, 255, 255, 0.4); /* Foco mais vivo */
+}
+
+/* Efeito final mais vivo */
+@keyframes finalGlow {
+    0% {
+        box-shadow: 0 0 15px rgba(255, 204, 0, 0.2); /* Tom amarelo suave */
+    }
+    100% {
+        box-shadow: 0 0 50px rgba(255, 204, 0, 0.8); /* Amarelo intenso no fim */
+    }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .container {
+        padding: 40px;
+        width: 90%;
+        height: auto;
+    }
+
+    .logo img {
+        max-width: 120px;
+    }
+
+    h1 {
+        font-size: 3.2rem;
+    }
+
+    p {
+        font-size: 1.2rem;
+    }
+
+    button {
+        font-size: 1.3rem;
+        padding: 12px 25px;
+        width: 100%;
+    }
+}
