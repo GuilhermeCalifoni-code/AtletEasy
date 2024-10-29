@@ -1,4 +1,4 @@
-from flask import Flask, render_template # type: ignore
+from flask import Flask, render_template 
 from routes_login import login_bp
 from routes_atleta import atleta_bp
 from routes_clube import clube_bp
@@ -7,9 +7,9 @@ app = Flask(__name__)
 app.secret_key = 'sua_chave_secreta'  # Certifique-se de definir uma chave segura
 
 # Registrando blueprints
-app.register_blueprint(login_bp)
-app.register_blueprint(atleta_bp)
-app.register_blueprint(clube_bp)
+app.register_blueprint(login_bp, url_prefix='/')
+app.register_blueprint(atleta_bp, url_prefix='/')
+app.register_blueprint(clube_bp, url_prefix='/')
 
 @app.route('/quem-voce')
 def quem_voce():

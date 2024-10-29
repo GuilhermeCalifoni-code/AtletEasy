@@ -1,14 +1,14 @@
 # config.py
 import os
 from dotenv import load_dotenv
+import mysql.connector
 
-# Carrega as variáveis do arquivo .env
-load_dotenv()
+load_dotenv()  # Carrega as variáveis do arquivo .env
 
 db_config = {
-    'host': os.getenv("DB_HOST", "default_host"),
-    'database': os.getenv("DB_DATABASE", "default_database"),
-    'port': int(os.getenv("DB_PORT", 3307)),  # Converte para inteiro
-    'user': os.getenv("DB_USER", "default_user"),
-    'password': os.getenv("DB_PASSWORD", "default_password")
+    'host': os.getenv("DB_HOST"),
+    'database': os.getenv("DB_DATABASE"),
+    'port': os.getenv("DB_PORT"),
+    'user': os.getenv("DB_USER"),
+    'password': os.getenv("DB_PASSWORD")
 }

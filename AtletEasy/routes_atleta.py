@@ -1,6 +1,7 @@
-from flask import Blueprint, render_template, request, redirect, flash, url_for, session # type: ignore
+from flask import Blueprint, render_template, request, redirect, flash, url_for, session
 from db import get_db_connection
-from mysql.connector import Error # type: ignore
+from mysql.connector import Error
+import re  # Importa o módulo para usar expressões regulares
 
 atleta_bp = Blueprint('atleta', __name__)
 
@@ -8,7 +9,7 @@ atleta_bp = Blueprint('atleta', __name__)
 @atleta_bp.route('/cadastro-atleta', methods=['GET', 'POST'])
 def cadastro_atleta():
     if request.method == 'POST':
-        # Dados do formulário
+        # Capturando dados do formulário
         nome = request.form['nomeAtleta']
         sobrenome = request.form['sobrenome']
         cpf = request.form['cpf']
@@ -20,8 +21,12 @@ def cadastro_atleta():
         usuario = request.form['usuario']
         senha = request.form['senha']
 
+        # Remove caracteres especiais do CPF (mantém apenas números)
+        cpf_limpo = re.sub(r'\D', '', cpf)
+
         try:
-            with get_db_connection() as conexao:
+            conexao = get_db_connection()
+            if conexao:
                 with conexao.cursor() as cursor:
                     # Inserindo os dados do atleta no banco de dados
                     query = """
@@ -30,26 +35,23 @@ def cadastro_atleta():
                             Endereco, NumeroEndereco, Complemento, Usuario, Senha
                         ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                     """
-                    valores = (nome, sobrenome, cpf, data_nascimento, cep, endereco, numero, complemento, usuario, senha)
+                    valores = (nome, sobrenome, cpf_limpo, data_nascimento, cep, endereco, numero, complemento, usuario, senha)
                     cursor.execute(query, valores)
                     conexao.commit()
-                    
-                    # Login automático após cadastro bem-sucedido
-                    session['usuario'] = usuario  # Armazena o nome de usuário na sessão
-                    session['tipo_usuario'] = 'atleta'
-                    
-                    # Pega o id do atleta recém-cadastrado para armazenar na sessão
-                    cursor.execute("SELECT idAtleta FROM cadatleta WHERE Usuario = %s", (usuario,))
-                    atleta = cursor.fetchone()
-                    session['usuario_id'] = atleta[0] if atleta else None
-
-                    flash('Atleta cadastrado com sucesso! Você está logado.', 'success')
-                    return redirect(url_for('atleta.home_atleta'))
+                    flash('Cadastro realizado com sucesso! Faça login para continuar.', 'success')
+                    return redirect(url_for('login.login'))
+            else:
+                flash('Erro ao conectar com o banco de dados. Tente novamente mais tarde.', 'danger')
         except Error as err:
+            print(f"Erro ao cadastrar o atleta: {err}")  # Log de erro para depuração
             flash(f'Erro ao cadastrar o atleta: {err}', 'danger')
-            return redirect(url_for('atleta.cadastro_atleta'))
+        finally:
+            if conexao and conexao.is_connected():
+                conexao.close()
+                print("Conexão com o banco de dados encerrada.")
 
     return render_template('cadatleta.html')
+
 
 # Rota para a página de pagamento do atleta
 @atleta_bp.route('/paga-atleta')
@@ -156,6 +158,7 @@ def editar_perfil():
     except Error as err:
         flash(f'Erro ao carregar o perfil para edição: {err}', 'danger')
         return redirect(url_for('atleta.perfil_atleta'))
+
 
 # Rota para inscrição do atleta em uma peneira
 @atleta_bp.route('/inscrever-peneira', methods=['POST'])
