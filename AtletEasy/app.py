@@ -1,21 +1,20 @@
-from flask import Flask, render_template, request, redirect, flash, url_for, session
-import mysql.connector
-from mysql.connector import Error
-from datetime import datetime, timedelta
-from config.py import db_config # type: ignore
-
-
+from flask import Flask, render_template # type: ignore
+from routes_login import login_bp
+from routes_atleta import atleta_bp
+from routes_clube import clube_bp
 
 app = Flask(__name__)
-app.secret_key = 'sua_chave_secreta'  # Certifique-se de que a secret key está configurada
+app.secret_key = 'sua_chave_secreta'  # Certifique-se de definir uma chave segura
+
+# Registrando blueprints
+app.register_blueprint(login_bp)
+app.register_blueprint(atleta_bp)
+app.register_blueprint(clube_bp)
 
 @app.route('/quem-voce')
 def quem_voce():
-    # Definindo o título e a mensagem dinamicamente
     titulo = "Quem é você?"
     mensagem = "Escolha uma das opções abaixo para continuar o cadastro."
-
-    # Renderizando o template HTML e passando os valores de título e mensagem
     return render_template('QuemVoce.html', titulo=titulo, mensagem=mensagem)
 
 if __name__ == '__main__':

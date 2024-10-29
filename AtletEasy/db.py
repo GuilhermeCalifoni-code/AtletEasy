@@ -1,6 +1,5 @@
-import mysql.connector
-from flask import flash
-from mysql.connector import Error
+from aifc import Error
+from curses import flash
 from config import db_config
 
 def get_db_connection():
@@ -9,5 +8,5 @@ def get_db_connection():
         if conexao.is_connected():
             return conexao
     except Error as err:
-        print(flash(f'Erro ao conectar ao banco de dados: {err}', 'danger'))
+        flash(f'Erro ao conectar ao banco de dados: {err}', 'danger')
     return None

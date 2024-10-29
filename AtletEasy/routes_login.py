@@ -1,8 +1,6 @@
-import mysql.connector
-from flask import Blueprint, render_template, request, redirect, flash, url_for, session
+from flask import Blueprint, render_template, request, redirect, flash, url_for, session # type: ignore
 from db import get_db_connection
-from mysql.connector import Error
-
+from mysql.connector import Error # type: ignore
 
 login_bp = Blueprint('login', __name__)
 
@@ -18,37 +16,35 @@ def login():
         password = request.form['senha']
         
         try:
-            with mysql.connector.connect(get_db_connection) as conexao:
+            with get_db_connection() as conexao:
                 with conexao.cursor(dictionary=True) as cursor:
-                    # Verificando o login do atleta
                     query_atleta = "SELECT idAtleta, Usuario FROM cadatleta WHERE Usuario = %s AND Senha = %s"
                     cursor.execute(query_atleta, (username, password))
                     atleta = cursor.fetchone()
                     
                     if atleta:
-                        session['usuario'] = atleta['Usuario']  # Armazena o nome do usuário na sessão
-                        session['usuario_id'] = atleta['idAtleta']  # Armazena o idAtleta na sessão
+                        session['usuario'] = atleta['Usuario']
+                        session['usuario_id'] = atleta['idAtleta']
                         session['tipo_usuario'] = 'atleta'
                         flash('Login como atleta realizado com sucesso!', 'success')
-                        return redirect(url_for('home_atleta'))
+                        return redirect(url_for('atleta.home_atleta'))
                     
-                    # Verificando o login do clube
                     query_clube = "SELECT idClube, Usuario FROM cadclube WHERE Usuario = %s AND Senha = %s"
                     cursor.execute(query_clube, (username, password))
                     clube = cursor.fetchone()
                     
                     if clube:
-                        session['usuario'] = clube['Usuario']  # Armazena o nome do usuário na sessão
-                        session['usuario_id'] = clube['idClube']  # Armazena o idClube na sessão
+                        session['usuario'] = clube['Usuario']
+                        session['usuario_id'] = clube['idClube']
                         session['tipo_usuario'] = 'clube'
                         flash('Login como clube realizado com sucesso!', 'success')
-                        return redirect(url_for('home_clube'))
+                        return redirect(url_for('clube.home_clube'))
                     
                     flash('Usuário ou senha incorretos!', 'danger')
-                    return redirect(url_for('login'))
+                    return redirect(url_for('login.login'))
                 
         except Error as err:
             flash(f'Erro ao tentar fazer login: {err}', 'danger')
-            return redirect(url_for('login'))
+            return redirect(url_for('login.login'))
 
     return render_template('login.html')

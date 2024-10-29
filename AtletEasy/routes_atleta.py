@@ -1,7 +1,6 @@
-from flask import Blueprint, render_template, request, redirect, flash, url_for, session
+from flask import Blueprint, render_template, request, redirect, flash, url_for, session # type: ignore
 from db import get_db_connection
-import mysql.connector
-from mysql.connector import Error
+from mysql.connector import Error # type: ignore
 
 atleta_bp = Blueprint('atleta', __name__)
 
@@ -9,6 +8,7 @@ atleta_bp = Blueprint('atleta', __name__)
 @atleta_bp.route('/cadastro-atleta', methods=['GET', 'POST'])
 def cadastro_atleta():
     if request.method == 'POST':
+        # Dados do formulário
         nome = request.form['nomeAtleta']
         sobrenome = request.form['sobrenome']
         cpf = request.form['cpf']
@@ -21,63 +21,64 @@ def cadastro_atleta():
         senha = request.form['senha']
 
         try:
-            with mysql.connector.connect(get_db_connection) as conexao:
+            with get_db_connection() as conexao:
                 with conexao.cursor() as cursor:
+                    # Inserindo os dados do atleta no banco de dados
                     query = """
                         INSERT INTO cadatleta (
                             Nome, Sobrenome, CPF, DataDeNascimento, CEP, 
                             Endereco, NumeroEndereco, Complemento, Usuario, Senha
                         ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                     """
-                    valores = (
-                        nome, sobrenome, cpf, data_nascimento, cep, 
-                        endereco, numero, complemento, usuario, senha
-                    )
+                    valores = (nome, sobrenome, cpf, data_nascimento, cep, endereco, numero, complemento, usuario, senha)
                     cursor.execute(query, valores)
                     conexao.commit()
+                    
+                    # Login automático após cadastro bem-sucedido
+                    session['usuario'] = usuario  # Armazena o nome de usuário na sessão
+                    session['tipo_usuario'] = 'atleta'
+                    
+                    # Pega o id do atleta recém-cadastrado para armazenar na sessão
+                    cursor.execute("SELECT idAtleta FROM cadatleta WHERE Usuario = %s", (usuario,))
+                    atleta = cursor.fetchone()
+                    session['usuario_id'] = atleta[0] if atleta else None
 
-                    # Redireciona para a tela de login após o cadastro com sucesso
-                    flash('Atleta cadastrado com sucesso! Faça login para continuar.', 'success')
-                    return redirect(url_for('login'))
-
+                    flash('Atleta cadastrado com sucesso! Você está logado.', 'success')
+                    return redirect(url_for('atleta.home_atleta'))
         except Error as err:
             flash(f'Erro ao cadastrar o atleta: {err}', 'danger')
-            return redirect(url_for('cadastro_atleta'))
+            return redirect(url_for('atleta.cadastro_atleta'))
 
     return render_template('cadatleta.html')
 
-# Página de pagamento para atleta
+# Rota para a página de pagamento do atleta
 @atleta_bp.route('/paga-atleta')
 def paga_atleta():
     if 'usuario_id' not in session:
         flash('Você precisa estar logado para acessar esta página.', 'warning')
-        return redirect(url_for('login'))
+        return redirect(url_for('login.login'))
     return render_template('pgatleta.html')
 
-# Página Home Atleta
+# Página Home do Atleta
 @atleta_bp.route('/home-atleta')
 def home_atleta():
     if 'usuario_id' not in session:
         flash('Você precisa estar logado para acessar esta página.', 'warning')
-        return redirect(url_for('login'))
-    
-    print(f"Usuário ID: {session['usuario_id']}")  # Verifica se o usuário está logado
+        return redirect(url_for('login.login'))
     return render_template('HomeAtleta.html')
 
-# Página de perfil do atleta (visualização)
+# Rota para visualizar o perfil do atleta
 @atleta_bp.route('/perfil-atleta')
 def perfil_atleta():
     if 'usuario_id' not in session:
         flash('Você precisa estar logado para acessar esta página.', 'warning')
-        return redirect(url_for('login'))
+        return redirect(url_for('login.login'))
 
     usuario_id = session['usuario_id']
 
     try:
-        # Conectando ao banco de dados
-        with mysql.connector.connect(get_db_connection) as conexao:
+        with get_db_connection() as conexao:
             with conexao.cursor(dictionary=True) as cursor:
-                # Query para buscar os dados do perfil do atleta
                 query = """
                 SELECT c.Nome, c.Sobrenome, c.DataDeNascimento, c.Endereco, c.CPF, c.CEP,
                        i.Posicao, i.Altura, i.Peso, i.Experiencia, i.SobreMim, 
@@ -91,26 +92,23 @@ def perfil_atleta():
 
             if not atleta:
                 flash('Atleta não encontrado.', 'danger')
-                return redirect(url_for('home'))
+                return redirect(url_for('atleta.home_atleta'))
 
-            # Renderizando o template do perfil do atleta com os dados do banco
             return render_template('perfilAtleta.html', atleta=atleta)
-
     except Error as err:
         flash(f'Erro ao recuperar o perfil do atleta: {err}', 'danger')
-        return redirect(url_for('home'))
+        return redirect(url_for('atleta.home_atleta'))
 
-# editar o perfil
+# Rota para editar o perfil do atleta
 @atleta_bp.route('/editar-perfil', methods=['GET', 'POST'])
 def editar_perfil():
     if 'usuario_id' not in session:
         flash('Você precisa estar logado para acessar esta página.', 'warning')
-        return redirect(url_for('login'))
+        return redirect(url_for('login.login'))
 
     usuario_id = session['usuario_id']
 
     if request.method == 'POST':
-        # Coleta dos dados do formulário para atualizar no banco
         posicao = request.form['Posicao']
         altura = request.form['Altura']
         peso = request.form['Peso']
@@ -124,10 +122,8 @@ def editar_perfil():
         cartoes = int(request.form['Cartoes'])
 
         try:
-            # Conectando ao banco de dados
-            with mysql.connector.connect(get_db_connection) as conexao:
+            with get_db_connection() as conexao:
                 with conexao.cursor() as cursor:
-                    # Atualizando as informações do atleta na tabela infoatleta
                     query = """
                     UPDATE infoatleta 
                     SET Posicao=%s, Altura=%s, Peso=%s, Experiencia=%s, 
@@ -140,18 +136,13 @@ def editar_perfil():
                     conexao.commit()
 
                     flash('Perfil atualizado com sucesso!', 'success')
-
-                    # Redireciona o usuário para a página de perfil após salvar as alterações
-                    return redirect(url_for('perfil_atleta'))
-
+                    return redirect(url_for('atleta.perfil_atleta'))
         except Error as err:
             flash(f'Erro ao atualizar o perfil: {err}', 'danger')
-            return redirect(url_for('editar_perfil'))
+            return redirect(url_for('atleta.editar_perfil'))
 
-    # Se for um GET, exibe o formulário com os dados atuais
     try:
-        # Conectando ao banco de dados para carregar os dados do atleta no formulário
-        with mysql.connector.connect(get_db_connection) as conexao:
+        with get_db_connection() as conexao:
             with conexao.cursor(dictionary=True) as cursor:
                 query = """
                 SELECT Posicao, Altura, Peso, Experiencia, SobreMim, 
@@ -162,29 +153,26 @@ def editar_perfil():
                 atleta = cursor.fetchone()
 
             return render_template('editarPerfil.html', atleta=atleta)
-
     except Error as err:
         flash(f'Erro ao carregar o perfil para edição: {err}', 'danger')
-        return redirect(url_for('perfil_atleta'))
+        return redirect(url_for('atleta.perfil_atleta'))
 
-# aqui o atleta ira se inscrever em peneiras criadas pelo CLUBE
+# Rota para inscrição do atleta em uma peneira
 @atleta_bp.route('/inscrever-peneira', methods=['POST'])
 def inscrever_peneira():
     if 'usuario_id' not in session:
         flash('Você precisa estar logado para se inscrever em uma peneira.', 'warning')
-        return redirect(url_for('login'))
+        return redirect(url_for('login.login'))
 
-    idPeneira = request.form.get('idPeneira')  # Pega o ID da peneira selecionada
+    idPeneira = request.form.get('idPeneira')
 
     if not idPeneira:
         flash('Nenhuma peneira selecionada.', 'warning')
-        return redirect(url_for('visualizar_peneiras'))
+        return redirect(url_for('atleta.visualizar_peneiras'))
 
     try:
-        # Conectando ao banco de dados
-        with mysql.connector.connect(get_db_connection) as conexao:
+        with get_db_connection() as conexao:
             with conexao.cursor() as cursor:
-                # Inscreve o usuário na peneira
                 query = """
                 INSERT INTO inscricoes (idAtleta, idPeneira)
                 VALUES (%s, %s)
@@ -193,34 +181,26 @@ def inscrever_peneira():
                 conexao.commit()
 
         flash('Inscrição realizada com sucesso!', 'success')
-        return redirect(url_for('visualizar_peneiras'))
-
+        return redirect(url_for('atleta.visualizar_peneiras'))
     except Error as err:
         flash(f'Erro ao realizar a inscrição: {err}', 'danger')
-        return redirect(url_for('visualizar_peneiras'))
+        return redirect(url_for('atleta.visualizar_peneiras'))
 
-
+# Rota para visualizar as peneiras disponíveis para inscrição
 @atleta_bp.route('/visualizar-peneiras')
 def visualizar_peneiras():
     try:
-        # Conectando ao banco de dados
-        with mysql.connector.connect(get_db_connection) as conexao:
+        with get_db_connection() as conexao:
             with conexao.cursor(dictionary=True) as cursor:
-                # Selecionando todos os registros da tabela de peneiras
                 query = "SELECT * FROM peneira"
                 cursor.execute(query)
-                peneiras = cursor.fetchall()  # Busca todos os resultados
+                peneiras = cursor.fetchall()
 
-                # Verificando se há peneiras disponíveis
                 if not peneiras:
                     flash('Nenhuma peneira cadastrada.', 'info')
-                    return redirect(url_for('home_atleta'))
+                    return redirect(url_for('atleta.home_atleta'))
 
-                # Passa a lista de peneiras para o template
                 return render_template('visualizarPeneiras.html', peneiras=peneiras)
-
     except Error as err:
         flash(f'Erro ao recuperar as peneiras: {err}', 'danger')
-        return redirect(url_for('home_atleta'))
-
-
+        return redirect(url_for('atleta.home_atleta'))
