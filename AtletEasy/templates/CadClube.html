@@ -4,51 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Clube</title>
-    <link rel="stylesheet" href="/static/css/CadClube.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/CadClube.css') }}">
 </head>
 <body>
     <div class="container">
         <div class="logo">
-            <img src="/static/images/logo.png" alt="Logo Atleteasy">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo Atleteasy">
         </div>
 
         <h1>Cadastro de Clube</h1>
 
-        <form method="POST" action="/cadastro-clube">
-            <form method="POST" action="/cadastro-clube">
-                <label for="nomeClube">Nome do Clube</label>
-                <input type="text" id="nomeClube" name="nomeClube" placeholder="Digite o nome do clube" required>
+        <form method="POST" action="{{ url_for('clube.cadastro_clube') }}">
+            <label for="nomeClube">Nome do Clube</label>
+            <input type="text" id="nomeClube" name="nomeClube" placeholder="Digite o nome do clube" required>
+        
+            <label for="inscricaoEstadual">Inscrição Estadual</label>
+            <input type="text" id="inscricaoEstadual" name="inscricaoEstadual" placeholder="Ex.: 1.234.567-89" required>
+        
+            <label for="cep">CEP</label>
+            <input type="text" id="cep" name="cep" placeholder="00000-000" required>
+        
+            <label for="endereco">Endereço</label>
+            <input type="text" id="endereco" name="endereco" placeholder="Rua, Avenida..." required>
+        
+            <label for="usuario">Usuário</label>
+            <input type="text" id="usuario" name="usuario" placeholder="Crie um usuário" required>
+        
+            <label for="nomeFantasia">Nome Fantasia</label>
+            <input type="text" id="nomeFantasia" name="nomeFantasia" placeholder="Nome fantasia" required>
+        
+            <label for="CNPJ">CNPJ</label>
+            <input type="text" id="CNPJ" name="CNPJ" placeholder="XX.XXX.XXX/0001-XX" required>
+        
+            <label for="numeroEndereco">Número</label>
+            <input type="text" id="numeroEndereco" name="numeroEndereco" placeholder="Ex.: 123" required>
+        
+            <label for="complemento">Complemento</label>
+            <input type="text" id="complemento" name="complemento" placeholder="Apto, bloco, etc.">
+        
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" name="Senha" placeholder="Digite sua senha" required>
             
-                <label for="inscricaoEstadual">Inscrição Estadual</label>
-                <input type="text" id="inscricaoEstadual" name="inscricaoEstadual" placeholder="Ex.: 1.234.567-89" required>
-            
-                <label for="cep">CEP</label>
-                <input type="text" id="cep" name="cep" placeholder="00000-000" required>
-            
-                <label for="endereco">Endereço</label>
-                <input type="text" id="endereco" name="endereco" placeholder="Rua, Avenida..." required>
-            
-                <label for="usuario">Usuário</label>
-                <input type="text" id="usuario" name="usuario" placeholder="Crie um usuário" required>
-            
-                <label for="nomeFantasia">Nome Fantasia</label>
-                <input type="text" id="nomeFantasia" name="nomeFantasia" placeholder="Nome fantasia" required>
-            
-                <label for="CNPJ">CNPJ</label>
-                <input type="text" id="CNPJ" name="CNPJ" placeholder="XX.XXX.XXX/0001-XX" required>
-            
-                <label for="numeroEndereco">Número</label>
-                <input type="text" id="numeroEndereco" name="numeroEndereco" placeholder="Ex.: 123" required>
-            
-                <label for="complemento">Complemento</label>
-                <input type="text" id="complemento" name="complemento" placeholder="Apto, bloco, etc.">
-            
-                <label for="senha">Senha</label>
-                <input type="password" id="senha" name="Senha" placeholder="Digite sua senha" required>
-                
-                <button type="submit">Cadastrar</button>
-            </div>
-
             <div class="form-buttons">
                 <button type="reset" class="btn-limpar">Limpar</button>
                 <button type="submit" class="btn-cadastrar">Cadastrar</button>

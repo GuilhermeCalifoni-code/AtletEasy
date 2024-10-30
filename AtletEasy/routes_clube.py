@@ -1,11 +1,10 @@
-from flask import Blueprint, render_template, request, redirect, flash, url_for, session # type: ignore
+import datetime
+from flask import Blueprint, render_template, request, redirect, flash, url_for, session
 from db import get_db_connection
-from mysql.connector import Error # type: ignore
-from datetime import datetime, timedelta
+from mysql.connector import Error
 
 clube_bp = Blueprint('clube', __name__)
 
-# Rota para cadastro de clube
 @clube_bp.route('/cadastro-clube', methods=['GET', 'POST'])
 def cadastro_clube():
     if request.method == 'POST':
@@ -23,6 +22,7 @@ def cadastro_clube():
         tipo_usuario = 'clube'
 
         try:
+            # Conecta ao banco de dados e executa o comando SQL
             with get_db_connection() as conexao:
                 with conexao.cursor() as cursor:
                     query = """
@@ -33,13 +33,18 @@ def cadastro_clube():
                     """
                     valores = (usuario, senha, nome_clube, endereco, cnpj, cep, numero, complemento, nome_fantasia, inscricao_estadual, tipo_usuario)
                     cursor.execute(query, valores)
-                    conexao.commit()
+                    conexao.commit()  # Salva as mudanças no banco
                     flash('Clube cadastrado com sucesso!', 'success')
+                    
+                    # Redireciona para a página de login
                     return redirect(url_for('login.login'))
         except Error as err:
+            # Exibe uma mensagem de erro caso o cadastro falhe
             flash(f'Erro ao cadastrar o clube: {err}', 'danger')
 
+    # Renderiza a página de cadastro de clube
     return render_template('CadClube.html')
+
 
 # Página de pagamento para clube
 @clube_bp.route('/paga-clube')
@@ -133,7 +138,7 @@ def gerenciar_peneira():
                 peneiras = cursor.fetchall()
 
                 for peneira in peneiras:
-                    if isinstance(peneira['Horario'], timedelta):
+                    if isinstance(peneira['Horario'], datetime.timedelta):
                         horas, resto = divmod(peneira['Horario'].seconds, 3600)
                         minutos, _ = divmod(resto, 60)
                         peneira['Horario'] = f'{horas:02}:{minutos:02}'
