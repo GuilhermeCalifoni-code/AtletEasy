@@ -27,7 +27,7 @@ def login():
                         session['usuario_id'] = atleta['idAtleta']
                         session['tipo_usuario'] = 'atleta'
                         flash('Login como atleta realizado com sucesso!', 'success')
-                        return render_template('HomeAtleta.html') # Alteração feita aqui
+                        return render_template('HomeAtleta.html') # Caminho para a tela do home do atleta 
                     
                     query_clube = "SELECT idClube, Usuario FROM cadclube WHERE Usuario = %s AND Senha = %s"
                     cursor.execute(query_clube, (username, password))

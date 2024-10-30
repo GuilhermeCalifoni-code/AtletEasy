@@ -1,15 +1,17 @@
-from flask import Flask, render_template 
+from flask import Blueprint, Flask, render_template 
 from routes_login import login_bp
 from routes_atleta import atleta_bp
 from routes_clube import clube_bp
+
+
 
 app = Flask(__name__)
 app.secret_key = 'sua_chave_secreta'  # Certifique-se de definir uma chave segura
 
 # Registrando blueprints
 app.register_blueprint(login_bp, url_prefix='/')
-app.register_blueprint(atleta_bp, url_prefix='/atleta')  # Use apenas o prefixo '/atleta'
-app.register_blueprint(clube_bp, url_prefix='/clube')    # Use apenas o prefixo '/clube'
+app.register_blueprint(atleta_bp, url_prefix='/atleta')  # Registra o Blueprint com um prefixoa
+app.register_blueprint(clube_bp, url_prefix='/')    # Use apenas o prefixo '/clube'
 
 
 @app.route('/quem-voce')

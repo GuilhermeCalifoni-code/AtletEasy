@@ -62,10 +62,9 @@ def paga_atleta():
     return render_template('pgatleta.html')
 
 
-# Definindo o endpoint explicitamente para evitar conflito
-@atleta_bp.route('/home', endpoint='home_atleta')
+@atleta_bp.route('/home')
 def home_atleta():
-    return render_template('home_atleta.html')
+    return render_template('HomeAtleta.html')
 
 # Rota para visualizar o perfil do atleta
 @atleta_bp.route('/perfil-atleta')

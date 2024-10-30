@@ -13,12 +13,9 @@
     </div>
     <nav>
       <ul>
-        <li><a href="{{ url_for('home_atleta') }}">Home Atleta</a></li>
-        <li><a href="{{ url_for('visualizar_peneiras') }}">Suas Peneiras</a></li>
-        <li><a href="{{ url_for('perfil_atleta') }}" style="font-weight: bold;">Perfil</a></li>
-        
-      </form>
-
+        <li><a href="{{ url_for('atleta.home_atleta') }}">Home Atleta</a></li>
+        <li><a href="{{ url_for('atleta.visualizar_peneiras') }}">Suas Peneiras</a></li>
+        <li><a href="{{ url_for('atleta.perfil_atleta') }}" style="font-weight: bold;">Perfil</a></li>
       </ul>
     </nav>
   </div>
@@ -30,13 +27,13 @@
       <div class="card">
         <h2>Peneiras Disponíveis</h2>
         <p>Confira as peneiras de atletas em aberto e inscreva-se já!</p>
-        <a href="{{ url_for('visualizar_peneiras') }}" class="botao">Ver Peneiras</a>
+        <a href="{{ url_for('atleta.visualizar_peneiras') }}" class="botao">Ver Peneiras</a>
       </div>
 
       <div class="card">
         <h2>Seu Perfil</h2>
         <p>Acesse e edite seu perfil de atleta para melhorar suas chances.</p>
-        <a href="{{ url_for('editar_perfil') }}" class="botao">Editar Perfil</a>
+        <a href="{{ url_for('atleta.editar_perfil') }}" class="botao">Editar Perfil</a>
       </div>
     </div>
 
