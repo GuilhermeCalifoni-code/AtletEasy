@@ -1,6 +1,6 @@
-from flask import Blueprint, render_template, request, redirect, flash, url_for, session # type: ignore
+from flask import Blueprint, render_template, request, redirect, flash, url_for, session
 from db import get_db_connection
-from mysql.connector import Error # type: ignore
+from mysql.connector import Error
 
 login_bp = Blueprint('login', __name__)
 
@@ -27,7 +27,7 @@ def login():
                         session['usuario_id'] = atleta['idAtleta']
                         session['tipo_usuario'] = 'atleta'
                         flash('Login como atleta realizado com sucesso!', 'success')
-                        return redirect(url_for('atleta.home_atleta'))
+                        return render_template('HomeAtleta.html') # Alteração feita aqui
                     
                     query_clube = "SELECT idClube, Usuario FROM cadclube WHERE Usuario = %s AND Senha = %s"
                     cursor.execute(query_clube, (username, password))
@@ -38,7 +38,7 @@ def login():
                         session['usuario_id'] = clube['idClube']
                         session['tipo_usuario'] = 'clube'
                         flash('Login como clube realizado com sucesso!', 'success')
-                        return redirect(url_for('clube.home_clube'))
+                        return redirect(url_for('clube.home_clube'))  # Alteração feita aqui
                     
                     flash('Usuário ou senha incorretos!', 'danger')
                     return redirect(url_for('login.login'))
@@ -48,3 +48,5 @@ def login():
             return redirect(url_for('login.login'))
 
     return render_template('login.html')
+
+

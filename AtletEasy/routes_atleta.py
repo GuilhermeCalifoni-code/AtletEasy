@@ -61,13 +61,11 @@ def paga_atleta():
         return redirect(url_for('login.login'))
     return render_template('pgatleta.html')
 
-# Página Home do Atleta
-@atleta_bp.route('/home-atleta')
+
+# Definindo o endpoint explicitamente para evitar conflito
+@atleta_bp.route('/home', endpoint='home_atleta')
 def home_atleta():
-    if 'usuario_id' not in session:
-        flash('Você precisa estar logado para acessar esta página.', 'warning')
-        return redirect(url_for('login.login'))
-    return render_template('HomeAtleta.html')
+    return render_template('home_atleta.html')
 
 # Rota para visualizar o perfil do atleta
 @atleta_bp.route('/perfil-atleta')
@@ -207,3 +205,8 @@ def visualizar_peneiras():
     except Error as err:
         flash(f'Erro ao recuperar as peneiras: {err}', 'danger')
         return redirect(url_for('atleta.home_atleta'))
+    
+
+
+
+
