@@ -53,6 +53,7 @@ def paga_clube():
 
 @clube_bp.route('/home-clube')
 def home_clube():
+    return render_template('HomeClube.html')
     # Verifica se o usuário está logado
     if 'usuario_id' not in session:
         flash('Você precisa estar logado para acessar esta página.', 'warning')

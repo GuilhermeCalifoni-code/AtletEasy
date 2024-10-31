@@ -14,39 +14,49 @@ def login():
     if request.method == 'POST':
         username = request.form['usuario']
         password = request.form['senha']
+        print ("Dados requisitados")
         
         try:
-            with get_db_connection() as conexao:
-                with conexao.cursor(dictionary=True) as cursor:
-                    query_atleta = "SELECT idAtleta, Usuario FROM cadatleta WHERE Usuario = %s AND Senha = %s"
-                    cursor.execute(query_atleta, (username, password))
-                    atleta = cursor.fetchone()
-                    
-                    if atleta:
-                        session['usuario'] = atleta['Usuario']
-                        session['usuario_id'] = atleta['idAtleta']
-                        session['tipo_usuario'] = 'atleta'
-                        flash('Login como atleta realizado com sucesso!', 'success')
-                        return render_template('HomeAtleta.html') # Caminho para a tela do home do atleta 
-                    
-                    query_clube = "SELECT idClube, Usuario FROM cadclube WHERE Usuario = %s AND Senha = %s"
-                    cursor.execute(query_clube, (username, password))
-                    clube = cursor.fetchone()
-                    
-                    if clube:
-                        session['usuario'] = clube['Usuario']
-                        session['usuario_id'] = clube['idClube']
-                        session['tipo_usuario'] = 'clube'
-                        flash('Login como clube realizado com sucesso!', 'success')
-                        return redirect(url_for('clube.home_clube'))  # Alteração feita aqui
-                    
-                    flash('Usuário ou senha incorretos!', 'danger')
-                    return redirect(url_for('login.login'))
+            # Tenta obter a conexão com o banco de dados
+            conexao = get_db_connection()
+            if conexao is None:
+                flash('Erro ao conectar ao banco de dados.', 'danger')
+                return redirect(url_for('login.login'))
+            
+            with conexao.cursor(dictionary=True) as cursor:
+                # Consulta para buscar atleta
+                query_atleta = "SELECT idAtleta, Usuario FROM cadatleta WHERE Usuario = %s AND Senha = %s"
+                cursor.execute(query_atleta, (username, password))
+                atleta = cursor.fetchone()
                 
+                if atleta:
+                    session['usuario'] = atleta['Usuario']
+                    session['usuario_id'] = atleta['idAtleta']
+                    session['tipo_usuario'] = 'atleta'
+                    flash('Login como atleta realizado com sucesso!', 'success')
+                    return render_template('HomeAtleta.html')  # Caminho para a tela do home do atleta 
+                
+                # Consulta para buscar clube
+                query_clube = "SELECT idClube, Usuario FROM cadclube WHERE Usuario = %s AND Senha = %s"
+                cursor.execute(query_clube, (username, password))
+                clube = cursor.fetchone()
+                
+                if clube:
+                    session['usuario'] = clube['Usuario']
+                    session['usuario_id'] = clube['idClube']
+                    session['tipo_usuario'] = 'clube'
+                    flash('Login como clube realizado com sucesso!', 'success')
+                    return redirect(url_for('clube.home_clube'))
+                
+                flash('Usuário ou senha incorretos!', 'danger')
+                return redirect(url_for('login.login'))
+        
         except Error as err:
             flash(f'Erro ao tentar fazer login: {err}', 'danger')
             return redirect(url_for('login.login'))
+        
+        finally:
+            if conexao and conexao.is_connected():
+                conexao.close()  # Certifique-se de fechar a conexão ao final
 
     return render_template('login.html')
-
-
