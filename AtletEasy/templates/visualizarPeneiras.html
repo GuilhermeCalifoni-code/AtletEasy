@@ -10,16 +10,17 @@
 <body>
     <div class="menu-lateral">
         <div class="logo">
-            <img src="/static/images/logo.png" alt="Logo Atletas" style="width: 100%; margin-bottom: 20px;">
+          <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo Atletas" style="width: 100%; margin-bottom: 20px;">
         </div>
         <nav>
-            <ul>
-                <li><a href="/home-atleta" style="font-weight: bold;">Home</a></li>
-                <li><a href="/visualizar-peneiras">Suas Peneiras</a></li>
-                <li><a href="/perfil-atleta">Perfil do Atleta</a></li>
-            </ul>
+          <ul>
+            <li><a href="{{ url_for('atleta.home_atleta') }}">Home Atleta</a></li>
+            <li><a href="{{ url_for('atleta.visualizar_peneiras') }}">Suas Peneiras</a></li>
+            <li><a href="{{ url_for('atleta.perfil_atleta') }}">Perfil</a></li>
+            <li><a href="{{ url_for('atleta.paga_atleta') }}">Pagamento</a></li>
+          </ul>
         </nav>
-    </div>
+      </div>
 
     <div class="conteudo">
         <h1>Visualizar Peneiras</h1>
