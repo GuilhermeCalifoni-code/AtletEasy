@@ -13,21 +13,20 @@
         </div>
         <nav>
             <ul>
-                <li><a href="{{ url_for('home_atleta') }}">Home Atleta</a></li>
-                <li><a href="/visualizar-peneiras">Suas Peneiras</a></li>
-                <li><a href="{{ url_for('perfil_atleta') }}" style="font-weight: bold;">Perfil </a></li>               
-              </ul>
+                <li><a href="{{ url_for('atleta.home_atleta') }}">Home Atleta</a></li>
+                <li><a href="{{ url_for('atleta.visualizar_peneiras') }}">Suas Peneiras</a></li>
+                <li><a href="{{ url_for('atleta.perfil_atleta') }}" style="font-weight: bold;">Perfil</a></li>
+            </ul>
         </nav>
     </div>
     <header>
         <div class="profile-header">
             <img src="profile.jpg" alt="Foto de Perfil" class="profile-picture">
             <div class="profile-info">
-                <h1>{{ atleta['Nome'] }}</h1>
-                <p>Idade: {{ atleta['Idade'] }} | Localização: {{ atleta['Localizacao'] }}</p>
+                <h1>{{ atleta['Nome'] }} {{ atleta['Sobrenome'] }}</h1>
+                <p>Endereço: {{ atleta['Endereco'] }}</p>
             </div>
-            <a href="{{ url_for('editar_perfil') }}" class="edit-btn">Editar Perfil</a>
-
+            <a href="{{ url_for('atleta.editar_perfil') }}" class="edit-btn">Editar Perfil</a>
         </div>
     </header>
 

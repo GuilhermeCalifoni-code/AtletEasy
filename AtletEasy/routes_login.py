@@ -14,7 +14,6 @@ def login():
     if request.method == 'POST':
         username = request.form['usuario']
         password = request.form['senha']
-        print ("Dados requisitados")
         
         try:
             # Tenta obter a conexão com o banco de dados
@@ -33,8 +32,9 @@ def login():
                     session['usuario'] = atleta['Usuario']
                     session['usuario_id'] = atleta['idAtleta']
                     session['tipo_usuario'] = 'atleta'
+                    print("Sessão após login como atleta:", session)  # Adiciona esta linha para depuração
                     flash('Login como atleta realizado com sucesso!', 'success')
-                    return render_template('HomeAtleta.html')  # Caminho para a tela do home do atleta 
+                    return redirect(url_for('atleta.home_atleta'))
                 
                 # Consulta para buscar clube
                 query_clube = "SELECT idClube, Usuario FROM cadclube WHERE Usuario = %s AND Senha = %s"

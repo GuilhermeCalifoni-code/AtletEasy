@@ -69,7 +69,10 @@ def home_atleta():
 # Rota para visualizar o perfil do atleta
 @atleta_bp.route('/perfil-atleta')
 def perfil_atleta():
+    print("Acessando perfil do atleta. Sessão atual:", session)  # Depuração da sessão
+    
     if 'usuario_id' not in session:
+        print("Usuário não autenticado, redirecionando para login.")  # Depuração de redirecionamento
         flash('Você precisa estar logado para acessar esta página.', 'warning')
         return redirect(url_for('login.login'))
 
