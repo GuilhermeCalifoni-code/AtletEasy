@@ -56,7 +56,7 @@ def paga_clube():
 
 # Página Home do Clube
 
-@clube_bp.route('/home-clube')
+@clube_bp.route('/home')
 def home_clube():
     return render_template('HomeClube.html')
     # Verifica se o usuário está logado
