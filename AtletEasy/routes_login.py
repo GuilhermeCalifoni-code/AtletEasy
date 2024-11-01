@@ -16,39 +16,44 @@ def login():
         password = request.form['senha']
         
         try:
-            # Tenta obter a conexão com o banco de dados
+            # Conecta ao banco de dados
             conexao = get_db_connection()
             if conexao is None:
                 flash('Erro ao conectar ao banco de dados.', 'danger')
                 return redirect(url_for('login.login'))
             
             with conexao.cursor(dictionary=True) as cursor:
-                # Consulta para buscar atleta
+                # Verifica se é um atleta
                 query_atleta = "SELECT idAtleta, Usuario FROM cadatleta WHERE Usuario = %s AND Senha = %s"
                 cursor.execute(query_atleta, (username, password))
                 atleta = cursor.fetchone()
                 
                 if atleta:
+                    # Configura a sessão para atleta
                     session['usuario'] = atleta['Usuario']
                     session['usuario_id'] = atleta['idAtleta']
                     session['tipo_usuario'] = 'atleta'
-                    print("Sessão configurada após login como atleta:", session)  # Adiciona esta linha para depuração
+                    session.permanent = True  # Mantém a sessão por mais tempo
+                    print("Sessão configurada após login como atleta:", session)  # Depuração
                     flash('Login como atleta realizado com sucesso!', 'success')
                     return redirect(url_for('atleta.home_atleta'))
                 
-                # Consulta para buscar clube
+                # Verifica se é um clube
                 query_clube = "SELECT idClube, Usuario FROM cadclube WHERE Usuario = %s AND Senha = %s"
                 cursor.execute(query_clube, (username, password))
                 clube = cursor.fetchone()
                 
                 if clube:
+                    # Configura a sessão para clube
                     session['usuario'] = clube['Usuario']
                     session['usuario_id'] = clube['idClube']
                     session['tipo_usuario'] = 'clube'
-                    print("Sessão configurada após login como clube:", session)  # Adiciona esta linha para depuração
+                    session.permanent = True  # Mantém a sessão por mais tempo
+                    print("Sessão configurada após login como clube:", session)  # Depuração
                     flash('Login como clube realizado com sucesso!', 'success')
                     return redirect(url_for('clube.home_clube'))
                 
+                # Se não for encontrado, exibe erro
                 flash('Usuário ou senha incorretos!', 'danger')
                 return redirect(url_for('login.login'))
         
@@ -58,6 +63,6 @@ def login():
         
         finally:
             if conexao and conexao.is_connected():
-                conexao.close()  # Certifique-se de fechar a conexão ao final
+                conexao.close()  # Certifique-se de fechar a conexão
 
     return render_template('login.html')

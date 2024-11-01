@@ -58,6 +58,7 @@ def paga_clube():
 
 @clube_bp.route('/home')
 def home_clube():
+    print("Sessão ao acessar home_clube:", session)  # Linha de depuração
     if 'usuario_id' not in session or session.get('tipo_usuario') != 'clube':
         flash('Você precisa estar logado como clube para acessar esta página.', 'warning')
         return redirect(url_for('login.login'))
@@ -65,18 +66,18 @@ def home_clube():
     conexao = get_db_connection()
     if conexao is None:
         flash('Erro ao conectar ao banco de dados.', 'danger')
-        return redirect(url_for('login.login'))  # Redireciona para o login se a conexão falhar
+        return redirect(url_for('login.login'))
     
     try:
         with conexao.cursor(dictionary=True) as cursor:
             # Conta o número total de peneiras abertas
-            query_count = "SELECT COUNT(*) as total_abertas FROM peneira WHERE NomeClube = %s AND status = 'Aberta'"
+            query_count = "SELECT COUNT(*) as total_abertas FROM peneira WHERE idPeneira = %s AND status = 'Aberto'"
             cursor.execute(query_count, (session['usuario'],))
             result = cursor.fetchone()
             total_abertas = result['total_abertas'] if result else 0
 
             # Seleciona as peneiras associadas ao clube
-            query_peneiras = "SELECT * FROM peneira WHERE NomeClube = %s"
+            query_peneiras = "SELECT * FROM peneira WHERE idPeneira = %s"
             cursor.execute(query_peneiras, (session['usuario'],))
             peneiras = cursor.fetchall()
 
@@ -84,11 +85,13 @@ def home_clube():
     
     except Error as err:
         flash(f'Erro ao recuperar as peneiras: {err}', 'danger')
-        return redirect(url_for('clube.home_clube'))  # Redireciona em caso de erro
+        return redirect(url_for('clube.home_clube'))
+    
     finally:
         if conexao.is_connected():
-            conexao.close()  # Fecha a conexão ao final
-    
+            conexao.close()
+
+            
 @clube_bp.route('/criar-peneira', methods=['GET', 'POST'])
 def criar_peneira():
     if request.method == 'POST':

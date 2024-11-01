@@ -15,6 +15,7 @@
            <li><a href="{{ url_for('clube.criar_peneira') }}">Criar Peneira</a></li>
            <li><a href="{{ url_for('clube.gerenciar_peneira') }}">Gerenciar Peneiras</a></li>
            <li><a href="{{ url_for('clube.ficha_jogo', idPeneira=1) }}">Ficha de Jogo</a></li>
+           <li><a href="{{ url_for('atleta.confirmar_logout') }}" class="logout">Sair</a></li>
        </ul>
    </div>
 
@@ -47,7 +48,7 @@
                <tbody>
                    {% for peneira in peneiras %}
                    <tr>
-                       <td>{{ peneira['NomeClube'] }}</td>
+                       <td>{{ peneira['nome_clube'] }}</td> <!-- Use o nome correto da coluna -->
                        <td>{{ peneira['esportePeneira'] }}</td>
                        <td>{{ peneira['Endereco'] }}</td>
                        <td>

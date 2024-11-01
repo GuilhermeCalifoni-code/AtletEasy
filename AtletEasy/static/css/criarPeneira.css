@@ -1,9 +1,11 @@
+/* Reset de estilos */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Estilos gerais */
 body {
     font-family: 'Poppins', sans-serif;
     background-color: #f2f2f2;
@@ -14,118 +16,144 @@ body {
     height: 100vh;
 }
 
+/* Estilização do menu lateral */
+.menu-lateral {
+    width: 250px;
+    background-color: #f4a100;
+    height: 100vh;
+    padding: 20px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    border-right: 1px solid #ccc;
+}
+
+.menu-lateral img {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.menu-lateral ul {
+    list-style-type: none;
+}
+
+.menu-lateral ul li {
+    margin: 15px 0;
+}
+
+.menu-lateral ul li a {
+    text-decoration: none;
+    font-size: 18px;
+    color: #191919;
+    display: block;
+    padding: 15px 20px;
+    transition: all 0.3s ease;
+    border-radius: 12px;
+    background-color: transparent; /* Fundo transparente como no segundo CSS */
+}
+
+.menu-lateral ul li a:hover {
+    background-color: #ffffff;
+    color: #000;
+}
+
 .container {
     display: flex;
     width: 90%;
     max-width: 1200px;
-    height: auto;
+    height: 600px;
     border-radius: 15px;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    background-color: #fff;
-    padding: 20px; /* Ajuste de padding para centralizar melhor */
 }
 
+/* Barra lateral */
 .sidebar {
     width: 250px;
-    background-color: #fff;
+    background-color: #1d1d1d;
+    color: white;
     display: flex;
     flex-direction: column;
     padding: 30px 20px;
-    border-right: 2px solid #ffa500;
+    position: relative;
 }
 
-.sidebar img {
+.logo {
     width: 150px;
-    margin: 0 auto 20px;
+    margin: 0 auto 30px;
+    display: block;
 }
 
-.sidebar ul {
+nav ul {
     list-style: none;
-    padding: 0;
-    text-align: left;
 }
 
-.sidebar ul li {
-    margin: 10px 0;
+nav ul li {
+    margin: 20px 0;
 }
 
-.sidebar ul li a {
-    color: #333;
+nav ul li a {
+    color: #fff;
     font-size: 18px;
     text-decoration: none;
-    display: block;
-    padding: 12px;
-    transition: background-color 0.3s ease;
-    border-radius: 8px;
+    transition: color 0.3s ease;
 }
 
-.sidebar ul li a:hover,
-.sidebar ul li a.active {
-    background-color: #ffa500;
-    color: white;
+nav ul li a:hover {
+    color: #ffa500;
 }
 
 .options {
     margin-top: auto;
-    text-align: left;
-    display: flex;
-    align-items: center;
-    padding-left: 0;
-}
-
-.options img {
-    width: 20px;
-    margin-right: 10px;
+    text-align: center;
 }
 
 .options a {
-    color: #333;
+    color: #ffa500;
     text-decoration: none;
     font-size: 18px;
 }
 
 .options a:hover {
-    color: #ffa500;
+    color: #fff;
 }
 
+/* Área do formulário */
 .form-container {
     flex: 1;
-    background-color: #fff;
+    background-color: white;
     padding: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 15px;
+    position: relative;
 }
 
 form {
     width: 100%;
-    max-width: 800px;
+    max-width: 700px;
     background-color: #fff;
     border-radius: 15px;
     padding: 40px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    border: 2px solid #ffa500;
 }
 
 .form-group {
     margin-bottom: 20px;
-    width: 100%; /* Ajusta a largura dos campos para melhor alinhamento */
 }
 
 label {
     display: block;
     margin-bottom: 8px;
-    font-size: 16px;
-    color: #333;
+    font-size: 14px;
+    color: #666;
 }
 
 input[type="text"] {
     width: 100%;
-    padding: 12px;
+    padding: 12px 15px;
     font-size: 16px;
-    border: 2px solid #ccc;
+    border: 2px solid #ddd;
     border-radius: 8px;
     transition: border-color 0.3s ease;
 }
@@ -135,25 +163,14 @@ input[type="text"]:focus {
     outline: none;
 }
 
-.form-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    gap: 20px; /* Espaço entre as colunas */
-}
-
-.form-column {
-    width: 48%;
-}
-
 .button-group {
     display: flex;
-    justify-content: flex-end;
-    margin-top: 30px;
+    justify-content: space-between;
 }
 
 button {
-    padding: 12px 20px;
+    width: 48%;
+    padding: 12px;
     font-size: 16px;
     color: white;
     background-color: #ffa500;
@@ -167,16 +184,21 @@ button:hover {
     background-color: #e69500;
 }
 
+button:focus {
+    outline: none;
+}
+
+/* Estilo do botão de reset */
 button[type="reset"] {
     background-color: #e0e0e0;
     color: #333;
-    margin-right: 10px;
 }
 
 button[type="reset"]:hover {
     background-color: #c9c9c9;
 }
 
+/* Responsividade */
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
@@ -194,14 +216,6 @@ button[type="reset"]:hover {
     }
 
     form {
-        padding: 20px;
-    }
-
-    .form-row {
-        flex-direction: column;
-    }
-
-    .form-column {
-        width: 100%;
-    }
+        padding: 20px;
+}
 }
