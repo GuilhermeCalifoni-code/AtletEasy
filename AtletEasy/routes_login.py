@@ -32,7 +32,7 @@ def login():
                     session['usuario'] = atleta['Usuario']
                     session['usuario_id'] = atleta['idAtleta']
                     session['tipo_usuario'] = 'atleta'
-                    print("Sessão após login como atleta:", session)  # Adiciona esta linha para depuração
+                    print("Sessão configurada após login como atleta:", session)  # Adiciona esta linha para depuração
                     flash('Login como atleta realizado com sucesso!', 'success')
                     return redirect(url_for('atleta.home_atleta'))
                 
@@ -45,6 +45,7 @@ def login():
                     session['usuario'] = clube['Usuario']
                     session['usuario_id'] = clube['idClube']
                     session['tipo_usuario'] = 'clube'
+                    print("Sessão configurada após login como clube:", session)  # Adiciona esta linha para depuração
                     flash('Login como clube realizado com sucesso!', 'success')
                     return redirect(url_for('clube.home_clube'))
                 

@@ -10,5 +10,6 @@ db_config = {
     'database': os.getenv("DB_DATABASE"),
     'port': os.getenv("DB_PORT"),
     'user': os.getenv("DB_USER"),
-    'password': os.getenv("DB_PASSWORD")
+    'password': os.getenv("DB_PASSWORD"),
+    'ssl_disabled': True
 }

@@ -7,56 +7,70 @@
     <link rel="stylesheet" href="/static/css/criarPeneira.css">
 </head>
 <body>
-    <form method="POST" action="/criar-peneira">
-        <div class="form-row">
-            <div class="form-column">
-                <div class="form-group">
-                    <label for="nomeClube">Nome do Clube</label>
-                    <input type="text" id="nomeClube" name="nomeClube" placeholder="Nome do clube" required>
-                </div>
+    <!-- Menu Lateral -->
+    <div class="menu-lateral">
+        <img src="/static/images/logo.png" alt="Logo AtletEasy">
+        <ul>
+            <li><a href="{{ url_for('clube.home_clube') }}">Home Clube</a></li>
+            <li><a href="{{ url_for('clube.criar_peneira') }}">Criar Peneira</a></li>
+            <li><a href="{{ url_for('clube.gerenciar_peneira') }}">Gerenciar Peneiras</a></li>
+            <li><a href="{{ url_for('clube.ficha_jogo', idPeneira=1) }}">Ficha de Jogo</a></li>
+        </ul>
+    </div>
+
+    <!-- Formulário de Criação de Peneira -->
+    <div class="conteudo">
+        <h1>Criar Nova Peneira</h1>
+        <form method="POST" action="{{ url_for('clube.criar_peneira') }}">
+            <!-- Primeira Linha do Formulário -->
+            <div class="form-row">
                 <div class="form-group">
                     <label for="esportePeneira">Esporte</label>
-                    <input type="text" id="esportePeneira" name="esportePeneira" placeholder="Esporte" required>
+                    <input type="text" id="esportePeneira" name="esportePeneira" placeholder="Ex: Futebol, Basquete" required>
                 </div>
                 <div class="form-group">
-                    <label for="localPeneira">Local</label>
-                    <input type="text" id="localPeneira" name="localPeneira" placeholder="Local" required>
+                    <label for="localPeneira">Endereço</label>
+                    <input type="text" id="localPeneira" name="localPeneira" placeholder="Endereço" required>
                 </div>
-            </div>
-
-            <div class="form-column">
                 <div class="form-group">
                     <label for="dataInicio">Data de Início</label>
                     <input type="date" id="dataInicio" name="dataInicio" required>
                 </div>
+            </div>
+
+            <!-- Segunda Linha do Formulário -->
+            <div class="form-row">
                 <div class="form-group">
                     <label for="horario">Horário</label>
                     <input type="time" id="horario" name="horario" required>
                 </div>
                 <div class="form-group">
                     <label for="cep">CEP</label>
-                    <input type="number" id="cep" name="cep" placeholder="00000-000" required>
+                    <input type="text" id="cep" name="cep" placeholder="00000-000" pattern="\d{5}-\d{3}" required>
                 </div>
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="form-column">
                 <div class="form-group">
                     <label for="quantidadeMaxima">Quantidade Máxima</label>
-                    <input type="number" id="quantidadeMaxima" name="quantidadeMaxima" placeholder="Máximo 50" required>
-                </div>
-                <div class="form-group">
-                    <label for="status">Status</label>
-                    <input type="number" id="status" name="status" placeholder="1 para aberta, 0 para fechada" required>
+                    <input type="number" id="quantidadeMaxima" name="quantidadeMaxima" placeholder="Máximo 50" min="1" max="50" required>
                 </div>
             </div>
-        </div>
 
-        <div class="button-group">
-            <button type="reset">Limpar</button>
-            <button type="submit">Cadastrar</button>
-        </div>
-    </form>
+            <!-- Terceira Linha do Formulário -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select id="status" name="status" required>
+                        <option value="1">Aberta</option>
+                        <option value="0">Fechada</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Botões de Ação -->
+            <div class="button-group">
+                <button type="reset">Limpar</button>
+                <button type="submit">Cadastrar</button>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

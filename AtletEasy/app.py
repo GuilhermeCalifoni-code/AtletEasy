@@ -6,7 +6,7 @@ from routes_clube import clube_bp
 
 
 app = Flask(__name__)
-app.secret_key = 'sua_chave_secreta'  # Certifique-se de definir uma chave segura
+app.secret_key = 'sua_chave_secreta_super_segura' # Certifique-se de definir uma chave segura
 
 # Registrando blueprints
 app.register_blueprint(login_bp, url_prefix='/')
