@@ -1,48 +1,99 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/editarPerfil.css">
     <title>Editar Perfil</title>
 </head>
 <body>
-    <h1>Editar Perfil do Atleta</h1>
+    <div class="menu-lateral">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo Atletas">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('atleta.home_atleta') }}">Home Atleta</a></li>
+                <li><a href="{{ url_for('atleta.visualizar_peneiras') }}">Suas Peneiras</a></li>
+                <li><a href="{{ url_for('atleta.perfil_atleta') }}">Perfil</a></li>
+                <li><a href="{{ url_for('atleta.paga_atleta') }}">Pagamento</a></li>
+            </ul>
+        </nav>
+    </div>
 
-    <form action="{{ url_for('atleta.editar_perfil') }}" method="POST">
-        <label for="Posicao">Posição:</label>
-        <input type="text" id="Posicao" name="Posicao" value="{{ atleta['Posicao'] }}" required><br><br>
+    <div class="conteudo">
+        <h1>Editar Perfil do Atleta</h1>
+        
+        <form action="{{ url_for('atleta.editar_perfil') }}" method="POST">
+            <div class="form-section">
+                <h2>Informações Pessoais</h2>
+                <div class="form-group">
+                    <label for="Posicao">Posição:</label>
+                    <input type="text" id="Posicao" name="Posicao" value="{{ atleta['Posicao'] }}" required>
+                </div>
 
-        <label for="Altura">Altura (em metros):</label>
-        <input type="number" step="0.01" id="Altura" name="Altura" value="{{ atleta['Altura'] }}" required><br><br>
+                <div class="form-group">
+                    <label for="SobreMim">Sobre Mim:</label>
+                    <textarea id="SobreMim" name="SobreMim" required>{{ atleta['SobreMim'] }}</textarea>
+                </div>
+            </div>
 
-        <label for="Peso">Peso (em kg):</label>
-        <input type="number" step="0.1" id="Peso" name="Peso" value="{{ atleta['Peso'] }}" required><br><br>
+            <div class="form-section">
+                <h2>Dados Físicos</h2>
+                <div class="form-group">
+                    <label for="Altura">Altura (em metros):</label>
+                    <input type="number" step="0.01" id="Altura" name="Altura" value="{{ atleta['Altura'] }}" required>
+                </div>
 
-        <label for="Experiencia">Experiência (em anos):</label>
-        <input type="number" id="Experiencia" name="Experiencia" value="{{ atleta['Experiencia'] }}" required><br><br>
+                <div class="form-group">
+                    <label for="Peso">Peso (em kg):</label>
+                    <input type="number" step="0.1" id="Peso" name="Peso" value="{{ atleta['Peso'] }}" required>
+                </div>
+            </div>
 
-        <label for="SobreMim">Sobre Mim:</label>
-        <textarea id="SobreMim" name="SobreMim" required>{{ atleta['SobreMim'] }}</textarea><br><br>
+            <div class="form-section">
+                <h2>Experiência e Habilidades</h2>
+                <div class="form-group">
+                    <label for="Experiencia">Experiência (em anos):</label>
+                    <input type="number" id="Experiencia" name="Experiencia" value="{{ atleta['Experiencia'] }}" required>
+                </div>
 
-        <label for="Velocidade">Velocidade:</label>
-        <input type="number" id="Velocidade" name="Velocidade" value="{{ atleta['Velocidade'] }}" min="0" max="5" required><br><br>
+                <div class="form-group">
+                    <label for="Velocidade">Velocidade:</label>
+                    <input type="number" id="Velocidade" name="Velocidade" value="{{ atleta['Velocidade'] }}" min="0" max="5" required>
+                </div>
 
-        <label for="Tecnica">Técnica:</label>
-        <input type="number" id="Tecnica" name="Tecnica" value="{{ atleta['Tecnica'] }}" min="0" max="5" required><br><br>
+                <div class="form-group">
+                    <label for="Tecnica">Técnica:</label>
+                    <input type="number" id="Tecnica" name="Tecnica" value="{{ atleta['Tecnica'] }}" min="0" max="5" required>
+                </div>
 
-        <label for="VisaoDeJogo">Visão de Jogo:</label>
-        <input type="number" id="VisaoDeJogo" name="VisaoDeJogo" value="{{ atleta['VisaoDeJogo'] }}" min="0" max="5" required><br><br>
+                <div class="form-group">
+                    <label for="VisaoDeJogo">Visão de Jogo:</label>
+                    <input type="number" id="VisaoDeJogo" name="VisaoDeJogo" value="{{ atleta['VisaoDeJogo'] }}" min="0" max="5" required>
+                </div>
+            </div>
 
-        <label for="Gols">Gols:</label>
-        <input type="number" id="Gols" name="Gols" value="{{ atleta['Gols'] }}" required><br><br>
+            <div class="form-section">
+                <h2>Estatísticas Recentes</h2>
+                <div class="form-group">
+                    <label for="Gols">Gols:</label>
+                    <input type="number" id="Gols" name="Gols" value="{{ atleta['Gols'] }}" required>
+                </div>
 
-        <label for="Assistencias">Assistências:</label>
-        <input type="number" id="Assistencias" name="Assistencias" value="{{ atleta['Assistencias'] }}" required><br><br>
+                <div class="form-group">
+                    <label for="Assistencias">Assistências:</label>
+                    <input type="number" id="Assistencias" name="Assistencias" value="{{ atleta['Assistencias'] }}" required>
+                </div>
 
-        <label for="Cartoes">Cartões:</label>
-        <input type="number" id="Cartoes" name="Cartoes" value="{{ atleta['Cartoes'] }}" required><br><br>
+                <div class="form-group">
+                    <label for="Cartoes">Cartões:</label>
+                    <input type="number" id="Cartoes" name="Cartoes" value="{{ atleta['Cartoes'] }}" required>
+                </div>
+            </div>
 
-        <button type="submit">Salvar Alterações</button>
-    </form>
+            <button type="submit">Salvar Alterações</button>
+        </form>
+    </div>
 </body>
 </html>

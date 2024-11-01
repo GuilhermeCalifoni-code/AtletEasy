@@ -111,6 +111,7 @@ def editar_perfil():
     usuario_id = session['usuario_id']
 
     if request.method == 'POST':
+        # Captura os dados do formulário
         posicao = request.form['Posicao']
         altura = request.form['Altura']
         peso = request.form['Peso']
@@ -126,23 +127,42 @@ def editar_perfil():
         try:
             with get_db_connection() as conexao:
                 with conexao.cursor() as cursor:
-                    query = """
-                    UPDATE infoatleta 
-                    SET Posicao=%s, Altura=%s, Peso=%s, Experiencia=%s, 
-                        SobreMim=%s, Velocidade=%s, Tecnica=%s, VisaoDeJogo=%s, 
-                        Gols=%s, Assistencias=%s, Cartoes=%s
-                    WHERE idAtleta = %s
-                    """
-                    valores = (posicao, altura, peso, experiencia, sobre_mim, velocidade, tecnica, visao_de_jogo, gols, assistencias, cartoes, usuario_id)
-                    cursor.execute(query, valores)
-                    conexao.commit()
+                    # Verifica se o registro existe antes de atualizar
+                    cursor.execute("SELECT * FROM infoatleta WHERE idAtleta = %s", (usuario_id,))
+                    registro = cursor.fetchone()
+                    
+                    if registro:
+                        # Atualiza o registro existente
+                        query = """
+                        UPDATE infoatleta 
+                        SET Posicao=%s, Altura=%s, Peso=%s, Experiencia=%s, 
+                            SobreMim=%s, Velocidade=%s, Tecnica=%s, VisaoDeJogo=%s, 
+                            Gols=%s, Assistencias=%s, Cartoes=%s
+                        WHERE idAtleta = %s
+                        """
+                        valores = (posicao, altura, peso, experiencia, sobre_mim, velocidade, tecnica, visao_de_jogo, gols, assistencias, cartoes, usuario_id)
+                        cursor.execute(query, valores)
+                        conexao.commit()
+                        flash('Perfil atualizado com sucesso!', 'success')
+                    else:
+                        # Cria um novo registro se não existir
+                        query = """
+                        INSERT INTO infoatleta (idAtleta, Posicao, Altura, Peso, Experiencia, 
+                                                SobreMim, Velocidade, Tecnica, VisaoDeJogo, 
+                                                Gols, Assistencias, Cartoes)
+                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                        """
+                        valores = (usuario_id, posicao, altura, peso, experiencia, sobre_mim, velocidade, tecnica, visao_de_jogo, gols, assistencias, cartoes)
+                        cursor.execute(query, valores)
+                        conexao.commit()
+                        flash('Perfil criado com sucesso!', 'success')
 
-                    flash('Perfil atualizado com sucesso!', 'success')
                     return redirect(url_for('atleta.perfil_atleta'))
         except Error as err:
             flash(f'Erro ao atualizar o perfil: {err}', 'danger')
             return redirect(url_for('atleta.editar_perfil'))
 
+    # Carrega os dados para edição
     try:
         with get_db_connection() as conexao:
             with conexao.cursor(dictionary=True) as cursor:
@@ -158,6 +178,7 @@ def editar_perfil():
     except Error as err:
         flash(f'Erro ao carregar o perfil para edição: {err}', 'danger')
         return redirect(url_for('atleta.perfil_atleta'))
+
 
 
 # Rota para inscrição do atleta em uma peneira
