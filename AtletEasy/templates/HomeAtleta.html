@@ -17,6 +17,7 @@
         <li><a href="{{ url_for('atleta.visualizar_peneiras') }}">Suas Peneiras</a></li>
         <li><a href="{{ url_for('atleta.perfil_atleta') }}">Perfil</a></li>
         <li><a href="{{ url_for('atleta.paga_atleta') }}">Pagamento</a></li>
+        <li><a href="{{ url_for('atleta.confirmar_logout') }}" class="logout">Sair</a></li>
       </ul>
     </nav>
   </div>
@@ -54,5 +55,13 @@
       </div>
     </div>
   </div>
+
+  <!-- Div para a mensagem centralizada -->
+  <div id="central-message" class="central-message">
+    <p>Tem certeza de que deseja sair?</p>
+    <a href="{{ url_for('atleta.logout') }}" class="confirm-button">Sim</a>
+    <button onclick="hideMessage()" class="cancel-button">Cancelar</button>
+  </div>
+
 </body>
 </html>

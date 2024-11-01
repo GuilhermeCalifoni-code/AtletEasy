@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmar Logout</title>
+    <style>
+        /* Estilo para centralizar a mensagem */
+        .central-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border: 2px solid #f4a100;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        .central-message p {
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
+        .confirm-button, .cancel-button {
+            margin: 5px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .confirm-button {
+            background-color: #f4a100;
+            color: white;
+            text-decoration: none;
+        }
+        .cancel-button {
+            background-color: #ccc;
+            color: #333;
+            text-decoration: none;
+        }
+        .confirm-button:hover {
+            background-color: #e59400;
+        }
+        .cancel-button:hover {
+            background-color: #bbb;
+        }
+    </style>
+</head>
+<body>
+    <div class="central-message">
+        <p>Tem certeza de que deseja sair?</p>
+        <form action="{{ url_for('atleta.logout') }}" method="post">
+            <button type="submit" class="confirm-button">Sim</button>
+        </form>
+        <a href="{{ url_for('atleta.home_atleta') }}" class="cancel-button">Cancelar</a>
+    </div>
+</body>
+</html>

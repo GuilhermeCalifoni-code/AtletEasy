@@ -181,6 +181,7 @@ def editar_perfil():
 
 
 
+
 # Rota para inscrição do atleta em uma peneira
 @atleta_bp.route('/inscrever-peneira', methods=['POST'])
 def inscrever_peneira():
@@ -229,7 +230,16 @@ def visualizar_peneiras():
         flash(f'Erro ao recuperar as peneiras: {err}', 'danger')
         return redirect(url_for('atleta.home_atleta'))
     
+@atleta_bp.route('/confirmar-logout')
+def confirmar_logout():
+    # Renderiza uma página de confirmação de logout
+    return render_template('confirmar_logout.html')
 
-
+@atleta_bp.route('/logout', methods=['POST'])
+def logout():
+    # Finaliza a sessão do usuário e redireciona para a página de login
+    session.pop('usuario_id', None)
+    flash('Você saiu da sua conta.', 'info')
+    return redirect(url_for('login.login'))
 
 

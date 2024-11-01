@@ -229,4 +229,14 @@ def atletas_inscritos(idPeneira):
         return redirect(url_for('clube.home_clube'))
     
 
+@clube_bp.route('/confirmar-logout')
+def confirmar_logout():
+    # Renderiza a página de confirmação de logout
+    return render_template('confirmar_logout_clube.html')
 
+@clube_bp.route('/logout', methods=['POST'])
+def logout():
+    # Remove o usuário da sessão e redireciona para o login
+    session.pop('usuario_id', None)
+    flash('Você saiu da sua conta.', 'info')
+    return redirect(url_for('login.login'))
