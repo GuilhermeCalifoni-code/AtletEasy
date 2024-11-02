@@ -9,7 +9,7 @@ app.secret_key = 'sua_chave_secreta_super_segura'
 # Registrando blueprints
 app.register_blueprint(login_bp)
 app.register_blueprint(atleta_bp, url_prefix='/atleta')  
-app.register_blueprint(clube_bp, url_prefix='/clube')
+app.register_blueprint(clube_bp, url_prefix='/clube')  # Prefixo '/clube' para as rotas do clube
 
 @app.route('/quem-voce')
 def quem_voce():

@@ -12,14 +12,12 @@ def cadastro_clube():
         cnpj = request.form.get('CNPJ')
         nome_clube = request.form.get('nomeClube')
         inscricao_estadual = request.form.get('inscricaoEstadual')
-        cep = request.form.get('cep')
         endereco = request.form.get('endereco')
         usuario = request.form.get('usuario')
         nome_fantasia = request.form.get('nomeFantasia')
         numero = request.form.get('numeroEndereco')
         complemento = request.form.get('complemento', '')
         senha = request.form.get('Senha')
-        tipo_usuario = 'clube'
 
         try:
             # Conecta ao banco de dados e executa o comando SQL
@@ -28,10 +26,10 @@ def cadastro_clube():
                     query = """
                         INSERT INTO cadclube (
                             Usuario, Senha, NomeClube, Endereco, CNPJ,
-                            CEP, NumeroEndereco, Complemento, nome_fantasia, inscricao_estadual, tipo_usuario
-                        ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                            NumeroEndereco, Complemento, nome_fantasia, inscricao_estadual
+                        ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
                     """
-                    valores = (usuario, senha, nome_clube, endereco, cnpj, cep, numero, complemento, nome_fantasia, inscricao_estadual, tipo_usuario)
+                    valores = (usuario, senha, nome_clube, endereco, cnpj, numero, complemento, nome_fantasia, inscricao_estadual)
                     cursor.execute(query, valores)
                     conexao.commit()  # Salva as mudanças no banco
                     flash('Clube cadastrado com sucesso!', 'success')
@@ -41,6 +39,7 @@ def cadastro_clube():
         except Error as err:
             # Exibe uma mensagem de erro caso o cadastro falhe
             flash(f'Erro ao cadastrar o clube: {err}', 'danger')
+            print(f"Erro ao cadastrar o clube: {err}")
 
     # Renderiza a página de cadastro de clube
     return render_template('CadClube.html')
