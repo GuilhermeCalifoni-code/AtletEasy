@@ -9,49 +9,35 @@ atleta_bp = Blueprint('atleta', __name__)
 @atleta_bp.route('/cadastro-atleta', methods=['GET', 'POST'])
 def cadastro_atleta():
     if request.method == 'POST':
-        # Capturando dados do formulário
+        # Lógica para capturar e salvar os dados do formulário no banco de dados
         nome = request.form['nomeAtleta']
         sobrenome = request.form['sobrenome']
-        cpf = request.form['cpf']
         data_nascimento = request.form['dataNascimento']
+        cpf = request.form['cpf']
+        usuario = request.form['usuario']
         cep = request.form['cep']
         endereco = request.form['endereco']
         numero = request.form['numeroEndereco']
         complemento = request.form.get('complemento', '')
-        usuario = request.form['usuario']
         senha = request.form['senha']
 
-        # Remove caracteres especiais do CPF (mantém apenas números)
-        cpf_limpo = re.sub(r'\D', '', cpf)
-
         try:
-            conexao = get_db_connection()
-            if conexao:
+            with get_db_connection() as conexao:
                 with conexao.cursor() as cursor:
-                    # Inserindo os dados do atleta no banco de dados
                     query = """
                         INSERT INTO cadatleta (
-                            Nome, Sobrenome, CPF, DataDeNascimento, CEP, 
-                            Endereco, NumeroEndereco, Complemento, Usuario, Senha
+                            Usuario, Senha, Nome, Sobrenome, DataDeNascimento, Endereco, CPF, CEP, NumeroEndereco, Complemento
                         ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                     """
-                    valores = (nome, sobrenome, cpf_limpo, data_nascimento, cep, endereco, numero, complemento, usuario, senha)
+                    valores = (usuario, senha, nome, sobrenome, data_nascimento, endereco, cpf, cep, numero, complemento)
                     cursor.execute(query, valores)
                     conexao.commit()
-                    flash('Cadastro realizado com sucesso! Faça login para continuar.', 'success')
+                    flash('Cadastro de atleta realizado com sucesso!', 'success')
                     return redirect(url_for('login.login'))
-            else:
-                flash('Erro ao conectar com o banco de dados. Tente novamente mais tarde.', 'danger')
         except Error as err:
-            print(f"Erro ao cadastrar o atleta: {err}")  # Log de erro para depuração
-            flash(f'Erro ao cadastrar o atleta: {err}', 'danger')
-        finally:
-            if conexao and conexao.is_connected():
-                conexao.close()
-                print("Conexão com o banco de dados encerrada.")
+            flash(f'Erro ao cadastrar atleta: {err}', 'danger')
 
-    return render_template('cadatleta.html')
-
+    return render_template('cadAtleta.html')
 
 # Rota para a página de pagamento do atleta
 @atleta_bp.route('/paga-atleta')
