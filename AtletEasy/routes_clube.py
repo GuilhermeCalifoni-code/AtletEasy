@@ -70,14 +70,19 @@ def home_clube():
     try:
         with conexao.cursor(dictionary=True) as cursor:
             # Conta o número total de peneiras abertas
-            query_count = "SELECT COUNT(*) as total_abertas FROM peneira WHERE idPeneira = %s AND status = 'Aberto'"
-            cursor.execute(query_count, (session['usuario'],))
+            query_count = "SELECT COUNT(*) as total_abertas FROM peneira WHERE idClube = %s AND status = 'Aberto'"
+            cursor.execute(query_count, (session['usuario_id'],))
             result = cursor.fetchone()
             total_abertas = result['total_abertas'] if result else 0
 
-            # Seleciona as peneiras associadas ao clube
-            query_peneiras = "SELECT * FROM peneira WHERE idPeneira = %s"
-            cursor.execute(query_peneiras, (session['usuario'],))
+            # Seleciona as peneiras associadas ao clube, juntando com `cadclube` para obter o nome
+            query_peneiras = """
+                SELECT p.*, c.NomeClube 
+                FROM peneira p 
+                JOIN cadclube c ON p.idClube = c.idClube 
+                WHERE p.idClube = %s
+            """
+            cursor.execute(query_peneiras, (session['usuario_id'],))
             peneiras = cursor.fetchall()
 
         return render_template('HomeClube.html', peneiras=peneiras, total_abertas=total_abertas)
@@ -89,63 +94,47 @@ def home_clube():
     finally:
         if conexao.is_connected():
             conexao.close()
-
             
 @clube_bp.route('/criar-peneira', methods=['GET', 'POST'])
 def criar_peneira():
     if request.method == 'POST':
-        if 'usuario' not in session:
-            flash('Você precisa estar logado para criar uma peneira.', 'warning')
-            return redirect(url_for('login.login'))
+        # Obtendo dados do formulário
+        id_clube = session.get('usuario_id')  # Usando o ID do clube logado
+        esporte_peneira = request.form.get('esportePeneira')
+        endereco = request.form.get('Endereco')
+        data_inicio = request.form.get('DataInicio')
+        data_final = request.form.get('DataFinal')
+        horario = request.form.get('Horario')
+        quantidade_maxima = request.form.get('QuantidadeMaxima')
+        status = request.form.get('status')
+        estado = request.form.get('Estado')
+        cidade = request.form.get('Cidade')
 
-        # Dados do formulário
-        nome_clube = session['usuario']
-        esporte_peneira = request.form['esportePeneira']
-        local_peneira = request.form['localPeneira']  # Endereço do formulário
-        data_inicio = request.form['dataInicio']
-        horario = request.form['horario']
-        quantidade_maxima = request.form['quantidadeMaxima']
-        status = 'Aberta' if request.form['status'] == '1' else 'Fechada'
-        cep = request.form['cep']
+        # Verificando se o horário está no formato correto
+        if horario:
+            horario = f"{horario}:00"
 
-        # Conversão de data e hora para o formato DATETIME
-        try:
-            data_inicio_formatada = datetime.datetime.strptime(data_inicio, '%Y-%m-%d')
-            horario_formatado = datetime.datetime.strptime(horario, '%H:%M').time()
-        except ValueError as e:
-            flash(f"Erro no formato de data ou hora: {e}", 'danger')
-            return redirect(url_for('clube.criar_peneira'))
-
-        # Verificar que a quantidade máxima é um número inteiro positivo
-        try:
-            quantidade_maxima = int(quantidade_maxima)
-            if quantidade_maxima <= 0:
-                flash("Quantidade máxima deve ser um número positivo.", 'danger')
-                return redirect(url_for('clube.criar_peneira'))
-        except ValueError:
-            flash("Quantidade máxima deve ser um número válido.", 'danger')
-            return redirect(url_for('clube.criar_peneira'))
-
-        # Conexão com o banco de dados para inserir a nova peneira
+        # Inserção no banco de dados
         try:
             with get_db_connection() as conexao:
                 with conexao.cursor() as cursor:
                     query = """
                         INSERT INTO peneira (
-                            NomeClube, esportePeneira, Endereco, DataInicio, Horario, 
-                            QuantidadeMaxima, status, CEP
-                        ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                            idClube, esportePeneira, Endereco, DataInicio, DataFinal, Horario, 
+                            QuantidadeMaxima, status, Estado, Cidade
+                        ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                     """
-                    valores = (nome_clube, esporte_peneira, local_peneira, data_inicio_formatada, horario_formatado, quantidade_maxima, status, cep)
+                    valores = (id_clube, esporte_peneira, endereco, data_inicio, 
+                               data_final, horario, quantidade_maxima, 
+                               status, estado, cidade)
                     cursor.execute(query, valores)
                     conexao.commit()
                     flash('Peneira cadastrada com sucesso!', 'success')
-                    return redirect(url_for('clube.home_clube'))
+                    return redirect(url_for('clube.gerenciar_peneira'))
         except Error as err:
             flash(f'Erro ao cadastrar a peneira: {err}', 'danger')
 
     return render_template('criarPeneira.html')
-
 
 
 # Rota para gerenciar peneiras
@@ -162,11 +151,29 @@ def gerenciar_peneira():
                 query_peneiras = "SELECT * FROM peneira WHERE NomeClube = %s"
                 cursor.execute(query_peneiras, (session['usuario'],))
                 peneiras = cursor.fetchall()
+                
+                # Para cada peneira, buscamos os atletas inscritos
+                for peneira in peneiras:
+                    query_atletas = """
+                    SELECT a.Nome, a.Sobrenome, a.DataDeNascimento, i.Posicao
+                    FROM inscricoes ins
+                    JOIN cadatleta a ON ins.idAtleta = a.idAtleta
+                    LEFT JOIN infoatleta i ON a.idAtleta = i.idAtleta
+                    WHERE ins.idPeneira = %s
+                    """
+                    cursor.execute(query_atletas, (peneira['idPeneira'],))
+                    atletas = cursor.fetchall()
+                    peneira['atletas'] = atletas  # Adiciona a lista de atletas à peneira
 
-                return render_template('gerenciarPeneira.html', peneiras=peneiras)
+        return render_template('gerenciarPeneira.html', peneiras=peneiras)
     except Error as err:
         flash(f'Erro ao recuperar as peneiras: {err}', 'danger')
         return redirect(url_for('clube.home_clube'))
+
+
+
+
+
 
 # Rota para visualizar ficha de jogo de uma peneira
 @clube_bp.route('/ficha-jogo/<int:idPeneira>')
@@ -175,9 +182,10 @@ def ficha_jogo(idPeneira):
         with get_db_connection() as conexao:
             with conexao.cursor(dictionary=True) as cursor:
                 query_peneira = """
-                    SELECT NomeClube, DataInicio, esportePeneira, Local, CEP 
-                    FROM peneira 
-                    WHERE idPeneira = %s
+                    SELECT c.NomeClube, p.DataInicio, p.esportePeneira, p.Endereco, p.Estado, p.Cidade 
+                    FROM peneira p 
+                    JOIN cadclube c ON p.idClube = c.idClube 
+                    WHERE p.idPeneira = %s
                 """
                 cursor.execute(query_peneira, (idPeneira,))
                 peneira = cursor.fetchone()
@@ -199,6 +207,7 @@ def ficha_jogo(idPeneira):
     except Error as err:
         flash(f'Erro ao buscar a ficha de jogo: {err}', 'danger')
         return redirect(url_for('clube.home_clube'))
+
 
 # Rota para visualizar atletas inscritos em uma peneira específica
 @clube_bp.route('/atletas-inscritos/<int:idPeneira>')

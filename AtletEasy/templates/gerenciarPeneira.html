@@ -8,28 +8,17 @@
 </head>
 <body>
   <form method="POST" action="/gerenciar-peneira"> 
-    <!-- Menu Lateral -->
     <div class="menu-lateral">
       <img src="/static/images/logo.png" alt="Logo AtletEasy">
       <ul>
-        <li><a href="{{ url_for('home_clube') }}">Home Atleta</a></li>
-        <li><a href="{{ url_for('criar_peneira') }}">Criar Peneira</a></li>
-        <li><a href="{{ url_for('gerenciar_peneira') }}">Gerenciar Peneiras</a></li>
-        <li><a href="{{ url_for('ficha_jogo', idPeneira=1) }}">Ficha de Jogo</a></li>
+        <li><a href="{{ url_for('clube.home_clube') }}">Home Clube</a></li>
+        <li><a href="{{ url_for('clube.criar_peneira') }}">Criar Peneira</a></li>
+        <li><a href="{{ url_for('clube.gerenciar_peneira') }}">Gerenciar Peneiras</a></li>
       </ul>
-      <!-- Configurações -->
-      <div class="options">
-        <a href="">
-          <img src="" alt=""> 
-        </a>
-      </div>
     </div>
 
-    <!-- Conteúdo Principal -->
     <div class="conteudo">
       <h1>Gerenciar Peneiras</h1>
-
-      <!-- Verifica se há peneiras -->
       {% if peneiras %}
       <table>
         <thead>
@@ -46,20 +35,46 @@
           </tr>
         </thead>
         <tbody>
-          <!-- Itera sobre as peneiras e exibe os dados -->
           {% for peneira in peneiras %}
           <tr>
             <td>{{ peneira.NomeClube }}</td>
             <td>{{ peneira.esportePeneira }}</td>
-            <td>{{ peneira.Local }}</td>
+            <td>{{ peneira.Endereco }}</td>
             <td>{{ peneira.DataInicio.strftime('%d/%m/%Y') }}</td>
             <td>{{ peneira.Horario }}</td>
             <td>{{ peneira.QuantidadeMaxima }}</td>
-            <td>{{ 'Aberta' if peneira.status == 1 else 'Fechada' }}</td>
+            <td>{{ 'Aberta' if peneira.status == 'Aberto' else 'Fechada' }}</td>
             <td>{{ peneira.CEP }}</td>
             <td>
               <a href="/editar-peneira/{{ peneira.idPeneira }}">Editar</a> | 
               <a href="/excluir-peneira/{{ peneira.idPeneira }}" onclick="return confirm('Tem certeza que deseja excluir esta peneira?')">Excluir</a>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="9">
+              <h3>Atletas Inscritos</h3>
+              {% if peneira.atletas %}
+              <table>
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>Posição</th>
+                    <th>Data de Nascimento</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for atleta in peneira.atletas %}
+                  <tr>
+                    <td>{{ atleta.Nome }} {{ atleta.Sobrenome }}</td>
+                    <td>{{ atleta.Posicao }}</td>
+                    <td>{{ atleta.DataDeNascimento }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+              {% else %}
+              <p>Nenhum atleta inscrito nesta peneira.</p>
+              {% endif %}
             </td>
           </tr>
           {% endfor %}
@@ -70,10 +85,9 @@
       {% endif %}
 
       <div class="botoes">
-        <a href="/criar-peneira">Adicionar Nova Peneira</a>
+        <a href="{{ url_for('clube.criar_peneira') }}">Adicionar Nova Peneira</a>
       </div>
     </div>
-
   </form>
 </body>
 </html>

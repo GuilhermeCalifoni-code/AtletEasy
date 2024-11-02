@@ -5,21 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AtletEasy - Criar Peneira</title>
     <link rel="stylesheet" href="/static/css/criarPeneira.css">
-    <script>
-        function verificarQuantidade() {
-            const quantidade = document.getElementById("quantidade");
-            const avisoErro = document.getElementById("avisoErro");
-
-            if (quantidade.value < 10 || quantidade.value > 50) {
-                avisoErro.textContent = "A quantidade deve estar entre 10 e 50 participantes.";
-                avisoErro.style.display = "block";
-                return false; // Evita o envio do formulário
-            } else {
-                avisoErro.style.display = "none";
-                return true;
-            }
-        }
-    </script>
 </head>
 <body>
     <div class="menu-lateral">
@@ -28,61 +13,59 @@
             <li><a href="{{ url_for('clube.home_clube') }}">Home Clube</a></li>
             <li><a href="{{ url_for('clube.criar_peneira') }}">Criar Peneira</a></li>
             <li><a href="{{ url_for('clube.gerenciar_peneira') }}">Gerenciar Peneiras</a></li>
-            <li><a href="{{ url_for('clube.ficha_jogo', idPeneira=1) }}">Ficha de Jogo</a></li>
-            <li><a href="{{ url_for('atleta.confirmar_logout') }}" class="logout">Sair</a></li>
         </ul>
     </div>
 
     <div class="conteudo">
         <h1>Criar Nova Peneira</h1>
-        <form method="POST" action="{{ url_for('clube.criar_peneira') }}" onsubmit="return verificarQuantidade()">
+        <form method="POST" action="{{ url_for('clube.criar_peneira') }}">
             <div class="form-row">
                 <div class="form-group">
                     <label for="esportePeneira">Esporte</label>
                     <input type="text" id="esportePeneira" name="esportePeneira" placeholder="Ex: Futebol, Basquete" required>
                 </div>
                 <div class="form-group">
-                    <label for="localPeneira">Endereço</label>
-                    <input type="text" id="localPeneira" name="localPeneira" placeholder="Endereço" required>
+                    <label for="Endereco">Endereço</label>
+                    <input type="text" id="Endereco" name="Endereco" placeholder="Endereço" required>
                 </div>
                 <div class="form-group">
-                    <label for="estado">Estado</label>
-                    <input type="text" id="estado" name="estado" placeholder="Estado" required>
+                    <label for="Estado">Estado</label>
+                    <input type="text" id="Estado" name="Estado" placeholder="Estado" required>
                 </div>
                 <div class="form-group">
-                    <label for="cidade">Cidade</label>
-                    <input type="text" id="cidade" name="cidade" placeholder="Cidade" required>
+                    <label for="Cidade">Cidade</label>
+                    <input type="text" id="Cidade" name="Cidade" placeholder="Cidade" required>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
-                    <label for="dataInicio">Data de Início</label>
-                    <input type="date" id="dataInicio" name="dataInicio" required>
+                    <label for="DataInicio">Data de Início</label>
+                    <input type="date" id="DataInicio" name="DataInicio" required>
                 </div>
                 <div class="form-group">
-                    <label for="dataFim">Data de Fim</label>
-                    <input type="date" id="dataFim" name="dataFim" required>
+                    <label for="DataFinal">Data de Fim</label>
+                    <input type="date" id="DataFinal" name="DataFinal" required>
                 </div>
                 <div class="form-group">
-                    <label for="horario">Horário</label>
-                    <input type="time" id="horario" name="horario" required>
+                    <label for="Horario">Horário</label>
+                    <input type="time" id="Horario" name="Horario" required>
                 </div>
                 <div class="form-group">
-                    <label for="cep">CEP</label>
-                    <input type="text" id="cep" name="cep" placeholder="00000-000" pattern="\d{5}-\d{3}" required>
+                    <label for="status">Status</label>
+                    <select id="status" name="status" required>
+                        <option value="Aberto">Aberto</option>
+                        <option value="Fechado">Fechado</option>
+                    </select>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
-                    <label for="quantidade">Quantidade de Participantes (mínimo 10, máximo 50)</label>
-                    <input type="number" id="quantidade" name="quantidade" min="10" max="50" required>
+                    <label for="QuantidadeMaxima">Quantidade de Participantes (mínimo 10, máximo 50)</label>
+                    <input type="number" id="QuantidadeMaxima" name="QuantidadeMaxima" min="10" max="50" required>
                 </div>
             </div>
-
-            <!-- Aviso de erro -->
-            <div id="avisoErro" style="color: red; display: none;"></div>
 
             <div class="button-group">
                 <button type="reset">Limpar</button>

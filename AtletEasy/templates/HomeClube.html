@@ -39,7 +39,7 @@
            <table>
                <thead>
                    <tr>
-                       <th>Nome da Peneira</th>
+                       <th>Nome do Clube</th>
                        <th>Esporte</th>
                        <th>Local</th>
                        <th>Ação</th>
@@ -48,11 +48,11 @@
                <tbody>
                    {% for peneira in peneiras %}
                    <tr>
-                       <td>{{ peneira['nome_clube'] }}</td> <!-- Use o nome correto da coluna -->
+                       <td>{{ peneira['NomeClube'] }}</td> <!-- Corrige o nome da coluna -->
                        <td>{{ peneira['esportePeneira'] }}</td>
                        <td>{{ peneira['Endereco'] }}</td>
                        <td>
-                           <a href="{{ url_for('atletas_inscritos', idPeneira=peneira['idPeneira']) }}" class="btn btn-info">Ver Atletas Inscritos</a>
+                           <a href="{{ url_for('clube.gerenciar_peneira') }}" class="btn btn-info">Ver Detalhes</a>
                        </td>
                    </tr>
                    {% endfor %}
