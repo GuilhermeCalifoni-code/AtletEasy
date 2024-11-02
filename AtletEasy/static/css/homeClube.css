@@ -16,50 +16,42 @@ body {
 /* Estilização do menu lateral */
 .menu-lateral {
     width: 250px;
-    background-color: #F4A100; /* Amarelo intenso para destacar a logo preta */
+    background-color: #f4a100;
     height: 100vh;
     padding: 20px;
     position: fixed;
     left: 0;
     top: 0;
-    border-right: 1px solid #D9C407; /* Amarelo médio para a borda */
-    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.05); /* Sombra suave */
+    border-right: 1px solid #ccc;
 }
 
 .menu-lateral img {
-    width: 70%;
-    margin: 0 auto 30px;
-    display: block;
-    background-color: #fff; /* Fundo branco para destacar a logo preta */
-    padding: 10px;
-    border-radius: 50%;
+    width: 100%;
+    margin-bottom: 30px;
 }
 
 .menu-lateral ul {
     list-style-type: none;
-    padding: 0;
 }
 
 .menu-lateral ul li {
-    margin: 20px 0;
+    margin: 15px 0;
 }
 
 .menu-lateral ul li a {
     text-decoration: none;
     font-size: 18px;
-    color: #fff; /* Texto branco para contraste com o fundo amarelo */
+    color: #191919;
     display: block;
-    padding: 12px 15px;
+    padding: 15px 20px;
     transition: all 0.3s ease;
     border-radius: 12px;
-    background-color: transparent;
+    background-color: transparent; /* Fundo transparente como no segundo CSS */
 }
 
 .menu-lateral ul li a:hover {
-    background-color: #EFC136; /* Amarelo claro no hover */
-    color: #191919; /* Preto no hover para contraste */
-    transform: translateX(10px);
-    box-shadow: 2px 4px 10px rgba(239, 193, 54, 0.3); /* Sombra no hover */
+    background-color: #ffffff;
+    color: #000;
 }
 
 /* Estilo do conteúdo principal */

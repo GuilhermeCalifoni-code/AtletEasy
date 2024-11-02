@@ -5,9 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AtletEasy - Criar Peneira</title>
     <link rel="stylesheet" href="/static/css/criarPeneira.css">
+    <script>
+        function verificarQuantidade() {
+            const quantidade = document.getElementById("quantidade");
+            const avisoErro = document.getElementById("avisoErro");
+
+            if (quantidade.value < 10 || quantidade.value > 50) {
+                avisoErro.textContent = "A quantidade deve estar entre 10 e 50 participantes.";
+                avisoErro.style.display = "block";
+                return false; // Evita o envio do formulário
+            } else {
+                avisoErro.style.display = "none";
+                return true;
+            }
+        }
+    </script>
 </head>
 <body>
-    <!-- Menu Lateral -->
     <div class="menu-lateral">
         <img src="/static/images/logo.png" alt="Logo AtletEasy">
         <ul>
@@ -19,11 +33,9 @@
         </ul>
     </div>
 
-    <!-- Formulário de Criação de Peneira -->
     <div class="conteudo">
         <h1>Criar Nova Peneira</h1>
-        <form method="POST" action="{{ url_for('clube.criar_peneira') }}">
-            <!-- Primeira Linha do Formulário -->
+        <form method="POST" action="{{ url_for('clube.criar_peneira') }}" onsubmit="return verificarQuantidade()">
             <div class="form-row">
                 <div class="form-group">
                     <label for="esportePeneira">Esporte</label>
@@ -34,13 +46,24 @@
                     <input type="text" id="localPeneira" name="localPeneira" placeholder="Endereço" required>
                 </div>
                 <div class="form-group">
-                    <label for="dataInicio">Data de Início</label>
-                    <input type="date" id="dataInicio" name="dataInicio" required>
+                    <label for="estado">Estado</label>
+                    <input type="text" id="estado" name="estado" placeholder="Estado" required>
+                </div>
+                <div class="form-group">
+                    <label for="cidade">Cidade</label>
+                    <input type="text" id="cidade" name="cidade" placeholder="Cidade" required>
                 </div>
             </div>
 
-            <!-- Segunda Linha do Formulário -->
             <div class="form-row">
+                <div class="form-group">
+                    <label for="dataInicio">Data de Início</label>
+                    <input type="date" id="dataInicio" name="dataInicio" required>
+                </div>
+                <div class="form-group">
+                    <label for="dataFim">Data de Fim</label>
+                    <input type="date" id="dataFim" name="dataFim" required>
+                </div>
                 <div class="form-group">
                     <label for="horario">Horário</label>
                     <input type="time" id="horario" name="horario" required>
@@ -49,24 +72,18 @@
                     <label for="cep">CEP</label>
                     <input type="text" id="cep" name="cep" placeholder="00000-000" pattern="\d{5}-\d{3}" required>
                 </div>
-                <div class="form-group">
-                    <label for="quantidadeMaxima">Quantidade Máxima</label>
-                    <input type="number" id="quantidadeMaxima" name="quantidadeMaxima" placeholder="Máximo 50" min="1" max="50" required>
-                </div>
             </div>
 
-            <!-- Terceira Linha do Formulário -->
             <div class="form-row">
                 <div class="form-group">
-                    <label for="status">Status</label>
-                    <select id="status" name="status" required>
-                        <option value="1">Aberta</option>
-                        <option value="0">Fechada</option>
-                    </select>
+                    <label for="quantidade">Quantidade de Participantes (mínimo 10, máximo 50)</label>
+                    <input type="number" id="quantidade" name="quantidade" min="10" max="50" required>
                 </div>
             </div>
 
-            <!-- Botões de Ação -->
+            <!-- Aviso de erro -->
+            <div id="avisoErro" style="color: red; display: none;"></div>
+
             <div class="button-group">
                 <button type="reset">Limpar</button>
                 <button type="submit">Cadastrar</button>
