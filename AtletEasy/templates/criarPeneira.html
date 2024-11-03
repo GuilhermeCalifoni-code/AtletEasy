@@ -1,76 +1,58 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AtletEasy - Criar Peneira</title>
+    <title>Criar Peneira</title>
     <link rel="stylesheet" href="/static/css/criarPeneira.css">
 </head>
 <body>
+    <!-- Barra Lateral -->
     <div class="menu-lateral">
         <img src="/static/images/logo.png" alt="Logo AtletEasy">
         <ul>
             <li><a href="{{ url_for('clube.home_clube') }}">Home Clube</a></li>
             <li><a href="{{ url_for('clube.criar_peneira') }}">Criar Peneira</a></li>
             <li><a href="{{ url_for('clube.gerenciar_peneira') }}">Gerenciar Peneiras</a></li>
+            <li><a href="{{ url_for('clube.ficha_jogo', idPeneira=1) }}">Ficha de Jogo</a></li>
         </ul>
     </div>
 
+    <!-- Conteúdo Principal -->
     <div class="conteudo">
-        <h1>Criar Nova Peneira</h1>
+        <h1>Criar Peneira</h1>
         <form method="POST" action="{{ url_for('clube.criar_peneira') }}">
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="esportePeneira">Esporte</label>
-                    <input type="text" id="esportePeneira" name="esportePeneira" placeholder="Ex: Futebol, Basquete" required>
-                </div>
-                <div class="form-group">
-                    <label for="Endereco">Endereço</label>
-                    <input type="text" id="Endereco" name="Endereco" placeholder="Endereço" required>
-                </div>
-                <div class="form-group">
-                    <label for="Estado">Estado</label>
-                    <input type="text" id="Estado" name="Estado" placeholder="Estado" required>
-                </div>
-                <div class="form-group">
-                    <label for="Cidade">Cidade</label>
-                    <input type="text" id="Cidade" name="Cidade" placeholder="Cidade" required>
-                </div>
-            </div>
+            <label for="esportePeneira">Esporte:</label>
+            <input type="text" name="esportePeneira" required><br>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="DataInicio">Data de Início</label>
-                    <input type="date" id="DataInicio" name="DataInicio" required>
-                </div>
-                <div class="form-group">
-                    <label for="DataFinal">Data de Fim</label>
-                    <input type="date" id="DataFinal" name="DataFinal" required>
-                </div>
-                <div class="form-group">
-                    <label for="Horario">Horário</label>
-                    <input type="time" id="Horario" name="Horario" required>
-                </div>
-                <div class="form-group">
-                    <label for="status">Status</label>
-                    <select id="status" name="status" required>
-                        <option value="Aberto">Aberto</option>
-                        <option value="Fechado">Fechado</option>
-                    </select>
-                </div>
-            </div>
+            <label for="Endereco">Endereço:</label>
+            <input type="text" name="Endereco" required><br>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="QuantidadeMaxima">Quantidade de Participantes (mínimo 10, máximo 50)</label>
-                    <input type="number" id="QuantidadeMaxima" name="QuantidadeMaxima" min="10" max="50" required>
-                </div>
-            </div>
+            <label for="DataInicio">Data de Início:</label>
+            <input type="date" name="DataInicio" required><br>
 
-            <div class="button-group">
-                <button type="reset">Limpar</button>
-                <button type="submit">Cadastrar</button>
-            </div>
+            <label for="DataFinal">Data Final:</label>
+            <input type="date" name="DataFinal" required><br>
+
+            <label for="Horario">Horário:</label>
+            <input type="time" name="Horario" required><br>
+
+            <label for="QuantidadeMaxima">Quantidade Máxima:</label>
+            <input type="number" name="QuantidadeMaxima" min="10" max="50" required><br>
+
+            <label for="status">Status:</label>
+            <select name="status" required>
+                <option value="Aberto">Aberto</option>
+                <option value="Fechado">Fechado</option>
+            </select><br>
+
+            <label for="Estado">Estado:</label>
+            <input type="text" name="Estado" required><br>
+
+            <label for="Cidade">Cidade:</label>
+            <input type="text" name="Cidade" required><br>
+
+            <button type="submit">Criar Peneira</button>
         </form>
     </div>
 </body>

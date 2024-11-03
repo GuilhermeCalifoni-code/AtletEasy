@@ -3,61 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planos Clubes</title>
-    <link rel="stylesheet" href="/static/css/pgclube.css">
+    <title>Pagamento do Clube - AtletEasy</title>
+    <link rel="stylesheet" href="/static/css/pagamentoClube.css">
 </head>
 <body>
-    <section class="products">
-        <h2>Planos Clubes</h2>
-        <div class="planos-container">
-            <div class="plano" id="plano-gratis">
-                <h3>Gratis</h3>
-                <p class="preco">R$00,00/mês</p>
-                <ul>
-                    <li>Acesso Limitado</li>
-                    <li>Suporte 24h</li>
-                    <li>Cancelamento a qualquer momento</li>
-                </ul>
-            </div>
-            <div class="plano" id="plano-mensal">
-                <h3>Mensal</h3>
-                <p class="preco">R$150,00/mês</p>
-                <ul>
-                    <li>Acesso ilimitado ao software</li>
-                    <li>Suporte 24h</li>
-                    <li>Cancelamento a qualquer momento</li>
-                </ul>
-                <button>Assinar</button>
-            </div>
-            <div class="plano trimestral">
-                <span class="selo">Mais Comprado!!!</span>
-                <h3>Trimestral</h3>
-                <p class="preco">R$400,00/trimestral</p>
-                <ul>
-                    <li>Acesso ilimitado ao software</li>
-                    <li>20% De Desconto</li>
-                    <li>Suporte 24h</li>
-                    <li>Cancelamento a qualquer momento</li>
-                </ul>
-                <button>Assinar</button>
-            </div>
-            <div class="plano" id="plano-anual">
-                <h3>Anual</h3>
-                <p class="preco">R$1200,00/ano</p>
-                <ul>
-                    <li>Acesso ilimitado ao software</li>
-                    <li>30% De Desconto</li>
-                    <li>Suporte 24h</li>
-                    <li>Cancelamento a qualquer momento</li>
-                </ul>
-                <button>Assinar</button>
-            </div>
-        </div>
-        <div class="continue-button">
-            <button onclick="window.location.href='/homeclube'">Continuar</button>
-        </div>
-
-
-    </section>
+    <div class="menu-lateral">
+        <img src="/static/images/logo.png" alt="Logo AtletEasy">
+        <ul>
+            <li><a href="{{ url_for('clube.home_clube') }}">Home Clube</a></li>
+            <li><a href="{{ url_for('clube.criar_peneira') }}">Criar Peneira</a></li>
+            <li><a href="{{ url_for('clube.gerenciar_peneira') }}">Gerenciar Peneiras</a></li>
+            <li><a href="{{ url_for('clube.confirmar_logout') }}" class="logout">Sair</a></li>
+        </ul>
+    </div>
+    <div class="conteudo">
+        <h1>Pagamento do Clube</h1>
+        <form action="{{ url_for('clube.paga_clube') }}" method="POST">
+            <label for="nomePlano">Plano de Pagamento</label>
+            <select name="nomePlano" id="nomePlano" required>
+                <option value="Mensal">Mensal</option>
+                <option value="Anual">Anual</option>
+            </select>
+            <button type="submit">Realizar Pagamento</button>
+        </form>
+    </div>
 </body>
 </html>

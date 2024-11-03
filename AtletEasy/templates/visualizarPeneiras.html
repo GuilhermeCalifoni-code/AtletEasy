@@ -6,8 +6,8 @@
     <title>Visualizar Peneiras</title>
     <link rel="stylesheet" href="/static/css/verPeneira.css">
 </head>
-
 <body>
+    <!-- Barra Lateral -->
     <div class="menu-lateral">
         <div class="logo">
           <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo Atletas" style="width: 100%; margin-bottom: 20px;">
@@ -20,12 +20,11 @@
             <li><a href="{{ url_for('atleta.paga_atleta') }}">Pagamento</a></li>
           </ul>
         </nav>
-      </div>
-
+    </div>
+    
+    <!-- Conteúdo Principal -->
     <div class="conteudo">
         <h1>Visualizar Peneiras</h1>
-        
-        <!-- Verifica se há peneiras -->
         {% if peneiras %}
         <table>
             <thead>
@@ -37,11 +36,9 @@
                     <th>Horário</th>
                     <th>Quantidade Máxima</th>
                     <th>Status</th>
-                    <th>CEP</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- Itera sobre as peneiras e exibe os dados -->
                 {% for peneira in peneiras %}
                 <tr>
                     <td>{{ peneira.NomeClube }}</td>
@@ -50,8 +47,7 @@
                     <td>{{ peneira.DataInicio.strftime('%d/%m/%Y') }}</td>
                     <td>{{ peneira.Horario }}</td>
                     <td>{{ peneira.QuantidadeMaxima }}</td>
-                    <td>{{ 'Aberta' if peneira.status == 1 else 'Fechada' }}</td>
-                    <td>{{ peneira.CEP }}</td>
+                    <td>{{ 'Aberta' if peneira.status == 'Aberto' else 'Fechada' }}</td>
                 </tr>
                 {% endfor %}
             </tbody>

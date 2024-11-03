@@ -7,8 +7,7 @@
     <link rel="stylesheet" href="/static/css/fichaJogo.css">
 </head>
 <body>
-
-    <!-- Menu Lateral -->
+    <!-- Barra Lateral -->
     <div class="menu-lateral">
         <img src="/static/images/logo_atleteasy.png" alt="Logo AtletEasy">
         <ul>
@@ -22,8 +21,6 @@
     <!-- Conteúdo Principal -->
     <div class="conteudo">
         <h1>Ficha de Jogo</h1>
-
-        <!-- Detalhes do Jogo -->
         <div class="detalhes-jogo">
             <p><strong>Nome da Peneira:</strong> {{ peneira.NomeClube }}</p>
             <p><strong>Data:</strong> {{ peneira.DataInicio.strftime('%d/%m/%Y') }}</p>
@@ -35,7 +32,6 @@
         <!-- Avaliações dos Atletas -->
         <div class="avaliacoes">
             <h2>Avaliações dos Atletas</h2>
-
             <table>
                 <thead>
                     <tr>
@@ -62,10 +58,8 @@
                     {% endfor %}
                 </tbody>
             </table>
-
             <button class="avaliar-btn">Salvar Avaliações</button>
         </div>
     </div>
-
 </body>
 </html>

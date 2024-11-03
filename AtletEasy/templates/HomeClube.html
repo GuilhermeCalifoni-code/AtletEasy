@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/static/css/homeClube.css">
 </head>
 <body>
-   <!-- Menu Lateral -->
+   <!-- Barra Lateral -->
    <div class="menu-lateral">
        <img src="/static/images/logo.png" alt="Logo AtletEasy">
        <ul>
@@ -18,7 +18,7 @@
            <li><a href="{{ url_for('atleta.confirmar_logout') }}" class="logout">Sair</a></li>
        </ul>
    </div>
-
+   
    <!-- Conteúdo Principal -->
    <div class="conteudo">
        <h1>Bem-vindo ao AtletEasy!</h1>
@@ -30,11 +30,9 @@
                <a href="{{ url_for('clube.gerenciar_peneira') }}" class="botao">Ver Peneiras</a>
            </div>
        </div>
-       
-       <!-- Listagem de Peneiras Criadas pelo Clube -->
+
        <div class="lista-peneiras">
            <h2>Suas Peneiras</h2>
-
            {% if peneiras %}
            <table>
                <thead>
@@ -48,7 +46,7 @@
                <tbody>
                    {% for peneira in peneiras %}
                    <tr>
-                       <td>{{ peneira['NomeClube'] }}</td> <!-- Corrige o nome da coluna -->
+                       <td>{{ peneira['NomeClube'] }}</td>
                        <td>{{ peneira['esportePeneira'] }}</td>
                        <td>{{ peneira['Endereco'] }}</td>
                        <td>
