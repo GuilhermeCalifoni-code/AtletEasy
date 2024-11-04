@@ -74,23 +74,6 @@ def editar_peneira(idPeneira):
     
     return render_template('editarPeneira.html', peneira=peneira)
 
-#AVALIAR ATLETA
-@clube_bp.route('/avaliar-atleta/<int:idPeneira>', methods=['POST'])
-def avaliar_atleta(idPeneira):
-    id_atleta = request.form.get('idAtleta')
-    status_avaliacao = request.form.get('statusAvaliacao')  # Aprovado ou Reprovado
-    
-    try:
-        with get_db_connection() as conexao:
-            with conexao.cursor() as cursor:
-                cursor.execute("UPDATE infoatleta SET status_avaliacao = %s WHERE idAtleta = %s AND idPeneira = %s",
-                               (status_avaliacao, id_atleta, idPeneira))
-                conexao.commit()
-                flash(f'Avaliação do atleta {status_avaliacao} com sucesso!', 'success')
-    except Error as err:
-        flash(f'Erro ao avaliar o atleta: {err}', 'danger')
-    return redirect(url_for('clube.ficha_jogo', idPeneira=idPeneira))
-
 #CADASTRO CLUBE
 @clube_bp.route('/cadastro-clube', methods=['GET', 'POST'])
 def cadastro_clube():
@@ -130,6 +113,57 @@ def cadastro_clube():
 
     # Renderiza a página de cadastro de clube
     return render_template('CadClube.html')
+
+@clube_bp.route('/ficha-jogo/<int:idPeneira>')
+def ficha_jogo(idPeneira):
+    if 'usuario_id' not in session or session.get('tipo_usuario') != 'clube':
+        flash('Você precisa estar logado como clube para acessar esta página.', 'warning')
+        return redirect(url_for('login.login'))
+
+    try:
+        with get_db_connection() as conexao:
+            with conexao.cursor(dictionary=True) as cursor:
+                # Buscar informações da peneira
+                cursor.execute("SELECT * FROM peneira WHERE idPeneira = %s", (idPeneira,))
+                peneira = cursor.fetchone()
+
+                # Buscar atletas inscritos na peneira
+                query_atletas = """
+                SELECT a.idAtleta, a.Nome, a.Sobrenome, i.Posicao, i.NumeroCamisa, i.status_avaliacao
+                FROM inscricoes ins
+                JOIN cadatleta a ON ins.idAtleta = a.idAtleta
+                LEFT JOIN infoatleta i ON a.idAtleta = i.idAtleta
+                WHERE ins.idPeneira = %s
+                """
+                cursor.execute(query_atletas, (idPeneira,))
+                atletas = cursor.fetchall()
+
+        return render_template('fichajogo.html', peneira=peneira, atletas=atletas)
+    except Error as err:
+        flash(f'Erro ao carregar os dados da ficha de jogo: {err}', 'danger')
+        return redirect(url_for('clube.gerenciar_peneira'))
+    
+#AVALIAR ATLETA
+@clube_bp.route('/avaliar-atleta/<int:idPeneira>', methods=['POST'])
+def avaliar_atleta(idPeneira):
+    try:
+        with get_db_connection() as conexao:
+            with conexao.cursor() as cursor:
+                for key, value in request.form.items():
+                    if key.startswith("statusAvaliacao_"):
+                        id_atleta = int(key.split("_")[1])
+                        status_avaliacao = value
+
+                        cursor.execute(
+                            "UPDATE infoatleta SET status_avaliacao = %s WHERE idAtleta = %s AND idPeneira = %s",
+                            (status_avaliacao, id_atleta, idPeneira)
+                        )
+                conexao.commit()
+                flash('Avaliações salvas com sucesso!', 'success')
+    except Error as err:
+        flash(f'Erro ao salvar as avaliações: {err}', 'danger')
+    return redirect(url_for('clube.ficha_jogo', idPeneira=idPeneira))
+
 
 # Página de pagamento para clube
 @clube_bp.route('/paga-clube')
@@ -227,55 +261,6 @@ def gerenciar_peneira():
         return redirect(url_for('clube.home_clube'))
 
 # Rota para visualizar ficha de jogo de uma peneira
-@clube_bp.route('/ficha-jogo/<int:idPeneira>', methods=['GET', 'POST'])
-def ficha_jogo(idPeneira):
-    if request.method == 'POST':
-        # Processa a avaliação dos atletas
-        try:
-            with get_db_connection() as conexao:
-                with conexao.cursor() as cursor:
-                    for key, value in request.form.items():
-                        if key.startswith('statusAvaliacao_'):
-                            id_atleta = key.split('_')[1]
-                            status_avaliacao = value
-                            cursor.execute("""
-                                UPDATE infoatleta SET status_avaliacao = %s WHERE idAtleta = %s
-                            """, (status_avaliacao, id_atleta))
-                    conexao.commit()
-                    flash('Avaliações salvas com sucesso!', 'success')
-        except Error as err:
-            flash(f'Erro ao salvar as avaliações: {err}', 'danger')
-        return redirect(url_for('clube.ficha_jogo', idPeneira=idPeneira))
-
-    # Método GET: renderiza a página
-    try:
-        with get_db_connection() as conexao:
-            with conexao.cursor(dictionary=True) as cursor:
-                # Substitua este comentário pelo código que busca os dados de peneira e atletas
-                cursor.execute("""
-                    SELECT c.NomeClube, p.DataInicio, p.esportePeneira, p.Endereco, p.Estado, p.Cidade 
-                    FROM peneira p 
-                    JOIN cadclube c ON p.idClube = c.idClube 
-                    WHERE p.idPeneira = %s
-                """, (idPeneira,))
-                peneira = cursor.fetchone()
-
-                if not peneira:
-                    flash('Peneira não encontrada.', 'danger')
-                    return redirect(url_for('clube.home_clube'))
-
-                cursor.execute("""
-                    SELECT a.idAtleta, a.Nome, a.Sobrenome, i.NumeroCamisa, i.Posicao, i.status_avaliacao
-                    FROM cadatleta a
-                    JOIN infoatleta i ON a.idAtleta = i.idAtleta
-                    WHERE i.idPeneira = %s
-                """, (idPeneira,))
-                atletas = cursor.fetchall()
-
-        return render_template('fichaJogo.html', peneira=peneira, atletas=atletas)
-    except Error as err:
-        flash(f'Erro ao buscar a ficha de jogo: {err}', 'danger')
-        return redirect(url_for('clube.home_clube'))
 
 # Rota para visualizar atletas inscritos em uma peneira específica
 @clube_bp.route('/atletas-inscritos/<int:idPeneira>')

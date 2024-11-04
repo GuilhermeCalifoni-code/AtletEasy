@@ -14,7 +14,6 @@
            <li><a href="{{ url_for('clube.home_clube') }}">Home Clube</a></li>
            <li><a href="{{ url_for('clube.criar_peneira') }}">Criar Peneira</a></li>
            <li><a href="{{ url_for('clube.gerenciar_peneira') }}">Gerenciar Peneiras</a></li>
-           <li><a href="{{ url_for('clube.ficha_jogo', idPeneira=1) }}">Ficha de Jogo</a></li>
            <li><a href="{{ url_for('atleta.confirmar_logout') }}" class="logout">Sair</a></li>
        </ul>
    </div>
@@ -50,6 +49,7 @@
                        <td>{{ peneira['esportePeneira'] }}</td>
                        <td>{{ peneira['Endereco'] }}</td>
                        <td>
+                           <a href="{{ url_for('clube.ficha_jogo', idPeneira=peneira['idPeneira']) }}" class="btn btn-info">Ficha de Jogo</a>
                            <a href="{{ url_for('clube.gerenciar_peneira') }}" class="btn btn-info">Ver Detalhes</a>
                        </td>
                    </tr>
