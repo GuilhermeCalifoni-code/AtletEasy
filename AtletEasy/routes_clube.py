@@ -129,10 +129,9 @@ def ficha_jogo(idPeneira):
 
                 # Buscar atletas inscritos na peneira
                 query_atletas = """
-                SELECT a.idAtleta, a.Nome, a.Sobrenome, i.Posicao, i.NumeroCamisa, i.status_avaliacao
+                SELECT a.idAtleta, a.Nome, a.Sobrenome, ins.status_avaliacao
                 FROM inscricoes ins
                 JOIN cadatleta a ON ins.idAtleta = a.idAtleta
-                LEFT JOIN infoatleta i ON a.idAtleta = i.idAtleta
                 WHERE ins.idPeneira = %s
                 """
                 cursor.execute(query_atletas, (idPeneira,))
