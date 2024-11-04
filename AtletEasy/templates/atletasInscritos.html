@@ -7,14 +7,17 @@
     <link rel="stylesheet" href="/static/css/atletasInscritos.css">
 </head>
 <body>
-    <div class="menu-lateral">
-        <img src="/static/images/logo.png" alt="Logo AtletEasy">
-        <ul>
-            <li><a href="{{ url_for('clube.home_clube') }}">Home Clube</a></li>
-            <li><a href="{{ url_for('clube.gerenciar_peneira') }}">Gerenciar Peneiras</a></li>
-            <li><a href="{{ url_for('clube.confirmar_logout') }}" class="logout">Sair</a></li>
-        </ul>
-    </div>
+    <!-- Barra Lateral -->
+   <div class="menu-lateral">
+    <img src="/static/images/logo.png" alt="Logo AtletEasy">
+    <ul>
+        <li><a href="{{ url_for('clube.home_clube') }}">Home Clube</a></li>
+        <li><a href="{{ url_for('clube.criar_peneira') }}">Criar Peneira</a></li>
+        <li><a href="{{ url_for('clube.gerenciar_peneira') }}">Gerenciar Peneiras</a></li>
+        <li><a href="{{ url_for('clube.ficha_jogo', idPeneira=1) }}">Ficha de Jogo</a></li>
+        <li><a href="{{ url_for('atleta.confirmar_logout') }}" class="logout">Sair</a></li>
+    </ul>
+</div>
     <div class="conteudo">
         <h1>Atletas Inscritos na Peneira</h1>
         {% if atletas %}

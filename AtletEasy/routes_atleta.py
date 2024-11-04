@@ -165,57 +165,95 @@ def editar_perfil():
         flash(f'Erro ao carregar o perfil para edição: {err}', 'danger')
         return redirect(url_for('atleta.perfil_atleta'))
 
-
-
-
-# Rota para inscrição do atleta em uma peneira
-@atleta_bp.route('/inscrever-peneira', methods=['POST'])
-def inscrever_peneira():
+#INCREVER-SE NA PENEIRA
+@atleta_bp.route('/inscrever-peneira/<int:idPeneira>', methods=['POST'])
+def inscrever_peneira(idPeneira):
     if 'usuario_id' not in session:
         flash('Você precisa estar logado para se inscrever em uma peneira.', 'warning')
         return redirect(url_for('login.login'))
 
-    idPeneira = request.form.get('idPeneira')
+    try:
+        with get_db_connection() as conexao:
+            with conexao.cursor() as cursor:
+                query = "INSERT INTO inscricoes (idAtleta, idPeneira) VALUES (%s, %s)"
+                cursor.execute(query, (session['usuario_id'], idPeneira))
+                conexao.commit()
+                flash('Inscrição realizada com sucesso!', 'success')
+    except Error as err:
+        flash(f'Erro ao realizar a inscrição: {err}', 'danger')
+    return redirect(url_for('atleta.visualizar_peneiras'))
 
-    if not idPeneira:
-        flash('Nenhuma peneira selecionada.', 'warning')
-        return redirect(url_for('atleta.visualizar_peneiras'))
+#SAIR DA PENEIRA
+@atleta_bp.route('/sair-peneira/<int:idPeneira>', methods=['POST'])
+def sair_peneira(idPeneira):
+    if 'usuario_id' not in session:
+        flash('Você precisa estar logado para sair de uma peneira.', 'warning')
+        return redirect(url_for('login.login'))
 
     try:
         with get_db_connection() as conexao:
             with conexao.cursor() as cursor:
-                query = """
-                INSERT INTO inscricoes (idAtleta, idPeneira)
-                VALUES (%s, %s)
-                """
-                cursor.execute(query, (session['usuario_id'], idPeneira))
+                cursor.execute("DELETE FROM inscricoes WHERE idAtleta = %s AND idPeneira = %s",
+                               (session['usuario_id'], idPeneira))
                 conexao.commit()
-
-        flash('Inscrição realizada com sucesso!', 'success')
-        return redirect(url_for('atleta.visualizar_peneiras'))
+                flash('Inscrição cancelada com sucesso!', 'success')
     except Error as err:
-        flash(f'Erro ao realizar a inscrição: {err}', 'danger')
-        return redirect(url_for('atleta.visualizar_peneiras'))
+        flash(f'Erro ao cancelar a inscrição: {err}', 'danger')
+    return redirect(url_for('atleta.visualizar_peneiras'))
+
+#RESULTADO DA PENEIRA
+@atleta_bp.route('/resultado-peneira')
+def resultado_peneira():
+    if 'usuario_id' not in session:
+        flash('Você precisa estar logado para ver o resultado das peneiras.', 'warning')
+        return redirect(url_for('login.login'))
+
+    try:
+        with get_db_connection() as conexao:
+            with conexao.cursor(dictionary=True) as cursor:
+                query = """
+                SELECT p.esportePeneira, p.DataInicio, a.status_avaliacao
+                FROM inscricoes i
+                JOIN peneira p ON i.idPeneira = p.idPeneira
+                LEFT JOIN infoatleta a ON i.idAtleta = a.idAtleta
+                WHERE i.idAtleta = %s
+                """
+                cursor.execute(query, (session['usuario_id'],))
+                resultados = cursor.fetchall()
+                if not resultados:
+                    flash('Você ainda não foi avaliado em nenhuma peneira.', 'info')
+                return render_template('resultadoPeneira.html', resultados=resultados)
+    except Error as err:
+        flash(f'Erro ao carregar os resultados: {err}', 'danger')
+        return redirect(url_for('atleta.home_atleta'))
 
 # Rota para visualizar as peneiras disponíveis para inscrição
 @atleta_bp.route('/visualizar-peneiras')
 def visualizar_peneiras():
+    if 'usuario_id' not in session:
+        flash('Você precisa estar logado para ver as peneiras.', 'warning')
+        return redirect(url_for('login.login'))
+
     try:
         with get_db_connection() as conexao:
             with conexao.cursor(dictionary=True) as cursor:
-                query = "SELECT * FROM peneira"
-                cursor.execute(query)
+                cursor.execute("""
+                    SELECT p.*, c.NomeClube,
+                    EXISTS(
+                        SELECT 1 FROM inscricoes i WHERE i.idPeneira = p.idPeneira AND i.idAtleta = %s
+                    ) as inscrito
+                    FROM peneira p
+                    JOIN cadclube c ON p.idClube = c.idClube
+                    WHERE p.status = 'Aberto'
+                """, (session['usuario_id'],))
                 peneiras = cursor.fetchall()
 
-                if not peneiras:
-                    flash('Nenhuma peneira cadastrada.', 'info')
-                    return redirect(url_for('atleta.home_atleta'))
-
-                return render_template('visualizarPeneiras.html', peneiras=peneiras)
+        return render_template('visualizarPeneiras.html', peneiras=peneiras)
     except Error as err:
         flash(f'Erro ao recuperar as peneiras: {err}', 'danger')
         return redirect(url_for('atleta.home_atleta'))
-    
+
+#CONFIRMAR PRA SAIR    
 @atleta_bp.route('/confirmar-logout')
 def confirmar_logout():
     # Renderiza uma página de confirmação de logout

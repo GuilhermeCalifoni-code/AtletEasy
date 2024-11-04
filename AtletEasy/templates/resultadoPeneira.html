@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resultado das Peneiras</title>
+  <link rel="stylesheet" href="/static/css/resultadoPeneira.css">
+</head>
+<body>
+  <!-- Barra Lateral -->
+  <div class="menu-lateral">
+    <div class="logo">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo Atletas" style="width: 100%; margin-bottom: 20px;">
+    </div>
+    <nav>
+      <ul>
+        <li><a href="{{ url_for('atleta.home_atleta') }}">Home Atleta</a></li>
+        <li><a href="{{ url_for('atleta.visualizar_peneiras') }}">Suas Peneiras</a></li>
+        <li><a href="{{ url_for('atleta.resultado_peneira') }}">Resultados</a></li>
+        <li><a href="{{ url_for('atleta.perfil_atleta') }}">Perfil</a></li>
+        <li><a href="{{ url_for('atleta.paga_atleta') }}">Pagamento</a></li>
+        <li><a href="{{ url_for('atleta.confirmar_logout') }}" class="logout">Sair</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Conteúdo Principal -->
+  <div class="conteudo">
+    <h1>Resultados das Peneiras</h1>
+    {% if resultados %}
+    <table>
+      <thead>
+        <tr>
+          <th>Esporte</th>
+          <th>Data</th>
+          <th>Resultado</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for resultado in resultados %}
+        <tr>
+          <td>{{ resultado.esportePeneira }}</td>
+          <td>{{ resultado.DataInicio.strftime('%d/%m/%Y') }}</td>
+          <td>{{ resultado.status_avaliacao or 'Não Avaliado' }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p>Você ainda não participou de nenhuma peneira.</p>
+    {% endif %}
+  </div>
+</body>
+</html>

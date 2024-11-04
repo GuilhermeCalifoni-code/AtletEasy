@@ -1,0 +1,148 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilização do corpo */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e0e0e0;
+    color: #333;
+    margin-left: 270px;
+    padding: 30px;
+}
+
+/* Estilo do menu lateral */
+.menu-lateral {
+    width: 250px;
+    background-color: #f4a100;
+    height: 100vh;
+    padding: 20px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    border-right: 1px solid #ccc;
+}
+
+.menu-lateral img {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.menu-lateral ul {
+    list-style-type: none;
+}
+
+.menu-lateral ul li {
+    margin: 15px 0;
+}
+
+.menu-lateral ul li a {
+    text-decoration: none;
+    font-size: 18px;
+    color: #191919;
+    display: block;
+    padding: 15px 20px;
+    transition: all 0.3s ease;
+    border-radius: 12px;
+    background-color: transparent;
+}
+
+.menu-lateral ul li a:hover,
+.menu-lateral ul li a:focus,
+.menu-lateral ul li a:active {
+    background-color: #ffffff;
+    color: #000;
+}
+
+/* Conteúdo da página */
+h1 {
+    font-size: 28px;
+    color: #f4a100;
+    margin-bottom: 20px;
+}
+
+/* Estilo do formulário */
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+}
+
+form label {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+    display: block;
+}
+
+form input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+
+form button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #f4a100;
+    border: none;
+    color: #000;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button[type="submit"]:hover {
+    background-color: #d9c407;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    body {
+        margin-left: 0;
+        padding: 20px;
+    }
+
+    .menu-lateral {
+        width: 100%;
+        height: auto;
+        border-right: none;
+    }
+
+    .menu-lateral ul li {
+        text-align: center;
+    }
+
+    .menu-lateral ul li a {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 576px) {
+    h1 {
+        font-size: 24px;
+    }
+
+    form label {
+        font-size: 16px;
+    }
+
+    form input[type="text"] {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    form button[type="submit"] {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+}

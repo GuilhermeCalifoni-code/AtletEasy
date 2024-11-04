@@ -1,60 +1,71 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visualizar Peneiras</title>
-    <link rel="stylesheet" href="/static/css/verPeneira.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visualizar Peneiras</title>
+  <link rel="stylesheet" href="/static/css/verPeneira.css">
 </head>
 <body>
-    <!-- Barra Lateral -->
-    <div class="menu-lateral">
-        <div class="logo">
-          <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo Atletas" style="width: 100%; margin-bottom: 20px;">
-        </div>
-        <nav>
-          <ul>
-            <li><a href="{{ url_for('atleta.home_atleta') }}">Home Atleta</a></li>
-            <li><a href="{{ url_for('atleta.visualizar_peneiras') }}">Suas Peneiras</a></li>
-            <li><a href="{{ url_for('atleta.perfil_atleta') }}">Perfil</a></li>
-            <li><a href="{{ url_for('atleta.paga_atleta') }}">Pagamento</a></li>
-          </ul>
-        </nav>
+  <!-- Barra Lateral -->
+  <div class="menu-lateral">
+    <div class="logo">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo Atletas" style="width: 100%; margin-bottom: 20px;">
     </div>
-    
-    <!-- Conteúdo Principal -->
-    <div class="conteudo">
-        <h1>Visualizar Peneiras</h1>
-        {% if peneiras %}
-        <table>
-            <thead>
-                <tr>
-                    <th>Nome do Clube</th>
-                    <th>Esporte</th>
-                    <th>Local</th>
-                    <th>Data Início</th>
-                    <th>Horário</th>
-                    <th>Quantidade Máxima</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for peneira in peneiras %}
-                <tr>
-                    <td>{{ peneira.NomeClube }}</td>
-                    <td>{{ peneira.esportePeneira }}</td>
-                    <td>{{ peneira.Local }}</td>
-                    <td>{{ peneira.DataInicio.strftime('%d/%m/%Y') }}</td>
-                    <td>{{ peneira.Horario }}</td>
-                    <td>{{ peneira.QuantidadeMaxima }}</td>
-                    <td>{{ 'Aberta' if peneira.status == 'Aberto' else 'Fechada' }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        {% else %}
-        <p>Nenhuma peneira cadastrada.</p>
-        {% endif %}
-    </div>
+    <nav>
+      <ul>
+        <li><a href="{{ url_for('atleta.home_atleta') }}">Home Atleta</a></li>
+        <li><a href="{{ url_for('atleta.visualizar_peneiras') }}">Suas Peneiras</a></li>
+        <li><a href="{{ url_for('atleta.perfil_atleta') }}">Perfil</a></li>
+        <li><a href="{{ url_for('atleta.paga_atleta') }}">Pagamento</a></li>
+        <li><a href="{{ url_for('atleta.confirmar_logout') }}" class="logout">Sair</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Conteúdo Principal -->
+  <div class="conteudo">
+    <h1>Visualizar Peneiras</h1>
+    {% if peneiras %}
+    <table>
+      <thead>
+        <tr>
+          <th>Nome do Clube</th>
+          <th>Esporte</th>
+          <th>Local</th>
+          <th>Data Início</th>
+          <th>Horário</th>
+          <th>Status</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for peneira in peneiras %}
+        <tr>
+          <td>{{ peneira.NomeClube }}</td>
+          <td>{{ peneira.esportePeneira }}</td>
+          <td>{{ peneira.Endereco }}</td>
+          <td>{{ peneira.DataInicio.strftime('%d/%m/%Y') }}</td>
+          <td>{{ peneira.Horario }}</td>
+          <td>{{ 'Aberta' if peneira.status == 'Aberto' else 'Fechada' }}</td>
+          <td>
+            {% if peneira.inscrito %}
+              <form action="{{ url_for('atleta.sair_peneira', idPeneira=peneira.idPeneira) }}" method="post">
+                <button type="submit">Sair da Peneira</button>
+              </form>
+            {% else %}
+              <form action="{{ url_for('atleta.inscrever_peneira', idPeneira=peneira.idPeneira) }}" method="post">
+                <button type="submit">Inscrever-se</button>
+              </form>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p>Nenhuma peneira cadastrada.</p>
+    {% endif %}
+  </div>
 </body>
 </html>

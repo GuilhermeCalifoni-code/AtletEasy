@@ -1,65 +1,67 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ficha de Jogo - AtletEasy</title>
-    <link rel="stylesheet" href="/static/css/fichaJogo.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ficha de Jogo - AtletEasy</title>
+  <link rel="stylesheet" href="/static/css/fichaJogo.css">
 </head>
 <body>
-    <!-- Barra Lateral -->
-    <div class="menu-lateral">
-        <img src="/static/images/logo_atleteasy.png" alt="Logo AtletEasy">
-        <ul>
-            <li><a href="{{ url_for('home_clube') }}">Home</a></li>
-            <li><a href="{{ url_for('criar-peneira') }}">Criar Peneira</a></li>
-            <li><a href="{{ url_for('gerenciar-peneira') }}">Gerenciar Peneira</a></li>
-            <li><a href="{{ url_for('clube.ficha_jogo', idPeneira=1) }}">Ficha de Jogo</a></li>
-        </ul>
+  <!-- Barra Lateral -->
+  <div class="menu-lateral">
+    <img src="/static/images/logo.png" alt="Logo AtletEasy">
+    <ul>
+      <li><a href="{{ url_for('clube.home_clube') }}">Home Clube</a></li>
+      <li><a href="{{ url_for('clube.criar_peneira') }}">Criar Peneira</a></li>
+      <li><a href="{{ url_for('clube.gerenciar_peneira') }}">Gerenciar Peneiras</a></li>
+      <li><a href="{{ url_for('clube.ficha_jogo', idPeneira=1) }}">Ficha de Jogo</a></li>
+      <li><a href="{{ url_for('clube.confirmar_logout') }}" class="logout">Sair</a></li>
+    </ul>
+  </div>
+
+  <!-- Conteúdo Principal -->
+  <div class="conteudo">
+    <h1>Ficha de Jogo</h1>
+    <div class="detalhes-jogo">
+      <p><strong>Nome do Clube:</strong> {{ peneira.NomeClube }}</p>
+      <p><strong>Data:</strong> {{ peneira.DataInicio.strftime('%d/%m/%Y') }}</p>
+      <p><strong>Esporte:</strong> {{ peneira.esportePeneira }}</p>
+      <p><strong>Endereço:</strong> {{ peneira.Endereco }}</p>
+      <p><strong>Cidade/Estado:</strong> {{ peneira.Cidade }}/{{ peneira.Estado }}</p>
     </div>
 
-    <!-- Conteúdo Principal -->
-    <div class="conteudo">
-        <h1>Ficha de Jogo</h1>
-        <div class="detalhes-jogo">
-            <p><strong>Nome da Peneira:</strong> {{ peneira.NomeClube }}</p>
-            <p><strong>Data:</strong> {{ peneira.DataInicio.strftime('%d/%m/%Y') }}</p>
-            <p><strong>Esporte:</strong> {{ peneira.esportePeneira }}</p>
-            <p><strong>Endereço:</strong> {{ peneira.Local }}</p>
-            <p><strong>CEP:</strong> {{ peneira.CEP }}</p>
-        </div>
-
-        <!-- Avaliações dos Atletas -->
-        <div class="avaliacoes">
-            <h2>Avaliações dos Atletas</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nome do Atleta</th>
-                        <th>Posição</th>
-                        <th>Número da Camisa</th>
-                        <th>Avaliação</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for atleta in atletas %}
-                    <tr>
-                        <td>{{ atleta.Nome }} {{ atleta.Sobrenome }}</td>
-                        <td>{{ atleta.Posicao }}</td>
-                        <td>{{ atleta.NumeroCamisa }}</td>
-                        <td>
-                            <div class="estrelas">
-                                {% for i in range(atleta.atletaAvaliacao) %}
-                                <div class="estrela"></div>
-                                {% endfor %}
-                            </div>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <button class="avaliar-btn">Salvar Avaliações</button>
-        </div>
+    <!-- Avaliações dos Atletas -->
+    <div class="avaliacoes">
+      <h2>Avaliações dos Atletas</h2>
+      <form method="POST" action="{{ url_for('clube.avaliar_atleta', idPeneira=peneira.idPeneira) }}">
+        <table>
+          <thead>
+            <tr>
+              <th>Nome do Atleta</th>
+              <th>Posição</th>
+              <th>Número da Camisa</th>
+              <th>Avaliação</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for atleta in atletas %}
+            <tr>
+              <td>{{ atleta.Nome }} {{ atleta.Sobrenome }}</td>
+              <td>{{ atleta.Posicao }}</td>
+              <td>{{ atleta.NumeroCamisa }}</td>
+              <td>
+                <select name="statusAvaliacao_{{ atleta.idAtleta }}">
+                  <option value="Aprovado" {% if atleta.status_avaliacao == 'Aprovado' %}selected{% endif %}>Aprovado</option>
+                  <option value="Reprovado" {% if atleta.status_avaliacao == 'Reprovado' %}selected{% endif %}>Reprovado</option>
+                </select>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <button type="submit" class="avaliar-btn">Salvar Avaliações</button>
+      </form>
     </div>
+  </div>
 </body>
 </html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Peneira</title>
+    <link rel="stylesheet" href="/static/css/editarPeneira.css">
+</head>
+<body>
+    <!-- Barra Lateral -->
+    <div class="menu-lateral">
+        <img src="/static/images/logo.png" alt="Logo AtletEasy">
+        <ul>
+            <li><a href="{{ url_for('clube.home_clube') }}">Home Clube</a></li>
+            <li><a href="{{ url_for('clube.criar_peneira') }}">Criar Peneira</a></li>
+            <li><a href="{{ url_for('clube.gerenciar_peneira') }}">Gerenciar Peneiras</a></li>
+            <li><a href="{{ url_for('clube.ficha_jogo', idPeneira=1) }}">Ficha de Jogo</a></li>
+            <li><a href="{{ url_for('clube.confirmar_logout') }}" class="logout">Sair</a></li>
+        </ul>
+    </div>
+
+    <h1>Editar Peneira</h1>
+    <form method="POST" action="{{ url_for('clube.editar_peneira', idPeneira=peneira.idPeneira) }}">
+        <label for="esportePeneira">Esporte:</label>
+        <select name="esportePeneira" required>
+            <option value="Futebol" {% if peneira.esportePeneira == 'Futebol' %}selected{% endif %}>Futebol</option>
+            <option value="Volei" {% if peneira.esportePeneira == 'Volei' %}selected{% endif %}>Volei</option>
+            <option value="Basquete" {% if peneira.esportePeneira == 'Basquete' %}selected{% endif %}>Basquete</option>
+            <option value="Handebol" {% if peneira.esportePeneira == 'Handebol' %}selected{% endif %}>Handebol</option>
+        </select><br><br>
+
+        <label for="Endereco">Endereço:</label>
+        <input type="text" name="Endereco" value="{{ peneira.Endereco }}" required><br>
+
+        <label for="DataInicio">Data de Início:</label>
+        <input type="date" name="DataInicio" value="{{ peneira.DataInicio.strftime('%Y-%m-%d') }}" required><br><br>
+
+        <label for="DataFinal">Data Final:</label>
+        <input type="date" name="DataFinal" value="{{ peneira.DataFinal.strftime('%Y-%m-%d') }}" required><br><br>
+
+        <label for="Horario">Horário:</label>
+        <input type="time" name="Horario" value="{{ '{:02}:{:02}'.format(peneira.Horario.seconds // 3600, (peneira.Horario.seconds // 60) % 60) }}" required><br><br>
+
+        <label for="QuantidadeMaxima">Quantidade Máxima:</label>
+        <input type="number" name="QuantidadeMaxima" min="10" max="50" value="{{ peneira.QuantidadeMaxima }}" required><br><br>
+
+        <label for="status">Status:</label>
+        <select name="status" required>
+            <option value="Aberto" {% if peneira.status == 'Aberto' %}selected{% endif %}>Aberto</option>
+            <option value="Fechado" {% if peneira.status == 'Fechado' %}selected{% endif %}>Fechado</option>
+        </select><br><br>
+
+        <label for="Estado">Estado:</label>
+        <input type="text" name="Estado" value="{{ peneira.Estado }}" required><br>
+
+        <label for="Cidade">Cidade:</label>
+        <input type="text" name="Cidade" value="{{ peneira.Cidade }}" required><br>
+        
+        <button type="submit">Salvar Alterações</button>
+    </form>
+</body>
+</html>
