@@ -5,58 +5,99 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Confirmar Logout</title>
     <style>
-        /* Estilo para centralizar a mensagem */
-        .central-message {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            border: 2px solid #f4a100;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
+        /* Estilo para o fundo */
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: rgba(0, 0, 0, 0.5);
+            font-family: 'Poppins', sans-serif;
         }
+
+        /* Container centralizado para a mensagem */
+        .central-message {
+            background-color: #ffffff;
+            border: 2px solid #f4a100;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 350px;
+            animation: fadeIn 0.4s ease;
+        }
+
+        /* Mensagem de texto */
         .central-message p {
             margin-bottom: 20px;
             font-size: 1.2em;
             color: #333;
+            font-weight: 500;
         }
+
+        /* Container de botões */
+        .buttons-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        /* Estilos para botões */
         .confirm-button, .cancel-button {
             margin: 5px;
-            padding: 10px 20px;
+            padding: 12px 25px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             font-size: 1em;
             cursor: pointer;
-            transition: background-color 0.3s;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
         }
+
+        /* Botão Confirmar */
         .confirm-button {
             background-color: #f4a100;
             color: white;
             text-decoration: none;
         }
-        .cancel-button {
-            background-color: #ccc;
-            color: #333;
-            text-decoration: none;
-        }
+
         .confirm-button:hover {
             background-color: #e59400;
+            transform: translateY(-2px);
         }
+
+        /* Botão Cancelar */
+        .cancel-button {
+            background-color: #e0e0e0;
+            color: #333;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         .cancel-button:hover {
-            background-color: #bbb;
+            background-color: #ccc;
+            transform: translateY(-2px);
+        }
+
+        /* Animação de entrada */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
         }
     </style>
 </head>
 <body>
     <div class="central-message">
         <p>Tem certeza de que deseja sair?</p>
-        <form action="{{ url_for('clube.logout') }}" method="post">
-            <button type="submit" class="confirm-button">Sim</button>
-        </form>
-        <a href="{{ url_for('clube.home_clube') }}" class="cancel-button">Cancelar</a>
+        <div class="buttons-container">
+            <form action="{{ url_for('clube.logout') }}" method="post">
+                <button type="submit" class="confirm-button">Sim</button>
+            </form>
+            <a href="{{ url_for('clube.home_clube') }}" class="cancel-button">Cancelar</a>
+        </div>
     </div>
 </body>
 </html>

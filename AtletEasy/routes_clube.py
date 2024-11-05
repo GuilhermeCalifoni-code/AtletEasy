@@ -307,10 +307,12 @@ def atletas_inscritos(idPeneira):
         flash(f'Erro ao recuperar os atletas inscritos: {err}', 'danger')
         return redirect(url_for('clube.home_clube'))
     
+# Rota para confirmar o logout do clube
 @clube_bp.route('/confirmar-logout')
 def confirmar_logout():
     return render_template('confirmar_logout_clube.html')
 
+# Rota para logout do clube
 @clube_bp.route('/logout', methods=['POST'])
 def logout():
     session.pop('usuario_id', None)

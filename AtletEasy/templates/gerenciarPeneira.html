@@ -5,17 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gerenciamento de Peneiras - AtletEasy</title>
   <link rel="stylesheet" href="/static/css/gerenciarpeneira.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
   <!-- Barra Lateral -->
   <div class="menu-lateral">
     <img src="/static/images/logo.png" alt="Logo AtletEasy">
     <ul>
-      <li><a href="{{ url_for('clube.home_clube') }}">Home Clube</a></li>
-      <li><a href="{{ url_for('clube.criar_peneira') }}">Criar Peneira</a></li>
-      <li><a href="{{ url_for('clube.gerenciar_peneira') }}">Gerenciar Peneiras</a></li>
-      <li><a href="{{ url_for('clube.ficha_jogo', idPeneira=1) }}">Ficha de Jogo</a></li>
-      <li><a href="{{ url_for('clube.confirmar_logout') }}" class="logout">Sair</a></li>
+      <li><a href="{{ url_for('clube.home_clube') }}"><i class="fas fa-home"></i> Home Clube</a></li>
+      <li><a href="{{ url_for('clube.criar_peneira') }}"><i class="fas fa-plus-circle"></i> Criar Peneira</a></li>
+      <li><a href="{{ url_for('clube.gerenciar_peneira') }}"><i class="fas fa-tasks"></i> Gerenciar Peneiras</a></li>
+      <li><a href="{{ url_for('clube.paga_clube') }}"><i class="fas fa-credit-card"></i> Pagamento</a></li>
+      <li><a href="{{ url_for('clube.confirmar_logout') }}" class="logout"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
     </ul>
   </div>
 
@@ -45,14 +46,18 @@
           <td>{{ peneira.QuantidadeMaxima }}</td>
           <td>{{ 'Aberta' if peneira.status == 'Aberto' else 'Fechada' }}</td>
           <td>
-            <a href="{{ url_for('clube.editar_peneira', idPeneira=peneira.idPeneira) }}">Editar</a> |
-            <form action="{{ url_for('clube.excluir_peneira', idPeneira=peneira.idPeneira) }}" method="post" style="display:inline;">
-              <button type="submit" onclick="return confirm('Tem certeza que deseja excluir esta peneira?')">Excluir</button>
-            </form> |
-            <form action="{{ url_for('clube.encerrar_iniciar_peneira', idPeneira=peneira.idPeneira) }}" method="post" style="display:inline;">
-              <input type="hidden" name="status" value="{{ peneira.status }}">
-              <button type="submit">{{ 'Encerrar' if peneira.status == 'Aberto' else 'Iniciar' }}</button>
-            </form>
+            <div class="action-buttons">
+              <a href="{{ url_for('clube.editar_peneira', idPeneira=peneira.idPeneira) }}" class="edit-link">Editar</a>
+              
+              <form action="{{ url_for('clube.excluir_peneira', idPeneira=peneira.idPeneira) }}" method="post" class="inline-form">
+                <button type="submit" class="delete-btn" onclick="return confirm('Tem certeza que deseja excluir esta peneira?')">Excluir</button>
+              </form>
+              
+              <form action="{{ url_for('clube.encerrar_iniciar_peneira', idPeneira=peneira.idPeneira) }}" method="post" class="inline-form">
+                <input type="hidden" name="status" value="{{ peneira.status }}">
+                <button type="submit" class="toggle-btn">{{ 'Encerrar' if peneira.status == 'Aberto' else 'Iniciar' }}</button>
+              </form>
+            </div>            
           </td>
         </tr>
         {% endfor %}

@@ -3,17 +3,17 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif; /* Fonte clean e moderna */
+    font-family: 'Poppins', sans-serif;
 }
 
 body {
-    background-color: #f4f4f4; /* Fundo neutro e claro */
+    background-color: #f4f4f4;
     color: #333;
     line-height: 1.6;
     overflow-x: hidden;
 }
 
-/* Estilização do menu lateral */
+/* Menu Lateral */
 .menu-lateral {
     width: 250px;
     background-color: #f4a100;
@@ -22,7 +22,8 @@ body {
     position: fixed;
     left: 0;
     top: 0;
-    border-right: 1px solid #ccc;
+    border-right: 1px solid #d9c407;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .menu-lateral img {
@@ -42,16 +43,21 @@ body {
     text-decoration: none;
     font-size: 18px;
     color: #191919;
-    display: block;
+    display: flex;
+    align-items: center;
     padding: 15px 20px;
     transition: all 0.3s ease;
     border-radius: 12px;
-    background-color: transparent; /* Fundo transparente como no segundo CSS */
+}
+
+.menu-lateral ul li a i {
+    margin-right: 10px; /* Espaço entre ícone e o texto */
 }
 
 .menu-lateral ul li a:hover {
     background-color: #ffffff;
     color: #000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* Estilo do conteúdo principal */
@@ -65,16 +71,16 @@ body {
 
 /* Título principal */
 h1 {
-    color: #F4A100; /* Amarelo intenso */
+    color: #F4A100;
     font-size: 36px;
     margin-bottom: 30px;
     letter-spacing: 1.2px;
-    border-left: 6px solid #EFC136; /* Amarelo claro para destaque */
+    border-left: 6px solid #EFC136;
     padding-left: 15px;
     text-transform: uppercase;
 }
 
-/* Cards da Home */
+/* Cards */
 .cards {
     display: flex;
     gap: 25px;
@@ -110,33 +116,32 @@ h1 {
 
 .card p {
     font-size: 18px;
-    color: #717171; /* Cinza médio para o texto */
+    color: #717171;
     margin-bottom: 20px;
 }
 
 .botao {
     padding: 12px 25px;
-    background-color: #EFC136; /* Amarelo claro para os botões */
+    background-color: #EFC136;
     border: none;
-    color: #191919; /* Preto para o texto */
+    color: #191919;
     font-weight: bold;
     border-radius: 30px;
     cursor: pointer;
     margin-top: 20px;
-    display: inline-block;
     text-decoration: none;
     transition: background-color 0.3s ease, transform 0.3s ease;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .botao:hover {
-    background-color: #D9C407; /* Amarelo médio no hover */
+    background-color: #D9C407;
     transform: translateY(-5px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* Destaques dos atletas */
-.destaques {
+.lista-peneiras {
     background-color: #fff;
     padding: 30px;
     border-radius: 15px;
@@ -144,7 +149,7 @@ h1 {
     margin-bottom: 40px;
 }
 
-.destaques h2 {
+.lista-peneiras h2 {
     color: #333;
     margin-bottom: 20px;
     font-size: 26px;
@@ -153,46 +158,63 @@ h1 {
     text-transform: uppercase;
 }
 
-.destaque-item {
-    display: flex;
-    justify-content: space-between;
+/* Estilo da tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
     padding: 15px;
-    border-bottom: 1px solid #eee;
-    transition: background-color 0.3s ease;
-}
-
-.destaque-item:last-child {
-    border-bottom: none;
-}
-
-.destaque-item:hover {
-    background-color: #fafafa;
-}
-
-.destaque-item p {
-    margin: 0;
+    text-align: left;
     font-size: 16px;
-    color: #717171;
 }
 
-.destaque-item span {
+th {
+    background-color: #F4A100;
+    color: #000;
     font-weight: bold;
-    color: #333;
-    font-size: 16px;
+}
+
+td a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+td a:hover {
+    color: #0056b3;
+}
+
+td {
+    background-color: #f9f9f9;
+}
+
+/* Botão de Sair */
+.logout {
+    color: #C70039;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+    text-align: center;
+    transition: color 0.3s ease;
+    margin-top: 20px;
+}
+
+.logout:hover {
+    color: #8B0000;
 }
 
 /* Responsividade */
-@media (max-width: 1024px) {
-    .cards {
-        flex-wrap: wrap;
-        gap: 15px;
-    }
-
-    .card {
-        width: 45%;
-    }
-}
-
 @media (max-width: 768px) {
     .conteudo {
         margin-left: 0;
@@ -202,7 +224,6 @@ h1 {
     .menu-lateral {
         width: 100%;
         height: auto;
-        position: relative;
         box-shadow: none;
         padding-bottom: 10px;
     }
@@ -233,68 +254,4 @@ h1 {
         padding-left: 0;
         padding-bottom: 10px;
     }
-      /* Destaques dos atletas */
-  .destaques {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-    margin-bottom: 40px;
-  }
-  
-  .destaques h2 {
-    color: #333;
-    margin-bottom: 20px;
-    font-size: 26px;
-    border-bottom: 2px solid #F4A100;
-    padding-bottom: 10px;
-    text-transform: uppercase;
-  }
-  
-  .destaque-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 15px;
-    border-bottom: 1px solid #eee;
-    transition: background-color 0.3s ease;
-  }
-  
-  .destaque-item:last-child {
-    border-bottom: none;
-  }
-  
-  .destaque-item:hover {
-    background-color: #fafafa;
-  }
-  
-  .destaque-item p {
-    margin: 0;
-    font-size: 16px;
-    color: #717171;
-  }
-  
-  .destaque-item span {
-    font-weight: bold;
-    color: #333;
-    font-size: 16px;
-  }
-
-/* Estilo para o botão de Sair */
-.logout {
-    color: red;
-    font-weight: bold;
-    text-decoration: none;
-    padding: 10px;
-    display: block;
-    text-align: center;
-    margin-top: 20px;
-    transition: color 0.3s ease;
-}
-
-.logout:hover {
-    color: darkred;
-}
-
-
-
 }

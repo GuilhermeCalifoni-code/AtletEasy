@@ -5,55 +5,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Criar Peneira</title>
     <link rel="stylesheet" href="/static/css/criarPeneira.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <!-- Barra Lateral -->
-   <div class="menu-lateral">
-    <img src="/static/images/logo.png" alt="Logo AtletEasy">
-    <ul>
-        <li><a href="{{ url_for('clube.home_clube') }}">Home Clube</a></li>
-        <li><a href="{{ url_for('clube.criar_peneira') }}">Criar Peneira</a></li>
-        <li><a href="{{ url_for('clube.gerenciar_peneira') }}">Gerenciar Peneiras</a></li>
-        <li><a href="{{ url_for('clube.ficha_jogo', idPeneira=1) }}">Ficha de Jogo</a></li>
-        <li><a href="{{ url_for('atleta.confirmar_logout') }}" class="logout">Sair</a></li>
-    </ul>
-</div>
+    <!-- Menu Lateral -->
+    <div class="menu-lateral">
+        <img src="/static/images/logo.png" alt="Logo AtletEasy" class="logo">
+        <ul>
+            <li><a href="{{ url_for('clube.home_clube') }}"><i class="fas fa-home"></i> Home Clube</a></li>
+            <li><a href="{{ url_for('clube.criar_peneira') }}"><i class="fas fa-plus-circle"></i> Criar Peneira</a></li>
+            <li><a href="{{ url_for('clube.gerenciar_peneira') }}"><i class="fas fa-tasks"></i> Gerenciar Peneiras</a></li>
+            <li><a href="{{ url_for('clube.paga_clube') }}"><i class="fas fa-credit-card"></i> Pagamento</a></li>
+            <li><a href="{{ url_for('clube.confirmar_logout') }}" class="logout"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+        </ul>
+    </div>
 
     <!-- Conteúdo Principal -->
     <div class="conteudo">
         <h1>Criar Peneira</h1>
         <form method="POST" action="{{ url_for('clube.criar_peneira') }}">
-            <label for="esportePeneira">Esporte:</label>
-            <input type="text" name="esportePeneira" required><br>
+            <div class="form-group">
+                <label for="esportePeneira">Esporte:</label>
+                <select id="esportePeneira" name="esportePeneira" required>
+                    <option value="Futebol">Futebol</option>
+                    <option value="Volei">Volei</option>
+                    <option value="Basquete">Basquete</option>
+                    <option value="Handebol">Handebol</option>
+                </select>
+            </div>
 
-            <label for="Endereco">Endereço:</label>
-            <input type="text" name="Endereco" required><br>
+            <div class="form-group">
+                <label for="Endereco">Endereço:</label>
+                <input type="text" id="Endereco" name="Endereco" placeholder="Endereço Completo" required>
+            </div>
 
-            <label for="DataInicio">Data de Início:</label>
-            <input type="date" name="DataInicio" required><br>
+            <div class="form-group">
+                <label for="DataInicio">Data de Início:</label>
+                <input type="date" id="DataInicio" name="DataInicio" required>
+            </div>
 
-            <label for="DataFinal">Data Final:</label>
-            <input type="date" name="DataFinal" required><br>
+            <div class="form-group">
+                <label for="DataFinal">Data Final:</label>
+                <input type="date" id="DataFinal" name="DataFinal" required>
+            </div>
 
-            <label for="Horario">Horário:</label>
-            <input type="time" name="Horario" required><br>
+            <div class="form-group">
+                <label for="Horario">Horário:</label>
+                <input type="time" id="Horario" name="Horario" required>
+            </div>
 
-            <label for="QuantidadeMaxima">Quantidade Máxima:</label>
-            <input type="number" name="QuantidadeMaxima" min="10" max="50" required><br>
+            <div class="form-group">
+                <label for="QuantidadeMaxima">Quantidade Máxima:</label>
+                <input type="number" id="QuantidadeMaxima" name="QuantidadeMaxima" min="10" max="50" required>
+            </div>
 
-            <label for="status">Status:</label>
-            <select name="status" required>
-                <option value="Aberto">Aberto</option>
-                <option value="Fechado">Fechado</option>
-            </select><br>
+            <div class="form-group">
+                <label for="status">Status:</label>
+                <select id="status" name="status" required>
+                    <option value="Aberto">Aberto</option>
+                    <option value="Fechado">Fechado</option>
+                </select>
+            </div>
 
-            <label for="Estado">Estado:</label>
-            <input type="text" name="Estado" required><br>
+            <div class="form-group">
+                <label for="Estado">Estado:</label>
+                <input type="text" id="Estado" name="Estado" placeholder="Estado" required>
+            </div>
 
-            <label for="Cidade">Cidade:</label>
-            <input type="text" name="Cidade" required><br>
+            <div class="form-group">
+                <label for="Cidade">Cidade:</label>
+                <input type="text" id="Cidade" name="Cidade" placeholder="Cidade" required>
+            </div>
 
-            <button type="submit">Criar Peneira</button>
+            <button type="submit" class="btn-criar">Criar Peneira</button>
         </form>
     </div>
 </body>

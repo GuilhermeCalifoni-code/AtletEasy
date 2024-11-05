@@ -3,20 +3,16 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-/* Estilos gerais */
-body {
     font-family: 'Poppins', sans-serif;
-    background-color: #f2f2f2;
-    color: #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
 }
 
-/* Estilização do menu lateral */
+body {
+    background-color: #f4f4f4;
+    color: #333;
+    overflow-x: hidden;
+}
+
+/* Menu Lateral */
 .menu-lateral {
     width: 250px;
     background-color: #f4a100;
@@ -25,12 +21,16 @@ body {
     position: fixed;
     left: 0;
     top: 0;
-    border-right: 1px solid #ccc;
+    border-right: 1px solid #d9c407;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.menu-lateral img {
-    width: 100%;
+.menu-lateral .logo {
+    width: 80%;
     margin-bottom: 30px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .menu-lateral ul {
@@ -38,184 +38,145 @@ body {
 }
 
 .menu-lateral ul li {
-    margin: 15px 0;
+    margin: 20px 0;
 }
 
 .menu-lateral ul li a {
     text-decoration: none;
     font-size: 18px;
     color: #191919;
-    display: block;
     padding: 15px 20px;
-    transition: all 0.3s ease;
-    border-radius: 12px;
-    background-color: transparent; /* Fundo transparente como no segundo CSS */
+    border-radius: 8px;
+    display: block;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .menu-lateral ul li a:hover {
     background-color: #ffffff;
     color: #000;
+    transform: translateX(10px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.container {
-    display: flex;
-    width: 90%;
-    max-width: 1200px;
-    height: 600px;
-    border-radius: 15px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-}
-
-/* Barra lateral */
-.sidebar {
-    width: 250px;
-    background-color: #1d1d1d;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    padding: 30px 20px;
-    position: relative;
-}
-
-.logo {
-    width: 150px;
-    margin: 0 auto 30px;
-    display: block;
-}
-
-nav ul {
-    list-style: none;
-}
-
-nav ul li {
-    margin: 20px 0;
-}
-
-nav ul li a {
-    color: #fff;
-    font-size: 18px;
-    text-decoration: none;
+.logout {
+    color: #c70039;
+    font-weight: bold;
     transition: color 0.3s ease;
 }
 
-nav ul li a:hover {
-    color: #ffa500;
+.logout:hover {
+    color: #8b0000;
 }
 
-.options {
-    margin-top: auto;
-    text-align: center;
-}
-
-.options a {
-    color: #ffa500;
-    text-decoration: none;
-    font-size: 18px;
-}
-
-.options a:hover {
-    color: #fff;
-}
-
-/* Área do formulário */
-.form-container {
-    flex: 1;
-    background-color: white;
+/* Conteúdo Principal */
+.conteudo {
+    margin-left: 270px;
     padding: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin-top: 40px;
+    width: calc(100% - 310px);
 }
 
+h1 {
+    font-size: 32px;
+    color: #f4a100;
+    margin-bottom: 20px;
+    border-left: 5px solid #d9c407;
+    padding-left: 15px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Formulário */
 form {
-    width: 100%;
-    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 30px;
     background-color: #fff;
-    border-radius: 15px;
-    padding: 40px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .form-group {
-    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 14px;
-    color: #666;
-}
-
-input[type="text"] {
-    width: 100%;
-    padding: 12px 15px;
-    font-size: 16px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    transition: border-color 0.3s ease;
-}
-
-input[type="text"]:focus {
-    border-color: #ffa500;
-    outline: none;
-}
-
-.button-group {
-    display: flex;
-    justify-content: space-between;
-}
-
-button {
-    width: 48%;
-    padding: 12px;
-    font-size: 16px;
-    color: white;
-    background-color: #ffa500;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #e69500;
-}
-
-button:focus {
-    outline: none;
-}
-
-/* Estilo do botão de reset */
-button[type="reset"] {
-    background-color: #e0e0e0;
+    font-weight: bold;
     color: #333;
 }
 
-button[type="reset"]:hover {
-    background-color: #c9c9c9;
+input[type="text"],
+input[type="date"],
+input[type="time"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Responsividade */
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-        height: auto;
-    }
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+input[type="number"]:focus,
+select:focus {
+    border-color: #f4a100;
+    box-shadow: 0 0 5px rgba(244, 161, 0, 0.2);
+    outline: none;
+}
 
-    .sidebar {
+/* Botão */
+.btn-criar {
+    padding: 12px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #f4a100;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn-criar:hover {
+    background-color: #d98f00;
+    transform: translateY(-3px);
+}
+
+@media (max-width: 768px) {
+    .menu-lateral {
         width: 100%;
         height: auto;
-        text-align: center;
+        padding: 10px;
     }
 
-    .form-container {
+    .conteudo {
+        margin-left: 0;
+        width: 100%;
         padding: 20px;
     }
 
+    h1 {
+        text-align: center;
+        border-left: none;
+        border-bottom: 2px solid #d9c407;
+        padding-left: 0;
+        padding-bottom: 10px;
+    }
+
     form {
-        padding: 20px;
-}
+        padding: 20px;
+    }
 }

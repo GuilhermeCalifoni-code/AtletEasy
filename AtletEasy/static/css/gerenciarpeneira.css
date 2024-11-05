@@ -7,12 +7,12 @@
 
 /* Estilização do corpo */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     background-color: #e0e0e0;
     color: #333;
 }
 
-/* Estilo do menu lateral */
+/* Menu Lateral */
 .menu-lateral {
     width: 250px;
     background-color: #f4a100;
@@ -21,42 +21,52 @@ body {
     position: fixed;
     left: 0;
     top: 0;
-    border-right: 1px solid #ccc;
+    border-right: 1px solid #d9c407;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .menu-lateral img {
-    width: 100%;
+    width: 80%;
     margin-bottom: 30px;
 }
 
 .menu-lateral ul {
     list-style-type: none;
+    width: 100%;
+    padding: 0;
 }
 
 .menu-lateral ul li {
     margin: 15px 0;
+    width: 100%;
 }
 
 .menu-lateral ul li a {
     text-decoration: none;
     font-size: 18px;
     color: #191919;
-    /* Texto branco para contraste com o fundo amarelo */
-    display: block;
+    display: flex;
+    align-items: center;
     padding: 15px 20px;
     transition: all 0.3s ease;
     border-radius: 12px;
-    background-color: transparent;
 }
 
-.menu-lateral ul li a:hover,
-.menu-lateral ul li a:focus,
-.menu-lateral ul li a:active {
+.menu-lateral ul li a i {
+    margin-right: 10px; /* Espaço entre o ícone e o texto */
+    font-size: 1.2em;
+}
+
+.menu-lateral ul li a:hover {
     background-color: #ffffff;
     color: #000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Área de conteúdo principal */
+/* Área de Conteúdo Principal */
 .conteudo {
     margin-left: 270px;
     padding: 30px;
@@ -67,14 +77,16 @@ body {
     margin-top: 30px;
 }
 
-/* Título da página */
 .conteudo h1 {
     font-size: 28px;
     color: #f4a100;
     margin-bottom: 20px;
+    border-left: 4px solid #f4a100;
+    padding-left: 10px;
+    font-weight: bold;
 }
 
-/* Estilização da tabela */
+/* Estilização da Tabela */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -100,6 +112,11 @@ th {
     font-weight: bold;
 }
 
+td {
+    background-color: #f9f9f9;
+}
+
+/* Estilo de Link na Tabela */
 td a {
     text-decoration: none;
     color: #007bff;
@@ -111,11 +128,59 @@ td a:hover {
     color: #0056b3;
 }
 
-td {
-    background-color: #f9f9f9;
+/* Botões de Ação */
+.action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Espaçamento entre os itens */
 }
 
-/* Botões de ação */
+.action-buttons a,
+.action-buttons button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.action-buttons .edit-link {
+    color: #007bff;
+    background-color: transparent;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+.action-buttons .edit-link:hover {
+    color: #0056b3;
+}
+
+.action-buttons .delete-btn {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+.action-buttons .delete-btn:hover {
+    background-color: #c0392b;
+}
+
+.action-buttons .toggle-btn {
+    background-color: #f4a100;
+    color: #000;
+}
+
+.action-buttons .toggle-btn:hover {
+    background-color: #d9c407;
+}
+
+.inline-form {
+    display: inline; /* Para garantir alinhamento horizontal */
+    margin: 0; /* Remove margens padrão */
+}
+
+/* Botão de Adicionar Nova Peneira */
 .botoes {
     display: flex;
     justify-content: flex-end;
@@ -125,11 +190,10 @@ td {
 .botoes a {
     padding: 10px 20px;
     background-color: #f4a100;
-    border: none;
-    text-decoration: none;
     color: #000;
     font-weight: bold;
-    border-radius: 5px;
+    border-radius: 8px;
+    text-decoration: none;
     transition: background-color 0.3s ease;
 }
 
@@ -157,6 +221,7 @@ td {
 
     .menu-lateral ul li a {
         font-size: 16px;
+        padding: 10px;
     }
 }
 

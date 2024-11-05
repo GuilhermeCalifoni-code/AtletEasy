@@ -7,46 +7,47 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #F4A100; /* Fundo simplificado com cor sólida */
+    background-color: #f2f2f2; /* Fundo ligeiramente cinza */
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    color: #fff;
+    color: #333; /* Preto suave */
 }
 
 /* Container principal */
 .container {
-    background-color: #ffffff; /* Cor de fundo branca para o container */
+    background-color: #ffffff;
     border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra mais leve */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); /* Sombra suave e profunda */
     padding: 40px;
     width: 600px;
     max-width: 90%;
     text-align: center;
-    color: #191919; /* Cor do texto escura para contraste */
+    color: #333;
 }
 
 /* Logo no topo */
 .logo {
-    margin-bottom: 20px; /* Espaço entre a logo e o título */
+    margin-bottom: 20px;
 }
 
 .logo img {
-    max-width: 100px; /* Tamanho da logo ajustado */
+    max-width: 100px;
     display: block;
     margin: 0 auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra leve no logo */
 }
 
 /* Título */
 h1 {
     font-size: 2.2rem;
     font-weight: 600;
-    color: #F4A100; /* Mantemos um toque de cor no título */
-    text-align: center;
+    color: #F4A100;
     letter-spacing: 1px;
     text-transform: uppercase;
     margin-bottom: 20px;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil no texto */
 }
 
 /* Formulário */
@@ -65,7 +66,7 @@ label {
     display: block;
     margin-bottom: 8px;
     font-weight: 600;
-    color: #333; /* Cor do texto mais discreta */
+    color: #555;
     font-size: 0.9rem;
 }
 
@@ -78,12 +79,14 @@ input {
     background-color: #f8f9fa;
     font-size: 1rem;
     color: #333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* Sombra suave nos campos */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 input:focus {
-    border-color: #F4A100; /* Sutil destaque ao focar */
+    border-color: #F4A100;
     outline: none;
-    box-shadow: 0 0 5px rgba(244, 161, 0, 0.2);
+    box-shadow: 0 4px 10px rgba(244, 161, 0, 0.3); /* Sombra laranja no foco */
 }
 
 /* Botões */
@@ -104,22 +107,26 @@ button {
     font-weight: bold;
     text-transform: uppercase;
     color: #fff;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Sombra moderada nos botões */
 }
 
 .btn-limpar {
-    background-color: #717171; /* Botão cinza mais neutro */
+    background-color: #717171;
 }
 
 .btn-limpar:hover {
-    background-color: #5a5a5a; /* Hover discreto */
+    background-color: #5a5a5a;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); /* Sombra mais intensa no hover */
 }
 
 .btn-cadastrar {
-    background-color: #F4A100; /* Botão principal em laranja */
+    background-color: #F4A100;
 }
 
 .btn-cadastrar:hover {
-    background-color: #e59200; /* Hover discreto */
+    background-color: #e59200;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); /* Sombra mais intensa no hover */
 }
 
 /* Responsividade */
@@ -136,3 +143,4 @@ button {
         width: 100%;
     }
 }
+    

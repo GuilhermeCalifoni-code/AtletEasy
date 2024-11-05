@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Clube</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/CadClube.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"> <!-- Fonte Poppins -->
 </head>
 <body>
     <div class="container">
@@ -15,42 +16,36 @@
         <h1>Cadastro de Clube</h1>
 
         <form method="POST" action="{{ url_for('clube.cadastro_clube') }}">
-            <!-- Campo Nome do Clube -->
-            <label for="nomeClube">Nome do Clube</label>
-            <input type="text" id="nomeClube" name="nomeClube" placeholder="Digite o nome do clube" required>
-        
-            <!-- Campo Inscrição Estadual -->
-            <label for="inscricaoEstadual">Inscrição Estadual</label>
-            <input type="text" id="inscricaoEstadual" name="inscricaoEstadual" placeholder="Ex.: 1.234.567-89" required>
+            <div class="form-group">
+                <div class="column">
+                    <label for="nomeClube">Nome do Clube</label>
+                    <input type="text" id="nomeClube" name="nomeClube" placeholder="Digite o nome do clube" required>
+                
+                    <label for="inscricaoEstadual">Inscrição Estadual</label>
+                    <input type="text" id="inscricaoEstadual" name="inscricaoEstadual" placeholder="Ex.: 1.234.567-89" required>
+                
+                    <label for="endereco">Endereço</label>
+                    <input type="text" id="endereco" name="endereco" placeholder="Rua, Avenida..." required>
+                
+                    <label for="usuario">Usuário</label>
+                    <input type="text" id="usuario" name="usuario" placeholder="Crie um usuário" required>
+                </div>
 
-            <!-- Campo Endereço -->
-            <label for="endereco">Endereço</label>
-            <input type="text" id="endereco" name="endereco" placeholder="Rua, Avenida..." required>
-        
-            <!-- Campo Usuário -->
-            <label for="usuario">Usuário</label>
-            <input type="text" id="usuario" name="usuario" placeholder="Crie um usuário" required>
-        
-            <!-- Campo Nome Fantasia -->
-            <label for="nomeFantasia">Nome Fantasia</label>
-            <input type="text" id="nomeFantasia" name="nomeFantasia" placeholder="Nome fantasia" required>
-        
-            <!-- Campo CNPJ -->
-            <label for="CNPJ">CNPJ</label>
-            <input type="text" id="CNPJ" name="CNPJ" placeholder="XX.XXX.XXX/0001-XX" required>
-        
-            <!-- Campo Número do Endereço -->
-            <label for="numeroEndereco">Número</label>
-            <input type="text" id="numeroEndereco" name="numeroEndereco" placeholder="Ex.: 123" required>
-        
-            <!-- Campo Complemento (opcional) -->
-            <label for="complemento">Complemento</label>
-            <input type="text" id="complemento" name="complemento" placeholder="Apto, bloco, etc.">
-        
-            <!-- Campo Senha -->
-            <label for="senha">Senha</label>
-            <input type="password" id="senha" name="Senha" placeholder="Digite sua senha" required>
-            
+                <div class="column">
+                    <label for="nomeFantasia">Nome Fantasia</label>
+                    <input type="text" id="nomeFantasia" name="nomeFantasia" placeholder="Nome fantasia" required>
+                
+                    <label for="CNPJ">CNPJ</label>
+                    <input type="text" id="CNPJ" name="CNPJ" placeholder="XX.XXX.XXX/0001-XX" required>
+                
+                    <label for="numeroEndereco">Número</label>
+                    <input type="text" id="numeroEndereco" name="numeroEndereco" placeholder="Ex.: 123" required>
+                
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+                </div>
+            </div>
+
             <!-- Botões -->
             <div class="form-buttons">
                 <button type="reset" class="btn-limpar">Limpar</button>

@@ -3,29 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pagamento do Clube - AtletEasy</title>
-    <link rel="stylesheet" href="/static/css/pagamentoClube.css">
+    <title>Pagamento Clube - AtletEasy</title>
+    <link rel="stylesheet" href="/static/css/pgclube.css">
 </head>
 <body>
-    <div class="menu-lateral">
-        <img src="/static/images/logo.png" alt="Logo AtletEasy">
-        <ul>
-            <li><a href="{{ url_for('clube.home_clube') }}">Home Clube</a></li>
-            <li><a href="{{ url_for('clube.criar_peneira') }}">Criar Peneira</a></li>
-            <li><a href="{{ url_for('clube.gerenciar_peneira') }}">Gerenciar Peneiras</a></li>
-            <li><a href="{{ url_for('clube.confirmar_logout') }}" class="logout">Sair</a></li>
-        </ul>
-    </div>
-    <div class="conteudo">
-        <h1>Pagamento do Clube</h1>
-        <form action="{{ url_for('clube.paga_clube') }}" method="POST">
-            <label for="nomePlano">Plano de Pagamento</label>
-            <select name="nomePlano" id="nomePlano" required>
-                <option value="Mensal">Mensal</option>
-                <option value="Anual">Anual</option>
-            </select>
-            <button type="submit">Realizar Pagamento</button>
-        </form>
-    </div>
+    <section id="products" class="products">
+        <h2>Produtos</h2>
+        <div class="product-list">
+            <div class="product">
+                <section id="planos" class="planos">
+                    <h2>Planos Clube</h2>
+                    <div class="planos-container">
+                        <div class="plano" id="plano-mensal">
+                            <h3>Mensal</h3>
+                            <p class="preco">R$100,00/mês</p>
+                            <ul>
+                                <li>Acesso completo ao software</li>
+                                <li>Suporte 24h</li>
+                                <li>Cancelamento a qualquer momento</li>
+                            </ul>
+                            <button>Assinar</button>
+                        </div>
+                        <div class="plano trimestral">
+                            <h3>Trimestral</h3>
+                            <p class="preco">R$270,00/trimestre</p>
+                            <ul>
+                                <li>Acesso completo ao software</li>
+                                <li>10% De Desconto</li>
+                                <li>Suporte 24h</li>
+                                <li>Cancelamento a qualquer momento</li>
+                            </ul>
+                            <button>Assinar</button>
+                        </div>
+                        <div class="plano" id="plano-anual">
+                            <h3>Anual</h3>
+                            <p class="preco">R$1000,00/ano</p>
+                            <ul>
+                                <li>Acesso completo ao software</li>
+                                <li>20% De Desconto</li>
+                                <li>Suporte 24h</li>
+                                <li>Cancelamento a qualquer momento</li>
+                            </ul>
+                            <button>Assinar</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <div class="continue-button">
+            <button><a href="{{ url_for('clube.home_clube') }}">Voltar</a></button>
+        </div>
+    </section>
 </body>
 </html>

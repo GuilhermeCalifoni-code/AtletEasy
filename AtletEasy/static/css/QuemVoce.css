@@ -8,32 +8,28 @@
 /* Fonte global */
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #191919, #717171);
+    background-color: #f9f9f9; /* Fundo branco claro */
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    color: #fff;
+    color: #333; /* Texto preto */
     overflow: hidden;
     position: relative;
-    perspective: 1000px;
-    text-align: center;
 }
 
 /* Container principal */
 .container {
-    background: rgba(255, 255, 255, 0.15); /* Sutil no início */
-    backdrop-filter: blur(20px);
+    background-color: #ffffff; /* Fundo branco */
+    border: 2px solid #f4a100; /* Borda laranja clara */
     border-radius: 20px;
-    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Sombra suave */
     padding: 60px;
     width: 600px;
     height: 700px;
     max-width: 90%;
     text-align: center;
-    transition: transform 0.5s ease, box-shadow 0.5s ease, background 0.5s ease;
-    position: relative;
-    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -41,55 +37,47 @@ body {
 }
 
 .container:hover {
-    transform: scale(1.05) rotateX(3deg) rotateY(3deg);
-    background: rgba(255, 255, 255, 0.3); /* Aumento da visibilidade ao hover */
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8); /* Sombras mais intensas no fim da interação */
+    transform: scale(1.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2); /* Sombra mais intensa */
 }
 
 /* Logo centralizada */
 .logo img {
-    max-width: 150px;
+    max-width: 120px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.8);
     padding: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
-    transition: transform 0.6s ease, box-shadow 0.6s ease;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra leve ao redor do logo */
+    transition: transform 0.3s ease;
 }
 
 .container:hover .logo img {
-    transform: scale(1.2) rotate(10deg); /* Interação final mais vibrante */
-    box-shadow: 0 0 35px rgba(255, 255, 255, 0.7); /* Mais brilho na interação final */
+    transform: scale(1.1); /* Leve aumento ao hover */
 }
 
 /* Título */
 h1 {
-    margin-bottom: 30px;
-    color: #F4A100; /* Aplicação do amarelo no título */
-    font-size: 3.5rem;
+    margin-bottom: 20px;
+    color: #f4a100; /* Laranja */
+    font-size: 3rem;
     font-weight: bold;
-    text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.5);
-    letter-spacing: 2px;
-    transition: text-shadow 0.5s ease, letter-spacing 0.5s ease;
-    text-align: center;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+    letter-spacing: 1px;
+    transition: text-shadow 0.3s ease, letter-spacing 0.3s ease;
 }
 
 h1:hover {
-    text-shadow: 5px 5px 25px rgba(0, 0, 0, 0.9); /* Sombra mais intensa ao hover */
-    letter-spacing: 4px; /* Aumento da expansão ao hover */
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    letter-spacing: 2px;
 }
 
 /* Texto */
 p {
-    color: #F4A100; /* Aplicação do amarelo ao texto */
-    font-size: 1.4rem;
+    color: #333; /* Preto para contraste */
+    font-size: 1.3rem;
     margin-bottom: 30px;
     line-height: 1.6;
     transition: color 0.3s ease;
-    text-align: center;
-}
-
-p:hover {
-    color: #EFC136; /* Mais destaque ao final da interação */
 }
 
 /* Botões */
@@ -104,64 +92,33 @@ p:hover {
 button {
     padding: 15px 30px;
     border: none;
-    border-radius: 12px;
-    font-size: 1.4rem;
+    border-radius: 10px;
+    font-size: 1.2rem;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
     width: 45%;
-    color: white;
-    background: linear-gradient(135deg, #F4A100, #EFC136); /* Cores amarelas intensas */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    background: #f4a100; /* Laranja principal */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     position: relative;
     overflow: hidden;
-    text-align: center;
-}
-
-button::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 300%;
-    height: 300%;
-    background: rgba(255, 255, 255, 0.2);
-    transition: all 0.6s ease;
-    transform: translate(-50%, -50%) rotate(45deg);
-    opacity: 0;
-    z-index: 1;
-}
-
-button:hover::before {
-    opacity: 1;
-    width: 0;
-    height: 0;
 }
 
 button:hover {
-    background: linear-gradient(135deg, #D9C407, #EFC136); /* Cores amarelas vibrantes ao hover */
-    transform: translateY(-6px); /* Elevação visível ao hover */
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6); /* Sombra intensa ao fim */
+    background-color: #e6b800; /* Amarelo dourado no hover */
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Sombra mais intensa */
 }
 
 button:active {
     transform: translateY(0);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); /* Feedback rápido ao clique */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Foco nos botões */
 button:focus {
     outline: none;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 35px rgba(255, 255, 255, 0.4); /* Foco mais vivo */
-}
-
-/* Efeito final mais vivo */
-@keyframes finalGlow {
-    0% {
-        box-shadow: 0 0 15px rgba(255, 204, 0, 0.2); /* Tom amarelo suave */
-    }
-    100% {
-        box-shadow: 0 0 50px rgba(255, 204, 0, 0.8); /* Amarelo intenso no fim */
-    }
+    box-shadow: 0 0 10px rgba(255, 204, 0, 0.6), 0 0 20px rgba(255, 204, 0, 0.4);
 }
 
 /* Responsividade */
@@ -173,11 +130,11 @@ button:focus {
     }
 
     .logo img {
-        max-width: 120px;
+        max-width: 100px;
     }
 
     h1 {
-        font-size: 3.2rem;
+        font-size: 2.5rem;
     }
 
     p {
@@ -185,8 +142,8 @@ button:focus {
     }
 
     button {
-        font-size: 1.3rem;
-        padding: 12px 25px;
+        font-size: 1.1rem;
+        padding: 12px 20px;
         width: 100%;
     }
 }
