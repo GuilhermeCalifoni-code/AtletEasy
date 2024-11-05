@@ -48,6 +48,37 @@ def paga_atleta():
     return render_template('pgatleta.html')
 
 
+@atleta_bp.route('/peneira-inscrita')
+def peneira_inscrita():
+    if 'usuario_id' not in session:
+        flash('Você precisa estar logado para ver suas peneiras.', 'warning')
+        return redirect(url_for('login.login'))
+
+    try:
+        with get_db_connection() as conexao:
+            with conexao.cursor(dictionary=True) as cursor:
+                # Consulta a peneira inscrita do atleta
+                query = """
+                SELECT p.idPeneira, p.esportePeneira, p.DataInicio, p.Localizacao, p.Descricao, c.NomeClube
+                FROM inscricoes i
+                JOIN peneira p ON i.idPeneira = p.idPeneira
+                JOIN cadclube c ON p.idClube = c.idClube
+                WHERE i.idAtleta = %s
+                """
+                cursor.execute(query, (session['usuario_id'],))
+                peneira = cursor.fetchone()
+
+        # Verifica se o atleta está inscrito em alguma peneira
+        if not peneira:
+            flash('Você não está inscrito em nenhuma peneira.', 'info')
+            return redirect(url_for('atleta.visualizar_peneiras'))
+
+        return render_template('peneiraInscrita.html', peneira=peneira)
+    except Error as err:
+        flash(f'Erro ao carregar a peneira inscrita: {err}', 'danger')
+        return redirect(url_for('atleta.home_atleta'))
+
+
 @atleta_bp.route('/home')
 def home_atleta():
     return render_template('HomeAtleta.html')

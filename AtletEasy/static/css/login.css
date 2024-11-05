@@ -18,7 +18,7 @@ body {
     color: #fff;
 }
 
-/* Efeito de Fundo Animado */
+/* Fundo com efeito animado */
 .background {
     position: absolute;
     top: 0;
@@ -28,8 +28,10 @@ body {
     background: radial-gradient(circle, #F4A100, #EFC136);
     clip-path: circle(50% at 50% 50%);
     animation: pulse 5s infinite ease-in-out alternate;
+    opacity: 0.8;
 }
 
+/* Animação de pulsação */
 @keyframes pulse {
     0% {
         clip-path: circle(50% at 50% 50%);
@@ -154,11 +156,12 @@ body {
     left: 15px;
     font-size: 1.5rem;
     color: #717171;
-    transition: color 0.3s;
+    transition: color 0.3s, transform 0.3s ease;
 }
 
 .input-group input:focus + .icon {
     color: #F4A100;
+    transform: rotate(15deg);
 }
 
 /* Botão */

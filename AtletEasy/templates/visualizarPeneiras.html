@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,10 +7,10 @@
   <link rel="stylesheet" href="/static/css/verPeneira.css">
 </head>
 <body>
-  <!-- Barra Lateral -->
-  <div class="menu-lateral">
+  <!-- Menu Lateral -->
+  <aside class="menu-lateral">
     <div class="logo">
-      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo Atletas" style="width: 100%; margin-bottom: 20px;">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo Atletas">
     </div>
     <nav>
       <ul>
@@ -21,11 +21,12 @@
         <li><a href="{{ url_for('atleta.confirmar_logout') }}" class="logout">Sair</a></li>
       </ul>
     </nav>
-  </div>
+  </aside>
 
   <!-- Conteúdo Principal -->
-  <div class="conteudo">
+  <main class="conteudo">
     <h1>Visualizar Peneiras</h1>
+
     {% if peneiras %}
     <table>
       <thead>
@@ -66,6 +67,6 @@
     {% else %}
     <p>Nenhuma peneira cadastrada.</p>
     {% endif %}
-  </div>
+  </main>
 </body>
 </html>

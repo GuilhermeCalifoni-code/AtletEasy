@@ -7,9 +7,10 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/HomeAtlet.css') }}">
 </head>
 <body>
+  <!-- Menu Lateral -->
   <div class="menu-lateral">
     <div class="logo">
-      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo Atletas" style="width: 100%; margin-bottom: 20px;">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo Atletas" class="logo-img">
     </div>
     <nav>
       <ul>
@@ -23,6 +24,7 @@
     </nav>
   </div>
 
+  <!-- Conteúdo Principal -->
   <div class="conteudo">
     <h1>Bem-vindo à Plataforma de Atletas</h1>
 
@@ -32,7 +34,6 @@
         <p>Confira as peneiras de atletas em aberto e inscreva-se já!</p>
         <a href="{{ url_for('atleta.visualizar_peneiras') }}" class="botao">Ver Peneiras</a>
       </div>
-
       <div class="card">
         <h2>Seu Perfil</h2>
         <p>Acesse e edite seu perfil de atleta para melhorar suas chances.</p>
@@ -57,12 +58,11 @@
     </div>
   </div>
 
-  <!-- Div para a mensagem centralizada -->
+  <!-- Modal de Confirmação -->
   <div id="central-message" class="central-message">
     <p>Tem certeza de que deseja sair?</p>
     <a href="{{ url_for('atleta.logout') }}" class="confirm-button">Sim</a>
     <button onclick="hideMessage()" class="cancel-button">Cancelar</button>
   </div>
-
 </body>
 </html>
