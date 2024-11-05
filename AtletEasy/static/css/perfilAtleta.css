@@ -3,16 +3,18 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
+/* Estilização do corpo */
 body {
     background-color: #f4f4f9;
     color: #333;
     line-height: 1.6;
+    overflow-x: hidden;
 }
 
-/* Estilo do menu lateral */
+/* Menu Lateral */
 .menu-lateral {
     width: 250px;
     background-color: #f4a100;
@@ -22,86 +24,117 @@ body {
     left: 0;
     top: 0;
     border-right: 1px solid #ccc;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* Permite rolagem se o conteúdo exceder a altura da tela */
 }
 
-.menu-lateral img {
-    width: 100%;
-    margin-bottom: 30px;
+.menu-lateral .logo img {
+    max-width: 80%;
+    height: auto;
+    margin: 0 auto 30px;
+    display: block;
 }
 
 .menu-lateral ul {
     list-style-type: none;
+    padding: 0;
 }
 
 .menu-lateral ul li {
-    margin: 15px 0;
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
 }
 
 .menu-lateral ul li a {
     text-decoration: none;
     font-size: 18px;
-    color: #191919;
-    display: block;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
     padding: 15px 20px;
     transition: all 0.3s ease;
     border-radius: 12px;
-    background-color: transparent;
 }
 
-.menu-lateral ul li a:hover,
-.menu-lateral ul li a:focus,
-.menu-lateral ul li a:active {
-    background-color: #ffffff;
-    color: #000;
+.menu-lateral ul li a:hover {
+    background-color: #efc136;
+    color: #191919;
+    transform: translateX(10px);
+    box-shadow: 2px 4px 10px rgba(239, 193, 54, 0.3);
 }
 
-/* Estilização de layout e conteúdo */
+.menu-lateral ul li a i {
+    margin-right: 10px; /* Espaço entre o ícone e o texto */
+}
+
+/* Cabeçalho do Perfil */
 header {
     background-color: #f4a100;
     color: #fff;
     padding: 20px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-left: 270px; /* Ajuste para acomodar o menu lateral */
+    margin-left: 270px;
+    border-bottom-left-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .profile-header {
     display: flex;
     align-items: center;
+    width: 100%;
 }
 
 .profile-picture {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     margin-right: 20px;
+    object-fit: cover;
+}
+
+.profile-info {
+    flex-grow: 1;
 }
 
 .profile-info h1 {
     font-size: 1.8em;
     margin-bottom: 5px;
+    color: #fff;
 }
 
 .profile-info p {
-    font-size: 1.2em;
+    font-size: 1em;
+    color: #fff;
 }
 
 .edit-btn {
     background-color: #fff;
-    color: #1e90ff;
-    border: none;
+    color: #f4a100;
+    border: 1px solid #f4a100;
     padding: 10px 15px;
     cursor: pointer;
     border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin-left: auto; /* Move o botão para a extrema direita */
 }
 
-section {
+.edit-btn:hover {
+    background-color: #f4a100;
+    color: #fff;
+}
+
+/* Conteúdo Principal */
+main {
     margin: 20px;
-    margin-left: 270px; /* Ajuste para acomodar o menu lateral */
+    margin-left: 270px;
+    padding-top: 20px;
 }
 
-.stats, .bio, .skills, .recent-performance, .highlight-videos, .achievements, .event-schedule {
+/* Seções do Perfil */
+section {
     background: #fff;
     padding: 20px;
     border-radius: 10px;
@@ -112,47 +145,34 @@ section {
 .stats {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .stat-item h2 {
     font-size: 1.2em;
     margin-bottom: 10px;
+    color: #333;
 }
 
-.skills ul, .recent-performance ul, .achievements ul, .event-schedule ul {
+.stat-item p {
+    font-size: 1.1em;
+    color: #555;
+}
+
+.bio h2, .skills h2, .recent-performance h2 {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.skills ul, .recent-performance ul {
     list-style: none;
+    padding: 0;
 }
 
-.skills li, .recent-performance li, .achievements li, .event-schedule li {
+.skills li, .recent-performance li {
     margin-bottom: 10px;
     font-size: 1.1em;
-}
-
-.videos {
-    display: flex;
-    gap: 20px;
-}
-
-.videos video {
-    width: 48%;
-}
-
-footer {
-    padding: 20px;
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    margin-left: 270px; /* Ajuste para acomodar o menu lateral */
-}
-
-.footer-actions button {
-    background-color: #f4a100;
-    color: #fff;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    margin: 0 10px;
-    border-radius: 5px;
 }
 
 /* Responsividade */
@@ -163,7 +183,7 @@ footer {
         border-right: none;
     }
 
-    section, header, footer {
+    main, header {
         margin-left: 0;
     }
 
@@ -173,5 +193,14 @@ footer {
 
     .menu-lateral ul li a {
         font-size: 16px;
-}
+    }
+
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .edit-btn {
+        margin-top: 10px;
+    }
 }

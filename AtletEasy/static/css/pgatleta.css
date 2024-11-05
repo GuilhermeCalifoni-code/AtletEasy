@@ -1,6 +1,22 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Garantir que o fundo preto ocupe toda a tela */
+html, body {
+    height: 100%;
+    background-color: #171717; /* Fundo preto */
+    color: #fff;
+    overflow-x: hidden;
+}
+
 /* Seção de Produtos */
 .products {
-    background-color: #171717; /* Fundo escuro mais neutro */
+    background-color: #171717;
     padding: 50px 20px;
     text-align: center;
     color: #fff;
@@ -8,33 +24,33 @@
     margin: 0 auto;
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    height: 100vh; /* O fundo vai ocupar toda a altura da tela */
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centraliza o conteúdo verticalmente */
-    align-items: center; /* Centraliza o conteúdo horizontalmente */
+    justify-content: center;
+    align-items: center;
 }
 
 /* Cabeçalho da Seção */
 .products h2 {
-    font-size: 32px;
+    font-size: 36px;
     color: #f4a100;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
     font-family: 'Poppins', sans-serif;
-    text-shadow: none;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 /* Seção de Planos */
 .planos {
-    background-color: #1C1C1C;
-    padding: 40px 20px;
+    background-color: #1c1c1c;
+    padding: 50px 20px;
     text-align: center;
     color: #dbdbda;
     border-radius: 10px;
     margin-top: 30px;
     max-width: 1400px;
     width: 100%;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Suave para manter o clean */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
 /* Container dos Planos */
@@ -48,20 +64,23 @@
 /* Cada Plano */
 .plano {
     background-color: #f8f8f8;
-    border: 1px solid #f4a100;
+    border: 2px solid #f4a100;
     border-radius: 15px;
-    padding: 25px;
+    padding: 30px;
     flex: 1 1 300px;
     max-width: 340px;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
     position: relative;
+    cursor: pointer;
 }
 
 .plano.trimestral {
-    border: 2px solid #d9c407;
-    transform: scale(1.05); /* Destaque para o plano trimestral */
+    border: none;
+    background: linear-gradient(135deg, #f4a100, #d9c407);
+    color: #1c1c1c;
+    transform: scale(1.05);
 }
 
 /* Selo de destaque "Mais Comprado!" */
@@ -72,27 +91,29 @@
     left: 50%;
     transform: translateX(-50%);
     background-color: #f4a100;
-    color: #1C1C1C;
+    color: #1c1c1c;
     padding: 8px 16px;
     border-radius: 20px;
     font-size: 12px;
     font-weight: bold;
     text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     z-index: 10;
 }
 
 /* Título dos Planos */
 .plano h3 {
-    font-size: 22px;
+    font-size: 24px;
     color: #f4a100;
     margin-bottom: 15px;
+    text-transform: uppercase;
 }
 
 /* Preço dos Planos */
 .plano .preco {
-    font-size: 28px;
+    font-size: 30px;
     color: #333;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     font-weight: bold;
 }
 
@@ -100,22 +121,32 @@
 .plano ul {
     list-style: none;
     padding: 0;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .plano ul li {
-    font-size: 15px;
+    font-size: 16px;
     margin-bottom: 8px;
     color: #555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.plano ul li::before {
+    content: '✔';
+    margin-right: 8px;
+    color: #f4a100;
+    font-weight: bold;
 }
 
 /* Botões */
 .plano button {
     background-color: #f4a100;
     color: #fff;
-    padding: 10px 20px;
+    padding: 12px 25px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
@@ -128,8 +159,8 @@
 
 /* Efeito de hover */
 .plano:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
 /* Responsividade */
@@ -151,18 +182,19 @@
         max-width: 100%;
     }
 }
+
 .continue-button {
     text-align: center;
-    margin-top: 30px;
+    margin-top: 40px;
 }
 
 .continue-button button {
     background-color: #f4a100;
     color: #fff;
-    padding: 12px 24px;
+    padding: 14px 28px;
     border: none;
-    border-radius: 8px;
-    font-size: 16px;
+    border-radius: 10px;
+    font-size: 18px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }

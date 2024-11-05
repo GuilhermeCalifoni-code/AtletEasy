@@ -34,13 +34,16 @@ body {
 
 .menu-lateral ul li {
   margin: 20px 0;
+  display: flex;
+  align-items: center;
 }
 
 .menu-lateral ul li a {
   text-decoration: none;
   font-size: 18px;
   color: #ffffff;
-  display: block;
+  display: flex;
+  align-items: center;
   padding: 15px 20px;
   transition: all 0.3s ease;
   border-radius: 12px;
@@ -51,6 +54,10 @@ body {
   color: #191919;
   transform: translateX(10px);
   box-shadow: 2px 4px 10px rgba(239, 193, 54, 0.3);
+}
+
+.menu-lateral ul li a i {
+  margin-right: 10px; /* Espaço entre o ícone e o texto */
 }
 
 /* Conteúdo Principal */
@@ -131,46 +138,6 @@ h1 {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Destaques */
-.destaques {
-  background-color: #fff;
-  padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-  margin-bottom: 40px;
-}
-
-.destaques h2 {
-  color: #333;
-  margin-bottom: 20px;
-  font-size: 26px;
-  border-bottom: 2px solid #F4A100;
-  padding-bottom: 10px;
-  text-transform: uppercase;
-}
-
-.destaque-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 15px;
-  border-bottom: 1px solid #eee;
-  transition: background-color 0.3s ease;
-}
-
-.destaque-item:last-child {
-  border-bottom: none;
-}
-
-.destaque-item:hover {
-  background-color: #fafafa;
-}
-
-.destaque-item p, .destaque-item span {
-  margin: 0;
-  font-size: 16px;
-  color: #717171;
-}
-
 /* Modal de Confirmação */
 .central-message {
   display: none;
@@ -234,9 +201,9 @@ body.modal-active::before {
 
 /* Logo */
 .logo img {
-  width: 80%; /* Ajuste para controlar o tamanho da imagem */
-  max-width: 150px; /* Define uma largura máxima */
+  width: 80%;
+  max-width: 150px;
   height: auto;
-  margin: 0 auto 20px auto; /* Centraliza e adiciona espaço inferior */
+  margin: 0 auto 20px auto;
   display: block;
 }

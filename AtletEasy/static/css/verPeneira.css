@@ -3,16 +3,16 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
 /* Estilização do corpo */
 body {
-    font-family: Arial, sans-serif;
     background-color: #e0e0e0;
     color: #333;
 }
 
-/* Estilo do menu lateral */
+/* Menu Lateral */
 .menu-lateral {
     width: 250px;
     background-color: #f4a100;
@@ -21,63 +21,75 @@ body {
     position: fixed;
     left: 0;
     top: 0;
-    border-right: 1px solid #ccc;
+    border-right: 1px solid #d9c407;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.05);
+    overflow-y: auto; /* Permite rolagem se o conteúdo for maior que a tela */
 }
 
-/* Ajuste de tamanho da imagem no menu lateral */
 .menu-lateral img {
-    max-width: 80%; /* Ajusta a largura para 80% do container */
-    max-height: 150px; /* Limita a altura máxima para 150px */
+    max-width: 80%;
+    max-height: 150px;
     height: auto;
     display: block;
-    margin: 0 auto 30px; /* Centraliza a imagem */
+    margin: 0 auto 30px;
 }
 
 .menu-lateral ul {
     list-style-type: none;
+    padding: 0;
 }
 
 .menu-lateral ul li {
-    margin: 15px 0;
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
 }
 
 .menu-lateral ul li a {
     text-decoration: none;
     font-size: 18px;
-    color: #191919;
-    display: block;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
     padding: 15px 20px;
     transition: all 0.3s ease;
     border-radius: 12px;
-    background-color: transparent;
 }
 
-.menu-lateral ul li a:hover,
-.menu-lateral ul li a:focus,
-.menu-lateral ul li a:active {
-    background-color: #ffffff;
-    color: #000;
+.menu-lateral ul li a:hover {
+    background-color: #efc136;
+    color: #191919;
+    transform: translateX(10px);
+    box-shadow: 2px 4px 10px rgba(239, 193, 54, 0.3);
 }
 
-/* Área de conteúdo principal */
+.menu-lateral ul li a i {
+    margin-right: 10px; /* Espaço entre o ícone e o texto */
+}
+
+/* Área de Conteúdo Principal */
 .conteudo {
     margin-left: 270px;
     padding: 30px;
-    background-color: #fff;
+    background-color: #f9f9fb;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-width: 1100px;
     margin-top: 30px;
 }
 
-/* Título da página */
+/* Título da Página */
 .conteudo h1 {
     font-size: 28px;
     color: #f4a100;
     margin-bottom: 20px;
+    text-transform: uppercase;
+    border-left: 6px solid #efc136;
+    padding-left: 15px;
+    letter-spacing: 1.2px;
 }
 
-/* Estilização da tabela */
+/* Estilo da Tabela */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -103,6 +115,11 @@ th {
     font-weight: bold;
 }
 
+td {
+    background-color: #f9f9f9;
+}
+
+/* Links dentro da Tabela */
 td a {
     text-decoration: none;
     color: #007bff;
@@ -114,29 +131,19 @@ td a:hover {
     color: #0056b3;
 }
 
-td {
-    background-color: #f9f9f9;
-}
-
-/* Botões de ação */
-.botoes {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 20px;
-}
-
-.botoes a {
-    padding: 10px 20px;
+/* Botões de Ação */
+button[type="submit"] {
+    padding: 8px 12px;
     background-color: #f4a100;
     border: none;
-    text-decoration: none;
     color: #000;
     font-weight: bold;
     border-radius: 5px;
+    cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-.botoes a:hover {
+button[type="submit"]:hover {
     background-color: #d9c407;
 }
 
@@ -169,7 +176,7 @@ td {
         padding: 10px;
     }
 
-    .botoes a {
-        padding: 8px 15px;
+    button[type="submit"] {
+        padding: 6px 10px;
     }
 }
