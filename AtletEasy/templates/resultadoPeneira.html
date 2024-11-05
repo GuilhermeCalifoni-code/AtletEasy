@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Resultado das Peneiras</title>
-  <link rel="stylesheet" href="/static/css/resultadoPeneira.css">
+  <link rel="stylesheet" href="/static/css/resultadosPeneiras.css">
 </head>
 <body>
   <!-- Barra Lateral -->
@@ -33,6 +33,8 @@
         <tr>
           <th>Esporte</th>
           <th>Data</th>
+          <th>Posição</th>
+          <th>Número da Camisa</th>
           <th>Resultado</th>
         </tr>
       </thead>
@@ -41,6 +43,8 @@
         <tr>
           <td>{{ resultado.esportePeneira }}</td>
           <td>{{ resultado.DataInicio.strftime('%d/%m/%Y') }}</td>
+          <td>{{ resultado.Posicao }}</td>
+          <td>{{ resultado.NumeroCamisa or 'Não Definido' }}</td>
           <td>{{ resultado.status_avaliacao or 'Não Avaliado' }}</td>
         </tr>
         {% endfor %}

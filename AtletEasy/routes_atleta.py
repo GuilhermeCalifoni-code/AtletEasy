@@ -212,10 +212,10 @@ def resultado_peneira():
         with get_db_connection() as conexao:
             with conexao.cursor(dictionary=True) as cursor:
                 query = """
-                SELECT p.esportePeneira, p.DataInicio, a.status_avaliacao
+                SELECT p.esportePeneira, p.DataInicio, i.status_avaliacao, a.Posicao, i.NumeroCamisa
                 FROM inscricoes i
                 JOIN peneira p ON i.idPeneira = p.idPeneira
-                LEFT JOIN infoatleta a ON i.idAtleta = a.idAtleta
+                JOIN infoatleta a ON i.idAtleta = a.idAtleta
                 WHERE i.idAtleta = %s
                 """
                 cursor.execute(query, (session['usuario_id'],))
@@ -226,6 +226,8 @@ def resultado_peneira():
     except Error as err:
         flash(f'Erro ao carregar os resultados: {err}', 'danger')
         return redirect(url_for('atleta.home_atleta'))
+
+
 
 # Rota para visualizar as peneiras disponíveis para inscrição
 @atleta_bp.route('/visualizar-peneiras')

@@ -48,7 +48,9 @@
             <tr>
               <td>{{ atleta.Nome }} {{ atleta.Sobrenome }}</td>
               <td>{{ atleta.Posicao }}</td>
-              <td>{{ atleta.NumeroCamisa }}</td>
+              <td>
+                <input type="number" name="numeroCamisa_{{ atleta.idAtleta }}" value="{{ atleta.NumeroCamisa or '' }}" placeholder="Número">
+              </td>
               <td>
                 <select name="statusAvaliacao_{{ atleta.idAtleta }}">
                   <option value="Aprovado" {% if atleta.status_avaliacao == 'Aprovado' %}selected{% endif %}>Aprovado</option>

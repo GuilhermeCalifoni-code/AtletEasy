@@ -127,20 +127,22 @@ def ficha_jogo(idPeneira):
                 cursor.execute("SELECT * FROM peneira WHERE idPeneira = %s", (idPeneira,))
                 peneira = cursor.fetchone()
 
-                # Buscar atletas inscritos na peneira
+                # Buscar atletas inscritos na peneira com suas posições do perfil
                 query_atletas = """
-                SELECT a.idAtleta, a.Nome, a.Sobrenome, ins.status_avaliacao
+                SELECT a.idAtleta, a.Nome, a.Sobrenome, i.Posicao, ins.NumeroCamisa, ins.status_avaliacao
                 FROM inscricoes ins
                 JOIN cadatleta a ON ins.idAtleta = a.idAtleta
+                LEFT JOIN infoatleta i ON a.idAtleta = i.idAtleta
                 WHERE ins.idPeneira = %s
                 """
                 cursor.execute(query_atletas, (idPeneira,))
                 atletas = cursor.fetchall()
 
-        return render_template('fichajogo.html', peneira=peneira, atletas=atletas)
+        return render_template('fichaJogo.html', peneira=peneira, atletas=atletas)
     except Error as err:
         flash(f'Erro ao carregar os dados da ficha de jogo: {err}', 'danger')
         return redirect(url_for('clube.gerenciar_peneira'))
+
     
 #AVALIAR ATLETA
 @clube_bp.route('/avaliar-atleta/<int:idPeneira>', methods=['POST'])
@@ -152,16 +154,30 @@ def avaliar_atleta(idPeneira):
                     if key.startswith("statusAvaliacao_"):
                         id_atleta = int(key.split("_")[1])
                         status_avaliacao = value
-
+                        
+                        # Atualiza o status de avaliação do atleta
                         cursor.execute(
-                            "UPDATE infoatleta SET status_avaliacao = %s WHERE idAtleta = %s AND idPeneira = %s",
+                            "UPDATE inscricoes SET status_avaliacao = %s WHERE idAtleta = %s AND idPeneira = %s",
                             (status_avaliacao, id_atleta, idPeneira)
                         )
+                    
+                    elif key.startswith("numeroCamisa_"):
+                        id_atleta = int(key.split("_")[1])
+                        numero_camisa = request.form.get(f"numeroCamisa_{id_atleta}")
+                        
+                        # Atualiza o número da camisa do atleta
+                        cursor.execute(
+                            "UPDATE inscricoes SET NumeroCamisa = %s WHERE idAtleta = %s AND idPeneira = %s",
+                            (numero_camisa, id_atleta, idPeneira)
+                        )
+                        
                 conexao.commit()
-                flash('Avaliações salvas com sucesso!', 'success')
+                flash('Avaliações e informações salvas com sucesso!', 'success')
     except Error as err:
-        flash(f'Erro ao salvar as avaliações: {err}', 'danger')
+        flash(f'Erro ao salvar as avaliações e informações: {err}', 'danger')
     return redirect(url_for('clube.ficha_jogo', idPeneira=idPeneira))
+
+
 
 
 # Página de pagamento para clube
