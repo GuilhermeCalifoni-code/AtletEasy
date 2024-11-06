@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ficha de Jogo - AtletEasy</title>
   <link rel="stylesheet" href="/static/css/fichaJogo.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome para ícones -->
 </head>
 <body>
   <!-- Barra Lateral -->
@@ -23,7 +24,6 @@
   <div class="conteudo">
     <h1>Ficha de Jogo</h1>
     <div class="detalhes-jogo">
-      <p><strong>Nome do Clube:</strong> {{ peneira.NomeClube }}</p>
       <p><strong>Data:</strong> {{ peneira.DataInicio.strftime('%d/%m/%Y') }}</p>
       <p><strong>Esporte:</strong> {{ peneira.esportePeneira }}</p>
       <p><strong>Endereço:</strong> {{ peneira.Endereco }}</p>

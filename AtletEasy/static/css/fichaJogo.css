@@ -3,176 +3,206 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    }
-    
-    body {
-    font-family: Arial, sans-serif;
+}
+
+/* Estilização do corpo */
+body {
+    font-family: 'Poppins', sans-serif;
     background-color: #e0e0e0;
-    }
-    
-    /* Estilização do menu lateral */
-    .menu-lateral {
+    color: #333;
+}
+
+/* Menu Lateral */
+.menu-lateral {
     width: 250px;
-    background-color: #f4f4f4;
+    background-color: #f4a100;
     height: 100vh;
     padding: 20px;
     position: fixed;
     left: 0;
     top: 0;
-    border-right: 1px solid #ccc;
-    }
-    
-    .menu-lateral img {
-    width: 100%;
+    border-right: 1px solid #d9c407;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.menu-lateral img {
+    width: 80%;
     margin-bottom: 30px;
-    }
-    
-    .menu-lateral ul {
+}
+
+.menu-lateral ul {
     list-style-type: none;
-    }
-    
-    .menu-lateral ul li {
+    width: 100%;
+    padding: 0;
+}
+
+.menu-lateral ul li {
     margin: 15px 0;
-    }
-    
-    .menu-lateral ul li a {
+    width: 100%;
+}
+
+.menu-lateral ul li a {
     text-decoration: none;
     font-size: 18px;
-    color: #333;
-    display: block;
-    padding: 10px;
+    color: #191919;
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
     transition: all 0.3s ease;
-    border-radius: 5px;
-    }
-    
-    .menu-lateral ul li a:hover {
-    background-color: #ffcc00;
+    border-radius: 12px;
+}
+
+.menu-lateral ul li a i {
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+.menu-lateral ul li a:hover {
+    background-color: #ffffff;
     color: #000;
-    }
-    
-    /* Estilo do conteúdo principal */
-    .conteudo {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Conteúdo Principal */
+.conteudo {
     margin-left: 270px;
     padding: 30px;
-    }
-    
-    /* Estilo dos títulos */
-    h1, h2 {
-    color: #ffcc00;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 1100px;
+    margin-top: 30px;
+}
+
+.conteudo h1, .conteudo h2 {
+    font-size: 28px;
+    color: #f4a100;
     margin-bottom: 20px;
-    }
-    
-    /* Detalhes do Jogo */
-    .detalhes-jogo {
+    border-left: 4px solid #f4a100;
+    padding-left: 10px;
+    font-weight: bold;
+}
+
+/* Detalhes do Jogo */
+.detalhes-jogo {
     background-color: #fff;
     padding: 20px;
     margin-bottom: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    }
-    
-    .detalhes-jogo p {
+}
+
+.detalhes-jogo p {
     font-size: 18px;
     margin-bottom: 10px;
-    }
-    
-    /* Avaliações dos Atletas */
-    .avaliacoes {
+}
+
+/* Avaliações dos Atletas */
+.avaliacoes {
     background-color: #fff;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-     border-radius: 10px;
-    }
-    
-    /* Estilização da tabela de atletas */
-    table {
+    border-radius: 10px;
+}
+
+/* Tabela de Atletas */
+table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px;
-    }
-    
-    table, th, td {
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+table, th, td {
     border: 1px solid #ddd;
-    }
-    
-    th, td {
+}
+
+th, td {
     padding: 15px;
     text-align: left;
-    }
-    
-    th {
-    background-color: #ffcc00;
+    font-size: 16px;
+}
+
+th {
+    background-color: #f4a100;
     color: #000;
     font-weight: bold;
-    }
-    
-    td {
+}
+
+td {
     background-color: #f9f9f9;
-    }
-    
-    /* Estilo das estrelas de avaliação */
-    .estrelas {
+}
+
+/* Estilo das Estrelas de Avaliação */
+.estrelas {
     display: flex;
-     gap: 5px;
-    }
-    
-    .estrela {
+    gap: 5px;
+}
+
+.estrela {
     width: 20px;
     height: 20px;
-    background-color: #ffcc00;
+    background-color: #f4a100;
     clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
     transition: background-color 0.3s ease;
-    }
-    
-    .estrela:hover {
-    background-color: #e6b800;
-    }
-    
-    /* Botão de salvar avaliação */
-    .avaliar-btn {
+}
+
+.estrela:hover {
+    background-color: #d9c407;
+}
+
+/* Botão de Salvar Avaliação */
+.avaliar-btn {
     padding: 10px 20px;
-    background-color: #ffcc00;
+    background-color: #f4a100;
     border: none;
     cursor: pointer;
     color: #000;
     font-weight: bold;
     border-radius: 5px;
     transition: background-color 0.3s ease;
-    }
-    
-    .avaliar-btn:hover {
-    background-color: #e6b800;
-    }
-    
-    /* Responsividade */
-    @media (max-width: 768px) {
+}
+
+.avaliar-btn:hover {
+    background-color: #d9c407;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
     .conteudo {
-    margin-left: 0;
-    padding: 20px;
+        margin-left: 0;
+        padding: 20px;
+        margin-top: 20px;
     }
-    
+
     .menu-lateral {
-    width: 100%;
-    height: auto;
-    border-right: none;
+        width: 100%;
+        height: auto;
+        border-right: none;
     }
-    
+
     .menu-lateral ul li {
-    text-align: center;
+        text-align: center;
     }
-    
+
     .menu-lateral ul li a {
-     font-size: 16px;
+        font-size: 16px;
+        padding: 10px;
     }
-    }
-    
-    @media (max-width: 576px) {
+}
+
+@media (max-width: 576px) {
     th, td {
-    font-size: 14px;
-    padding: 10px;
+        font-size: 14px;
+        padding: 10px;
     }
-    
+
     .avaliar-btn {
-     padding: 8px 15px;
-     }
+        padding: 8px 15px;
+    }
 }
